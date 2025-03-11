@@ -1,13 +1,18 @@
 import Link from "next/link"
 import { Github, Mail } from "lucide-react"
 import { personalInfo } from "@/data"
+import { useLanguage } from "@/contexts/language-context"
+import { translations } from "@/data/translations"
 
 export function Footer() {
+  const { language } = useLanguage()
+  const t = translations[language]
+
   return (
     <footer className="py-6 border-t bg-background">
       <div className="container flex flex-col items-center justify-between max-w-5xl px-4 mx-auto md:flex-row">
         <p className="mb-4 text-sm text-muted-foreground md:mb-0">
-          © {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
+          © {new Date().getFullYear()} {personalInfo.name}. {t.footer.rights}
         </p>
         <div className="flex gap-4">
           <Link

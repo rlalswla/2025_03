@@ -1,11 +1,17 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Github, Mail, MapPin, School } from "lucide-react"
 import { TypingAnimation } from "@/components/typing-animation"
 import { Button } from "@/components/ui/button"
 import { ParallaxBackground } from "@/components/parallax-background"
 import { personalInfo, skills } from "@/data"
+import { useLanguage } from "@/contexts/language-context"
+import { translations } from "@/data/translations"
 
 export function HeroSection() {
+  const { language } = useLanguage()
+  const t = translations[language]
+
   return (
     <section className="relative flex flex-col items-center justify-center w-full min-h-screen px-4 py-24 overflow-hidden bg-gradient-to-b from-background to-background/80">
       <ParallaxBackground className="absolute inset-0 z-0 bg-[url('/placeholder.svg?height=1080&width=1920')] bg-cover bg-center opacity-10" />
@@ -15,8 +21,16 @@ export function HeroSection() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 items-center">
           {/* Left Column - Name, Photo, Title */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <div className="w-32 h-32 overflow-hidden rounded-full bg-primary/10 backdrop-blur-sm border border-primary/20 flex items-center justify-center animate-bounce mb-6">
-              <span className="text-5xl">👋</span>
+            {/* Profile Image - Hidden on mobile */}
+            <div className="hidden md:block mb-6">
+              <Image
+                src="/placeholder.svg?height=200&width=200"
+                alt="Profile"
+                width={200}
+                height={200}
+                className="rounded-lg shadow-lg"
+                priority
+              />
             </div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
               <span className="block text-primary">
@@ -27,13 +41,13 @@ export function HeroSection() {
               </span>
             </h1>
             <p className="max-w-2xl text-xl text-muted-foreground mt-4 opacity-0 animate-[fadeIn_1s_ease-in-out_2s_forwards]">
-              {personalInfo.bio}
+              {t.hero.bio}
             </p>
             <div className="flex flex-wrap items-center gap-4 mt-6 opacity-0 animate-[fadeIn_1s_ease-in-out_2.5s_forwards]">
               <Button asChild variant="default" size="lg" className="gap-2 group relative overflow-hidden">
                 <Link href="#projects">
                   <span className="relative z-10 transition-transform duration-500 group-hover:translate-x-1">
-                    View Projects
+                    {t.hero.viewProjects}
                   </span>
                   <span className="absolute inset-0 z-0 bg-primary-foreground/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></span>
                 </Link>
@@ -41,7 +55,7 @@ export function HeroSection() {
               <Button asChild variant="outline" size="lg" className="gap-2 group relative overflow-hidden">
                 <Link href="#contact">
                   <span className="relative z-10 transition-transform duration-500 group-hover:translate-x-1">
-                    Contact Me
+                    {t.hero.contactMe}
                   </span>
                   <span className="absolute inset-0 z-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></span>
                 </Link>
@@ -52,7 +66,7 @@ export function HeroSection() {
           {/* Right Column - Personal Info and Skills */}
           <div className="grid gap-8 opacity-0 animate-[fadeIn_1s_ease-in-out_3s_forwards]">
             <div className="p-6 rounded-lg bg-background/70 backdrop-blur-md border border-border transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1">
-              <h3 className="mb-4 text-xl font-semibold">Personal Information</h3>
+              <h3 className="mb-4 text-xl font-semibold">{t.personalInfo.title}</h3>
               <ul className="space-y-3">
                 <li className="flex items-center gap-2 transition-transform hover:translate-x-1 duration-300">
                   <School className="w-5 h-5 text-primary" />
@@ -77,7 +91,7 @@ export function HeroSection() {
               </ul>
             </div>
             <div className="p-6 rounded-lg bg-background/70 backdrop-blur-md border border-border transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1">
-              <h3 className="mb-4 text-xl font-semibold">Skills</h3>
+              <h3 className="mb-4 text-xl font-semibold">{t.skills.title}</h3>
               <div className="flex flex-wrap gap-2">
                 {skills.map((skill, index) => (
                   <span
