@@ -36,10 +36,10 @@ export function StudySection() {
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               <h3 className="mb-2 text-xl font-semibold hover:text-primary transition-colors duration-300">
-                {item.title}
+                {language === "en" ? item.en.title : item.ko.title}
               </h3>
               <p className="mb-4 text-muted-foreground overflow-hidden line-clamp-4">
-                {item.description}
+                {language === "en" ? item.en.description : item.ko.description}
               </p>
               <div className="flex flex-wrap gap-2 mt-auto">
                 {item.tags.map((tag, i) => (

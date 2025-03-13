@@ -1,39 +1,32 @@
-"use client";
+"use client"
 
-import type React from "react";
+import type React from "react"
 
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { AnimatedSection } from "@/components/animated-section";
-import { Button } from "@/components/ui/button";
-import { projects } from "@/data";
-import { useLanguage } from "@/contexts/language-context";
-import { translations } from "@/data/translations";
+import { useRouter } from "next/navigation"
+import Link from "next/link"
+import { AnimatedSection } from "@/components/animated-section"
+import { Button } from "@/components/ui/button"
+import { projects } from "@/data"
+import { useLanguage } from "@/contexts/language-context"
+import { translations } from "@/data/translations"
 
 export function ProjectsSection() {
-  const router = useRouter();
-  const { language } = useLanguage();
-  const t = translations[language];
+  const router = useRouter()
+  const { language } = useLanguage()
+  const t = translations[language]
 
   const handleCardClick = (projectId: number, e: React.MouseEvent) => {
     // Only navigate if the click wasn't on a button
     if (!(e.target as HTMLElement).closest("button")) {
-      router.push(`/projects/${projectId}`);
+      router.push(`/projects/${projectId}`)
     }
-  };
+  }
 
   return (
-    <AnimatedSection
-      id="projects"
-      className="relative w-full py-24 overflow-hidden"
-      direction="right"
-      delay={200}
-    >
+    <AnimatedSection id="projects" className="relative w-full py-24 overflow-hidden" direction="right" delay={200}>
       <div className="absolute inset-0 z-0 bg-background/80 backdrop-blur-sm"></div>
       <div className="container relative z-10 max-w-5xl px-4 mx-auto">
-        <h2 className="mb-12 text-3xl font-bold text-center sm:text-4xl">
-          {t.projects.title}
-        </h2>
+        <h2 className="mb-12 text-3xl font-bold text-center sm:text-4xl">{t.projects.title}</h2>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
             <div
@@ -45,17 +38,17 @@ export function ProjectsSection() {
               <div className="relative aspect-video overflow-hidden">
                 <img
                   src={project.image || "/placeholder.svg"}
-                  alt={project.title}
+                  alt={language === "en" ? project.en.title : project.ko.title}
                   className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-primary/20 backdrop-blur-sm group-hover:opacity-100"></div>
               </div>
               <div className="p-6 flex flex-col flex-grow">
                 <h3 className="mb-2 text-xl font-semibold group-hover:text-primary transition-colors duration-300">
-                  {project.title}
+                  {language === "en" ? project.en.title : project.ko.title}
                 </h3>
                 <p className="mb-4 text-muted-foreground">
-                  {project.description}
+                  {language === "en" ? project.en.description : project.ko.description}
                 </p>
 
                 {/* Footer section with tags and buttons - moved to bottom */}
@@ -71,12 +64,7 @@ export function ProjectsSection() {
                     ))}
                   </div>
                   <div className="flex gap-2">
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="sm"
-                      className="group relative overflow-hidden"
-                    >
+                    <Button asChild variant="outline" size="sm" className="group relative overflow-hidden">
                       <Link
                         href={project.demoUrl}
                         target="_blank"
@@ -89,12 +77,7 @@ export function ProjectsSection() {
                         <span className="absolute inset-0 z-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
                       </Link>
                     </Button>
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="sm"
-                      className="group relative overflow-hidden"
-                    >
+                    <Button asChild variant="outline" size="sm" className="group relative overflow-hidden">
                       <Link
                         href={project.sourceUrl}
                         target="_blank"
@@ -115,5 +98,6 @@ export function ProjectsSection() {
         </div>
       </div>
     </AnimatedSection>
-  );
+  )
 }
+

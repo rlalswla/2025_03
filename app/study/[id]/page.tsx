@@ -21,7 +21,7 @@ export default function StudyPage({ params }: { params: { id: string } }) {
 
   // Unwrap params using React.use()
   const unwrappedParams = use(params);
-  const studyId = Number.parseInt(unwrappedParams.id);
+  const studyId = parseInt(unwrappedParams.id);
 
   useEffect(() => {
     // Find the study item with the matching ID
@@ -49,6 +49,12 @@ export default function StudyPage({ params }: { params: { id: string } }) {
     return null;
   }
 
+  // Get localized study data based on current language
+  const localizedStudy = language === "en" ? study.en : study.ko;
+
+  // Ensure we have valid URLs for links
+  const studyUrl = study.url || "#";
+
   return (
     <>
       <Navbar />
@@ -63,11 +69,11 @@ export default function StudyPage({ params }: { params: { id: string } }) {
               onClick={() => router.push("/#study")}
             >
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              <span>{t.study.backToStudy || "Back to Study"}</span>
+              <span>{t.study.backToStudy}</span>
             </Button>
 
             <h1 className="text-3xl md:text-4xl font-bold mb-4">
-              {study.title}
+              {localizedStudy.title}
             </h1>
 
             <div className="flex flex-wrap gap-2 mb-6">
@@ -83,7 +89,9 @@ export default function StudyPage({ params }: { params: { id: string } }) {
 
             <div className="text-sm text-muted-foreground">
               Published on{" "}
-              <span className="font-medium">{study.publishedDate}</span>
+              <span className="font-medium">
+                {localizedStudy.publishedDate}
+              </span>
             </div>
           </div>
         </div>
@@ -95,16 +103,18 @@ export default function StudyPage({ params }: { params: { id: string } }) {
               <section>
                 <h2 className="text-2xl font-bold mb-4">Summary</h2>
                 <div className="text-muted-foreground whitespace-pre-line">
-                  {study.content}
+                  {localizedStudy.content}
                 </div>
               </section>
 
               <section>
                 <h2 className="text-2xl font-bold mb-4">Key Takeaways</h2>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                  {study.keyTakeaways.map((takeaway: string, index: number) => (
-                    <li key={index}>{takeaway}</li>
-                  ))}
+                  {localizedStudy.keyTakeaways.map(
+                    (takeaway: string, index: number) => (
+                      <li key={index}>{takeaway}</li>
+                    )
+                  )}
                 </ul>
               </section>
 
@@ -112,7 +122,7 @@ export default function StudyPage({ params }: { params: { id: string } }) {
                 <h2 className="text-2xl font-bold mb-4">Code Example</h2>
                 <div className="p-4 bg-muted/30 rounded-lg overflow-x-auto">
                   <pre className="text-sm">
-                    <code>{study.codeExample}</code>
+                    <code>{localizedStudy.codeExample}</code>
                   </pre>
                 </div>
               </section>
@@ -125,7 +135,7 @@ export default function StudyPage({ params }: { params: { id: string } }) {
                 <div className="p-4 border rounded-lg">
                   <h3 className="font-semibold mb-2">Project Implementation</h3>
                   <p className="text-sm text-muted-foreground">
-                    {study.application}
+                    {localizedStudy.application}
                   </p>
                 </div>
               </section>
@@ -140,7 +150,7 @@ export default function StudyPage({ params }: { params: { id: string } }) {
                     <div>
                       <span className="block text-sm font-medium">Date</span>
                       <span className="text-sm text-muted-foreground">
-                        {study.publishedDate}
+                        {localizedStudy.publishedDate}
                       </span>
                     </div>
                   </li>
@@ -158,7 +168,7 @@ export default function StudyPage({ params }: { params: { id: string } }) {
                 <div className="mt-6">
                   <Button asChild variant="default" className="w-full gap-2">
                     <Link
-                      href={study.url}
+                      href={studyUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -182,10 +192,14 @@ export default function StudyPage({ params }: { params: { id: string } }) {
                         onClick={() => router.push(`/study/${relatedStudy.id}`)}
                       >
                         <h4 className="font-medium group-hover:text-primary transition-colors mb-1">
-                          {relatedStudy.title}
+                          {language === "en"
+                            ? relatedStudy.en.title
+                            : relatedStudy.ko.title}
                         </h4>
                         <p className="text-xs text-muted-foreground line-clamp-2">
-                          {relatedStudy.description}
+                          {language === "en"
+                            ? relatedStudy.en.description
+                            : relatedStudy.ko.description}
                         </p>
                       </div>
                     ))}
