@@ -136,7 +136,7 @@ export default function ProjectPage({
               </section>
 
               <section>
-                <h2 className="text-2xl font-bold mb-4">Features</h2>
+                <h2 className="text-2xl font-bold mb-4">Key Features</h2>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground">
                   {localizedProject.features.map(
                     (feature: string, index: number) => (
@@ -213,7 +213,7 @@ export default function ProjectPage({
                     </div>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Code className="w-5 h-5 text-primary mt-0.5" />
+                    <Code className="w-14 text-primary mt-0.5" />
                     <div>
                       <span className="block text-sm font-medium">
                         Tech Stack
