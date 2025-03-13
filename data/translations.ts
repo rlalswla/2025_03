@@ -78,28 +78,26 @@ export const translations = {
     },
     // Projects section
     projects: {
-      title: "내 프로젝트",
+      title: "프로젝트",
       viewDemo: "데모 보기",
       sourceCode: "소스 코드",
       backToProjects: "프로젝트로 돌아가기",
     },
     // Study section
     study: {
-      title: "학습 저장소",
+      title: "학습 기록",
       backToStudy: "학습 저장소로 돌아가기",
     },
     // Contact section
     contact: {
-      title: "연락하기",
-      description:
-        "현재 프리랜서 작업이나 정규직 포지션을 찾고 있습니다. 창의적인 터치가 필요한 프로젝트가 있다면 연락해주세요!",
+      title: "연락처",
+      // description: "창의적인 터치가 필요한 프로젝트가 있다면 연락해주세요!",
       emailMe: "이메일 보내기",
       github: "깃허브",
     },
     // Footer
     footer: {
-      rights: "모든 권리 보유.",
+      rights: "All rights reserved.",
     },
   },
-}
-
+};

@@ -50,6 +50,13 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
     return null;
   }
 
+  // Get localized project data based on current language
+  const localizedProject = language === "en" ? project.en : project.ko;
+
+  // Ensure we have valid URLs for links
+  const demoUrl = project.demoUrl || "#";
+  const sourceUrl = project.sourceUrl || "#";
+
   return (
     <>
       <Navbar />
@@ -59,14 +66,14 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <Image
             src={project.image || "/placeholder.svg?height=600&width=1200"}
-            alt={project.title}
+            alt={localizedProject.title}
             fill
             className="object-cover"
             priority
           />
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white p-4">
             <h1 className="text-3xl md:text-5xl font-bold text-center mb-4">
-              {project.title}
+              {localizedProject.title}
             </h1>
             <div className="flex flex-wrap justify-center gap-2 mb-6">
               {project.technologies.map((tech: string) => (
@@ -90,22 +97,26 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
             onClick={() => router.push("/#projects")}
           >
             <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            <span>{t.projects.backToProjects || "Back to Projects"}</span>
+            <span>{t.projects.backToProjects}</span>
           </Button>
 
           <div className="grid gap-8 md:grid-cols-3">
             <div className="md:col-span-2 space-y-6">
               <section>
                 <h2 className="text-2xl font-bold mb-4">Overview</h2>
-                <p className="text-muted-foreground">{project.overview}</p>
+                <p className="text-muted-foreground">
+                  {localizedProject.overview}
+                </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-bold mb-4">Features</h2>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                  {project.features.map((feature: string, index: number) => (
-                    <li key={index}>{feature}</li>
-                  ))}
+                  {localizedProject.features.map(
+                    (feature: string, index: number) => (
+                      <li key={index}>{feature}</li>
+                    )
+                  )}
                 </ul>
               </section>
 
@@ -118,14 +129,18 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                   challenges that required creative solutions:
                 </p>
                 <div className="space-y-4">
-                  {project.challenges.map((challenge: any, index: number) => (
-                    <div key={index} className="p-4 border rounded-lg">
-                      <h3 className="font-semibold mb-2">{challenge.title}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {challenge.description}
-                      </p>
-                    </div>
-                  ))}
+                  {localizedProject.challenges.map(
+                    (challenge: any, index: number) => (
+                      <div key={index} className="p-4 border rounded-lg">
+                        <h3 className="font-semibold mb-2">
+                          {challenge.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {challenge.description}
+                        </p>
+                      </div>
+                    )
+                  )}
                 </div>
               </section>
 
@@ -141,7 +156,9 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                         >
                           <Image
                             src={screenshot || "/placeholder.svg"}
-                            alt={`${project.title} screenshot ${index + 1}`}
+                            alt={`${localizedProject.title} screenshot ${
+                              index + 1
+                            }`}
                             width={350}
                             height={200}
                             className="w-full h-auto"
@@ -165,7 +182,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                         Completed
                       </span>
                       <span className="text-sm text-muted-foreground">
-                        {project.completedDate}
+                        {localizedProject.completedDate}
                       </span>
                     </div>
                   </li>
@@ -185,7 +202,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                 <div className="mt-6 space-y-3">
                   <Button asChild variant="default" className="w-full gap-2">
                     <Link
-                      href={project.demoUrl}
+                      href={demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -195,7 +212,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                   </Button>
                   <Button asChild variant="outline" className="w-full gap-2">
                     <Link
-                      href={project.sourceUrl}
+                      href={sourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -226,13 +243,19 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                               relatedProject.image ||
                               "/placeholder.svg?height=100&width=200"
                             }
-                            alt={relatedProject.title}
+                            alt={
+                              language === "en"
+                                ? relatedProject.en.title
+                                : relatedProject.ko.title
+                            }
                             fill
                             className="object-cover transition-transform group-hover:scale-105"
                           />
                         </div>
                         <h4 className="font-medium group-hover:text-primary transition-colors">
-                          {relatedProject.title}
+                          {language === "en"
+                            ? relatedProject.en.title
+                            : relatedProject.ko.title}
                         </h4>
                       </div>
                     ))}

@@ -45,17 +45,19 @@ export function ProjectsSection() {
               <div className="relative aspect-video overflow-hidden">
                 <img
                   src={project.image || "/placeholder.svg"}
-                  alt={project.title}
+                  alt={language === "en" ? project.en.title : project.ko.title}
                   className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-primary/20 backdrop-blur-sm group-hover:opacity-100"></div>
               </div>
               <div className="p-6 flex flex-col flex-grow">
                 <h3 className="mb-2 text-xl font-semibold group-hover:text-primary transition-colors duration-300">
-                  {project.title}
+                  {language === "en" ? project.en.title : project.ko.title}
                 </h3>
                 <p className="mb-4 text-muted-foreground">
-                  {project.description}
+                  {language === "en"
+                    ? project.en.description
+                    : project.ko.description}
                 </p>
 
                 {/* Footer section with tags and buttons - moved to bottom */}
