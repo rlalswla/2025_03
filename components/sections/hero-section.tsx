@@ -1,26 +1,16 @@
-import Link from "next/link";
-import Image from "next/image";
-import { Github, Mail, MapPin, School } from "lucide-react";
-import { TypingAnimation } from "@/components/typing-animation";
-import { Button } from "@/components/ui/button";
-import { ParallaxBackground } from "@/components/parallax-background";
-import { personalInfo, skills } from "@/data";
-import { useLanguage } from "@/contexts/language-context";
-import { translations } from "@/data/translations";
+import Link from "next/link"
+import Image from "next/image"
+import { Github, Mail, MapPin, School } from "lucide-react"
+import { TypingAnimation } from "@/components/typing-animation"
+import { Button } from "@/components/ui/button"
+import { ParallaxBackground } from "@/components/parallax-background"
+import { personalInfo, skills } from "@/data"
+import { useLanguage } from "@/contexts/language-context"
+import { translations } from "@/data/translations"
 
 export function HeroSection() {
-  const { language } = useLanguage();
-  const t = translations[language];
-
-  // Use the appropriate data based on language
-  const currentPersonalInfo =
-    language === "en" ? personalInfo.en : personalInfo.ko;
-
-  // Ensure we have valid URLs for links
-  const githubUrl = currentPersonalInfo.github || "#";
-  const emailUrl = `mailto:${
-    currentPersonalInfo.email || "example@example.com"
-  }`;
+  const { language } = useLanguage()
+  const t = translations[language]
 
   return (
     <section className="relative flex flex-col items-center justify-center w-full min-h-screen px-4 py-24 overflow-hidden bg-gradient-to-b from-background to-background/80">
@@ -43,27 +33,18 @@ export function HeroSection() {
               />
             </div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-              <span className="block text-primary text-5xl text-slate-700">
-                <TypingAnimation text={currentPersonalInfo.name} speed={80} />
+              <span className="block text-primary">
+                <TypingAnimation text={personalInfo.name} speed={150} />
               </span>
               <span className="block mt-2 text-3xl font-medium text-muted-foreground">
-                <TypingAnimation
-                  text={currentPersonalInfo.title}
-                  speed={80}
-                  delay={800}
-                />
+                <TypingAnimation text={personalInfo.title} speed={150} delay={1500} />
               </span>
             </h1>
-            <p className="max-w-2xl text-xl text-muted-foreground mt-4 opacity-0 animate-[fadeIn_0.8s_ease-in-out_1.2s_forwards]">
+            <p className="max-w-2xl text-xl text-muted-foreground mt-4 opacity-0 animate-[fadeIn_1s_ease-in-out_2s_forwards]">
               {t.hero.bio}
             </p>
-            <div className="flex flex-wrap items-center gap-4 mt-6 opacity-0 animate-[fadeIn_0.8s_ease-in-out_1.5s_forwards]">
-              <Button
-                asChild
-                variant="default"
-                size="lg"
-                className="gap-2 group relative overflow-hidden"
-              >
+            <div className="flex flex-wrap items-center gap-4 mt-6 opacity-0 animate-[fadeIn_1s_ease-in-out_2.5s_forwards]">
+              <Button asChild variant="default" size="lg" className="gap-2 group relative overflow-hidden">
                 <Link href="#projects">
                   <span className="relative z-10 transition-transform duration-500 group-hover:translate-x-1">
                     {t.hero.viewProjects}
@@ -71,12 +52,7 @@ export function HeroSection() {
                   <span className="absolute inset-0 z-0 bg-primary-foreground/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></span>
                 </Link>
               </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="gap-2 group relative overflow-hidden"
-              >
+              <Button asChild variant="outline" size="lg" className="gap-2 group relative overflow-hidden">
                 <Link href="#contact">
                   <span className="relative z-10 transition-transform duration-500 group-hover:translate-x-1">
                     {t.hero.contactMe}
@@ -88,36 +64,28 @@ export function HeroSection() {
           </div>
 
           {/* Right Column - Personal Info and Skills */}
-          <div className="grid gap-8 opacity-0 animate-[fadeIn_0.8s_ease-in-out_1.8s_forwards]">
+          <div className="grid gap-8 opacity-0 animate-[fadeIn_1s_ease-in-out_3s_forwards]">
             <div className="p-6 rounded-lg bg-background/70 backdrop-blur-md border border-border transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1">
-              <h3 className="mb-4 text-xl font-semibold">
-                {t.personalInfo.title}
-              </h3>
+              <h3 className="mb-4 text-xl font-semibold">{t.personalInfo.title}</h3>
               <ul className="space-y-3">
                 <li className="flex items-center gap-2 transition-transform hover:translate-x-1 duration-300">
                   <School className="w-5 h-5 text-primary" />
-                  <span>{currentPersonalInfo.university}</span>
+                  <span>{personalInfo.university}</span>
                 </li>
                 <li className="flex items-center gap-2 transition-transform hover:translate-x-1 duration-300">
                   <MapPin className="w-5 h-5 text-primary" />
-                  <span>{currentPersonalInfo.location}</span>
+                  <span>{personalInfo.location}</span>
                 </li>
                 <li className="flex items-center gap-2 transition-transform hover:translate-x-1 duration-300">
                   <Github className="w-5 h-5 text-primary" />
-                  <Link
-                    href={githubUrl}
-                    className="hover:text-primary transition-colors"
-                  >
-                    github.com/{currentPersonalInfo.githubUsername}
+                  <Link href={personalInfo.github} className="hover:text-primary transition-colors">
+                    github.com/{personalInfo.githubUsername}
                   </Link>
                 </li>
                 <li className="flex items-center gap-2 transition-transform hover:translate-x-1 duration-300">
                   <Mail className="w-5 h-5 text-primary" />
-                  <Link
-                    href={emailUrl}
-                    className="hover:text-primary transition-colors"
-                  >
-                    {currentPersonalInfo.email}
+                  <Link href={`mailto:${personalInfo.email}`} className="hover:text-primary transition-colors">
+                    {personalInfo.email}
                   </Link>
                 </li>
               </ul>
@@ -129,7 +97,7 @@ export function HeroSection() {
                   <span
                     key={skill}
                     className="px-3 py-1 text-sm rounded-full bg-primary/10 border border-primary/20 transition-all duration-300 hover:bg-primary/20 hover:scale-105 hover:shadow-sm"
-                    style={{ animationDelay: `${index * 50}ms` }}
+                    style={{ animationDelay: `${index * 100}ms` }}
                   >
                     {skill}
                   </span>
@@ -162,5 +130,6 @@ export function HeroSection() {
         </Link>
       </div>
     </section>
-  );
+  )
 }
+
