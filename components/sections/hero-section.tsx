@@ -29,7 +29,7 @@ export function HeroSection() {
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <div className="hidden md:block mb-6">
               <Image
-                src="/placeholder.svg?height=200&width=200"
+                src="/profile-image.png?height=200&width=200"
                 alt="Profile"
                 width={200}
                 height={200}

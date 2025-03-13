@@ -30,12 +30,12 @@ export const translations = {
       title: "My Projects",
       viewDemo: "View Demo",
       sourceCode: "Source Code",
-      backToProjects: "Back to Projects",
+      backToProjects: "Back to Main page",
     },
     // Study section
     study: {
-      title: "Study Storage",
-      backToStudy: "Back to Study",
+      title: "Study Archive",
+      backToStudy: "Back to Main page",
     },
     // Contact section
     contact: {
@@ -78,15 +78,15 @@ export const translations = {
     },
     // Projects section
     projects: {
-      title: "내 프로젝트",
+      title: "프로젝트",
       viewDemo: "데모 보기",
       sourceCode: "소스 코드",
-      backToProjects: "프로젝트로 돌아가기",
+      backToProjects: "홈으로 돌아가기",
     },
     // Study section
     study: {
-      title: "학습 저장소",
-      backToStudy: "학습 저장소로 돌아가기",
+      title: "학습 기록",
+      backToStudy: "홈으로 돌아가기",
     },
     // Contact section
     contact: {
@@ -98,8 +98,7 @@ export const translations = {
     },
     // Footer
     footer: {
-      rights: "모든 권리 보유.",
+      rights: "All rights reversed",
     },
   },
-}
-
+};
