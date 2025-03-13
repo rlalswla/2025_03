@@ -3,24 +3,24 @@
 // Personal Information
 export const personalInfo = {
   en: {
-    name: "Your Name",
+    name: "Lee Jihoon",
     title: "Frontend Developer",
-    email: "your.email@example.com",
-    location: "San Francisco, CA",
-    university: "University of Technology",
-    github: "https://github.com/yourusername",
-    githubUsername: "yourusername",
+    email: "elect10@g.skku.edu",
+    location: "Seoul, South Korea",
+    university: "Sungkyunkwan University Math & CS",
+    github: "https://github.com/rlalswla",
+    githubUsername: "rlalswla",
     bio: "Building beautiful, responsive, and user-friendly web applications with modern technologies.",
   },
   ko: {
-    name: "당신의 이름",
+    name: "이지훈",
     title: "프론트엔드 개발자",
-    email: "your.email@example.com",
+    email: "elect10@g.skku.edu",
     location: "샌프란시스코, CA",
     university: "기술 대학교",
-    github: "https://github.com/yourusername",
-    githubUsername: "yourusername",
-    bio: "모던 기술을 활용하여 아름답고, 반응형이며, 사용자 친화적인 웹 애플리케이션을 구축합니다.",
+    github: "https://github.com/rlalswla",
+    githubUsername: "rlalswla",
+    bio: " 아름답고, 사용자 친화적인 웹 애플리케이션을 지향합니다.",
   },
 };
 
@@ -31,12 +31,14 @@ export const skills = [
   "JavaScript",
   "TypeScript",
   "React",
+  "React Native",
   "Next.js",
-  "Tailwind CSS",
   "Node.js",
+  "C++",
+  "C",
   "Git",
-  "Responsive Design",
-  "UI/UX",
+  "Docker",
+  "CI/CD",
 ];
 
 // Projects

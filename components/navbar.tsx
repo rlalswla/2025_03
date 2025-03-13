@@ -93,10 +93,7 @@ export function Navbar() {
           href="/"
           className="text-xl font-bold transition-transform duration-300 hover:scale-105"
           onClick={closeMenu}
-        >
-          <span className="text-primary">{name.split(" ")[0]}</span>
-          {name.split(" ").length > 1 ? name.split(" ")[1] : ""}
-        </Link>
+        ></Link>
 
         <div className="flex items-center gap-4">
           {!isMobile && (

@@ -38,7 +38,7 @@ export function HeroSection() {
               />
             </div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-              <span className="block text-primary">
+              <span className="block text-primary text-5xl text-slate-700 dark:text-gray-300">
                 {currentPersonalInfo.name}
               </span>
               <span className="block mt-2 text-3xl font-medium text-muted-foreground">
