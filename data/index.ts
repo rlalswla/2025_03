@@ -54,11 +54,14 @@ export const projects = [
         "ON:U is a chat application built to facilitate communication between students and student council members. The project implements real-time messaging using WebSocket and features a custom caching system inspired by React Query.",
       features: [
         "Real-time chat functionality with WebSocket",
+        "Global socket instance management using Zustand",
+        "Component socket message distribution using Observer pattern",
         "Custom caching system for optimized data management",
-        "Token-based authentication system",
-        "Statistical analysis dashboard",
-        "Responsive design for all devices",
-        "Dark mode support",
+        "JWT token-based authentication system",
+        "Component-based project using Storybook",
+        "Mobile view adaptation with PWA",
+        "Enhanced user experience with image upload using Presigned URLs",
+        "Infinite scroll functionality considering viewport",
       ],
       challenges: [
         {
@@ -82,11 +85,14 @@ export const projects = [
         "ON:U는 학생과 학생회 구성원 간의 소통을 원활하게 하기 위해 개발된 채팅 애플리케이션입니다. WebSocket을 사용한 실시간 메시징과 React Query에서 영감을 받은 커스텀 캐싱 시스템을 집중적으로 구현했습니다.",
       features: [
         "WebSocket을 활용한 실시간 채팅 기능",
+        "Zustand 를 통한 socket 인스턴스 전역적 관리",
+        "옵저버 패턴을 이용한 컴포넌트 소켓 메시지 분배",
         "최적화된 데이터 관리를 위한 커스텀 캐싱 시스템",
-        "토큰 기반 인증 시스템",
-        "통계 분석 대시보드",
-        "모든 기기에 대응하는 반응형 디자인",
-        "다크 모드 지원",
+        "JWT 토큰 기반 인증 시스템",
+        "Storybook 을 활용한 컴포넌트 기반 프로젝트",
+        "PWA 를 활용한 모바일뷰 적응",
+        "Presigned url 을 활용한 이미지 업로드를 통한 사용성 증진",
+        "뷰포트를 고려한 무한스크롤 기능",
       ],
       challenges: [
         {
@@ -111,8 +117,8 @@ export const projects = [
       "Vite",
       "Storybook",
     ],
-    demoUrl: "#",
-    sourceUrl: "#",
+    demoUrl: "https://onu-univ.site/",
+    sourceUrl: "https://github.com/softeer5th/Team7-BungeoBbang",
     screenshots: [
       "/placeholder.svg?height=200&width=350",
       "/placeholder.svg?height=200&width=350",

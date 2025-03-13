@@ -150,10 +150,6 @@ export default function ProjectPage({
                 <h2 className="text-2xl font-bold mb-4">
                   Challenges & Solutions
                 </h2>
-                <p className="text-muted-foreground mb-4">
-                  During the development of this project, I encountered several
-                  challenges that required creative solutions:
-                </p>
                 <div className="space-y-4">
                   {localizedProject.challenges.map(
                     (challenge: any, index: number) => (
