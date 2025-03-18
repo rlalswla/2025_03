@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowLeft } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -19,6 +20,11 @@ export function Navbar() {
   const isMobile = useMobile();
   const { language } = useLanguage();
   const t = translations[language];
+  const pathname = usePathname();
+
+  // 현재 페이지가 프로젝트 또는 스터디 상세 페이지인지 확인
+  const isDetailPage =
+    pathname.startsWith("/projects/") || pathname.startsWith("/study/");
 
   // Get the name based on current language
   const name = language === "en" ? personalInfo.en.name : personalInfo.ko.name;
@@ -26,7 +32,20 @@ export function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
+  // 뒤로가기 URL 결정
+  const getBackUrl = () => {
+    if (pathname.startsWith("/projects/")) return "/#projects";
+    if (pathname.startsWith("/study/")) return "/#study";
+    return "/";
+  };
+
   useEffect(() => {
+    // 상세 페이지에서는 스크롤 감지가 필요 없음
+    if (isDetailPage) {
+      setIsScrolled(true);
+      return;
+    }
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
 
@@ -70,7 +89,7 @@ export function Navbar() {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [activeSection]);
+  }, [activeSection, isDetailPage]);
 
   // Get translated nav labels
   const translatedNavLinks = [
@@ -89,14 +108,27 @@ export function Navbar() {
       }`}
     >
       <div className="container flex items-center justify-between h-16 px-4 mx-auto">
-        <Link
-          href="/"
-          className="text-xl font-bold transition-transform duration-300 hover:scale-105"
-          onClick={closeMenu}
-        ></Link>
+        {isDetailPage ? (
+          // 상세 페이지에서는 뒤로가기 버튼 표시
+          <Link
+            href={getBackUrl()}
+            className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span className="font-medium">
+              {pathname.startsWith("/projects/")
+                ? t.projects.backToProjects
+                : t.study.backToStudy}
+            </span>
+          </Link>
+        ) : (
+          // 홈 페이지에서는 이름/로고 표시
+          <div></div>
+        )}
 
         <div className="flex items-center gap-4">
-          {!isMobile && (
+          {/* 상세 페이지가 아닐 때만 일반 네비게이션 메뉴 표시 */}
+          {!isDetailPage && !isMobile && (
             <nav className="hidden md:flex items-center gap-6">
               {translatedNavLinks.map((link) => (
                 <Link
@@ -115,10 +147,12 @@ export function Navbar() {
             </nav>
           )}
 
+          {/* 언어 설정과 테마 토글은 항상 표시 */}
           <LanguageToggle />
           <ThemeToggle />
 
-          {isMobile && (
+          {/* 모바일에서는 상세 페이지가 아닐 때만 메뉴 버튼 표시 */}
+          {isMobile && !isDetailPage && (
             <Button
               variant="ghost"
               size="icon"
@@ -135,8 +169,8 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {isMobile && isOpen && (
+      {/* Mobile menu - 상세 페이지가 아닐 때만 표시 */}
+      {isMobile && isOpen && !isDetailPage && (
         <div className="fixed inset-0 z-40 flex flex-col pt-16 bg-background/95 backdrop-blur-lg md:hidden animate-in fade-in slide-in-from-top duration-300">
           <nav className="flex flex-col items-center gap-6 p-8 mt-4">
             {translatedNavLinks.map((link, index) => (

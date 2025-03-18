@@ -107,7 +107,7 @@ export default function ProjectPage({
   return (
     <>
       <Navbar />
-      <main className="pt-20 pb-16">
+      <main className="pt-16 pb-16">
         {/* Hero Section - 기존 코드 유지 */}
         <div className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/40 z-10"></div>
@@ -137,16 +137,6 @@ export default function ProjectPage({
 
         {/* Content - 기존 코드 유지 */}
         <div className="container max-w-4xl mx-auto px-4 py-12">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="mb-8 group flex items-center gap-2"
-            onClick={() => router.push("/#projects")}
-          >
-            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            <span>{t.projects.backToProjects}</span>
-          </Button>
-
           <div className="grid gap-8 md:grid-cols-3">
             <div className="md:col-span-2 space-y-6">
               <section>

@@ -108,16 +108,6 @@ export default function StudyPage({
         {/* Header - 기존 디자인 유지 */}
         <div className="bg-muted/30 py-12">
           <div className="container max-w-4xl mx-auto px-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="mb-6 group flex items-center gap-2"
-              onClick={() => router.push("/#study")}
-            >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              <span>{t.study.backToStudy}</span>
-            </Button>
-
             <h1 className="text-3xl md:text-4xl font-bold mb-4">
               {localizedStudy.title}
             </h1>
