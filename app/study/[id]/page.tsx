@@ -178,90 +178,97 @@ export default function StudyPage({
               </section>
             </div>
 
-            <div className="space-y-6">
-              <div className="p-6 rounded-lg border bg-card">
-                <h3 className="text-xl font-semibold mb-4">Study Details</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-2">
-                    <Calendar className="w-5 h-5 text-primary mt-0.5" />
-                    <div>
-                      <span className="block text-sm font-medium">
-                        Duration
-                      </span>
-                      <span className="text-sm text-muted-foreground">
-                        {localizedStudy.publishedDate}
-                      </span>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Tag className="w-5 h-5 text-primary mt-0.5" />
-                    <div>
-                      <span className="block text-sm font-medium">Topics</span>
-                      <span className="text-sm text-muted-foreground">
-                        {study.tags.join(", ")}
-                      </span>
-                    </div>
-                  </li>
-                </ul>
+            {/* 오른쪽 사이드바에 sticky 포지션 추가 */}
+            <div className="relative">
+              <div className="sticky top-20 space-y-6 max-h-[calc(100vh-6rem)] overflow-y-auto pb-4 scrollbar-thin">
+                <div className="p-6 rounded-lg border bg-card">
+                  <h3 className="text-xl font-semibold mb-4">Study Details</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-2">
+                      <Calendar className="w-5 h-5 text-primary mt-0.5" />
+                      <div>
+                        <span className="block text-sm font-medium">
+                          Duration
+                        </span>
+                        <span className="text-sm text-muted-foreground">
+                          {localizedStudy.publishedDate}
+                        </span>
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Tag className="w-5 h-5 text-primary mt-0.5" />
+                      <div>
+                        <span className="block text-sm font-medium">
+                          Topics
+                        </span>
+                        <span className="text-sm text-muted-foreground">
+                          {study.tags.join(", ")}
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
 
-                <div className="mt-6">
-                  <Button asChild variant="default" className="w-full gap-2">
-                    <Link
-                      href={studyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      <span>View Original Resource</span>
-                    </Link>
-                  </Button>
+                  <div className="mt-6">
+                    <Button asChild variant="default" className="w-full gap-2">
+                      <Link
+                        href={studyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        <span>View Original Resource</span>
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
-              </div>
 
-              {/* 관련 프로젝트 섹션 - API에서 가져온 데이터 사용 */}
-              <div className="p-6 rounded-lg border bg-card">
-                <h3 className="text-xl font-semibold mb-4">Related Projects</h3>
-                <div className="space-y-4">
-                  {relatedProjects.map((project) => (
-                    <div
-                      key={project.id}
-                      className="group cursor-pointer"
-                      onClick={() => router.push(`/projects/${project.id}`)}
-                    >
-                      <div className="relative h-24 mb-2 overflow-hidden rounded-md">
-                        <Image
-                          src={
-                            project.image ||
-                            "/placeholder.svg?height=100&width=200"
-                          }
-                          alt={
-                            language === "en"
-                              ? project.en.title
-                              : project.ko.title
-                          }
-                          fill
-                          className="object-cover transition-transform group-hover:scale-105"
-                        />
+                {/* 관련 프로젝트 섹션 - API에서 가져온 데이터 사용 */}
+                <div className="p-6 rounded-lg border bg-card">
+                  <h3 className="text-xl font-semibold mb-4">
+                    Related Projects
+                  </h3>
+                  <div className="space-y-4">
+                    {relatedProjects.map((project) => (
+                      <div
+                        key={project.id}
+                        className="group cursor-pointer"
+                        onClick={() => router.push(`/projects/${project.id}`)}
+                      >
+                        <div className="relative h-24 mb-2 overflow-hidden rounded-md">
+                          <Image
+                            src={
+                              project.image ||
+                              "/placeholder.svg?height=100&width=200"
+                            }
+                            alt={
+                              language === "en"
+                                ? project.en.title
+                                : project.ko.title
+                            }
+                            fill
+                            className="object-cover transition-transform group-hover:scale-105"
+                          />
+                        </div>
+                        <h4 className="font-medium group-hover:text-primary transition-colors">
+                          {language === "en"
+                            ? project.en.title
+                            : project.ko.title}
+                        </h4>
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {project.technologies
+                            .slice(0, 3)
+                            .map((tech: string, index: number) => (
+                              <span
+                                key={index}
+                                className="px-2 py-0.5 text-xs rounded-full bg-primary/10 border border-primary/20"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                        </div>
                       </div>
-                      <h4 className="font-medium group-hover:text-primary transition-colors">
-                        {language === "en"
-                          ? project.en.title
-                          : project.ko.title}
-                      </h4>
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {project.technologies
-                          .slice(0, 3)
-                          .map((tech: string, index: number) => (
-                            <span
-                              key={index}
-                              className="px-2 py-0.5 text-xs rounded-full bg-primary/10 border border-primary/20"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

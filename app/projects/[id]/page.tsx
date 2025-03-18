@@ -208,112 +208,174 @@ export default function ProjectPage({
               )}
             </div>
 
-            <div className="space-y-6">
-              <div className="p-6 rounded-lg border bg-card">
-                <h3 className="text-xl font-semibold mb-4">Project Details</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-2">
-                    <Calendar className="w-5 h-5 text-primary mt-0.5" />
-                    <div>
-                      <span className="block text-sm font-medium">
-                        Duration
-                      </span>
-                      <span className="text-sm text-muted-foreground">
-                        {localizedProject.completedDate}
-                      </span>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Code className="w-14 text-primary mt-0.5" />
-                    <div>
-                      <span className="block text-sm font-medium">
-                        Tech Stack
-                      </span>
-                      <span className="text-sm text-muted-foreground">
-                        {project.technologies.join(", ")}
-                      </span>
-                    </div>
-                  </li>
-                </ul>
+            {/* 오른쪽 사이드바에 sticky 포지션 추가 */}
+            <div className="relative">
+              <div className="sticky top-20 space-y-6 max-h-[calc(100vh-6rem)] overflow-y-auto pb-4 scrollbar-thin">
+                <div className="p-6 rounded-lg border bg-card">
+                  <h3 className="text-xl font-semibold mb-4">
+                    Project Details
+                  </h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-2">
+                      <Calendar className="w-5 h-5 text-primary mt-0.5" />
+                      <div>
+                        <span className="block text-sm font-medium">
+                          Duration
+                        </span>
+                        <span className="text-sm text-muted-foreground">
+                          {localizedProject.completedDate}
+                        </span>
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Code className="w-14 text-primary mt-0.5" />
+                      <div>
+                        <span className="block text-sm font-medium">
+                          Tech Stack
+                        </span>
+                        <span className="text-sm text-muted-foreground">
+                          {project.technologies.join(", ")}
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
 
-                <div className="mt-6 space-y-3">
-                  <Button
-                    asChild
-                    variant={demoUrl === "-1" ? "destructive" : "default"}
-                    className="w-full gap-2"
-                  >
-                    <Link
-                      href={demoUrl === "-1" ? "#" : demoUrl}
-                      target={demoUrl === "-1" ? "_self" : "_blank"}
-                      rel="noopener noreferrer"
+                  <div className="mt-6 space-y-3">
+                    <Button
+                      asChild
+                      variant={demoUrl === "-1" ? "destructive" : "default"}
+                      className="w-full gap-2"
                     >
-                      <ExternalLink className="w-4 h-4" />
-                      {demoUrl === "-1" ? (
-                        <span>Demo Dead.,,</span>
-                      ) : (
-                        <span>Live Demo</span>
-                      )}
-                    </Link>
-                  </Button>
-                  {adminDemoUrl && (
-                    <Button asChild variant="default" className="w-full gap-2">
                       <Link
-                        href={adminDemoUrl}
-                        target="_blank"
+                        href={demoUrl === "-1" ? "#" : demoUrl}
+                        target={demoUrl === "-1" ? "_self" : "_blank"}
                         rel="noopener noreferrer"
                       >
                         <ExternalLink className="w-4 h-4" />
-                        <span>Live Demo_admin</span>
+                        {demoUrl === "-1" ? (
+                          <span>Demo Dead.,,</span>
+                        ) : (
+                          <span>Live Demo</span>
+                        )}
                       </Link>
                     </Button>
-                  )}
+                    {adminDemoUrl && (
+                      <Button
+                        asChild
+                        variant="default"
+                        className="w-full gap-2"
+                      >
+                        <Link
+                          href={adminDemoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          <span>Live Demo_admin</span>
+                        </Link>
+                      </Button>
+                    )}
 
-                  <Button asChild variant="outline" className="w-full gap-2">
-                    <Link
-                      href={sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="w-4 h-4" />
-                      <span>Source Code</span>
-                    </Link>
-                  </Button>
+                    <Button asChild variant="outline" className="w-full gap-2">
+                      <Link
+                        href={sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Github className="w-4 h-4" />
+                        <span>Source Code</span>
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
-              </div>
 
-              <div className="p-6 rounded-lg border bg-card">
-                <h3 className="text-xl font-semibold mb-4">Related Studies</h3>
-                <div className="space-y-4">
-                  {(() => {
-                    // Special case for ON:U project (id: 1) - show Advanced Algorithm Study
-                    if (project.id === 1 && studiesData) {
-                      const algorithmStudy = studiesData.find(
-                        (study) => study.id === 1
-                      ); // Advanced Algorithm Study has id 1
-                      if (algorithmStudy) {
-                        return (
+                <div className="p-6 rounded-lg border bg-card">
+                  <h3 className="text-xl font-semibold mb-4">
+                    Related Studies
+                  </h3>
+                  <div className="space-y-4">
+                    {(() => {
+                      // Special case for ON:U project (id: 1) - show Advanced Algorithm Study
+                      if (project.id === 1 && studiesData) {
+                        const algorithmStudy = studiesData.find(
+                          (study) => study.id === 1
+                        ); // Advanced Algorithm Study has id 1
+                        if (algorithmStudy) {
+                          return (
+                            <div
+                              key={algorithmStudy.id}
+                              className="group cursor-pointer"
+                              onClick={() =>
+                                router.push(`/study/${algorithmStudy.id}`)
+                              }
+                            >
+                              <div className="flex items-start gap-2 mb-2">
+                                <BookOpen className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                                <h4 className="font-medium group-hover:text-primary transition-colors">
+                                  {language === "en"
+                                    ? algorithmStudy.en.title
+                                    : algorithmStudy.ko.title}
+                                </h4>
+                              </div>
+                              <p className="text-xs text-muted-foreground line-clamp-2 ml-6">
+                                {language === "en"
+                                  ? algorithmStudy.en.description
+                                  : algorithmStudy.ko.description}
+                              </p>
+                              <div className="flex flex-wrap gap-1 mt-2 ml-6">
+                                {algorithmStudy.tags
+                                  .slice(0, 3)
+                                  .map((tag: string, index: number) => (
+                                    <span
+                                      key={index}
+                                      className="px-2 py-0.5 text-xs rounded-full bg-primary/10 border border-primary/20"
+                                    >
+                                      {tag}
+                                    </span>
+                                  ))}
+                              </div>
+                            </div>
+                          );
+                        }
+                      }
+
+                      // API에서 가져온 관련 스터디 표시
+                      return studiesData
+                        ?.filter((study) => {
+                          // If this is not the ON:U project, use normal matching
+                          if (project.id !== 1) {
+                            const projectTechnologies =
+                              project.technologies.map((tech: string) =>
+                                tech.toLowerCase()
+                              );
+                            return study.tags.some((tag) =>
+                              projectTechnologies.includes(tag.toLowerCase())
+                            );
+                          }
+                          return false;
+                        })
+                        .slice(0, 2)
+                        .map((study) => (
                           <div
-                            key={algorithmStudy.id}
+                            key={study.id}
                             className="group cursor-pointer"
-                            onClick={() =>
-                              router.push(`/study/${algorithmStudy.id}`)
-                            }
+                            onClick={() => router.push(`/study/${study.id}`)}
                           >
                             <div className="flex items-start gap-2 mb-2">
                               <BookOpen className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
                               <h4 className="font-medium group-hover:text-primary transition-colors">
                                 {language === "en"
-                                  ? algorithmStudy.en.title
-                                  : algorithmStudy.ko.title}
+                                  ? study.en.title
+                                  : study.ko.title}
                               </h4>
                             </div>
                             <p className="text-xs text-muted-foreground line-clamp-2 ml-6">
                               {language === "en"
-                                ? algorithmStudy.en.description
-                                : algorithmStudy.ko.description}
+                                ? study.en.description
+                                : study.ko.description}
                             </p>
                             <div className="flex flex-wrap gap-1 mt-2 ml-6">
-                              {algorithmStudy.tags
+                              {study.tags
                                 .slice(0, 3)
                                 .map((tag: string, index: number) => (
                                   <span
@@ -325,59 +387,9 @@ export default function ProjectPage({
                                 ))}
                             </div>
                           </div>
-                        );
-                      }
-                    }
-
-                    // API에서 가져온 관련 스터디 표시
-                    return studiesData
-                      ?.filter((study) => {
-                        // If this is not the ON:U project, use normal matching
-                        if (project.id !== 1) {
-                          const projectTechnologies = project.technologies.map(
-                            (tech: string) => tech.toLowerCase()
-                          );
-                          return study.tags.some((tag) =>
-                            projectTechnologies.includes(tag.toLowerCase())
-                          );
-                        }
-                        return false;
-                      })
-                      .slice(0, 2)
-                      .map((study) => (
-                        <div
-                          key={study.id}
-                          className="group cursor-pointer"
-                          onClick={() => router.push(`/study/${study.id}`)}
-                        >
-                          <div className="flex items-start gap-2 mb-2">
-                            <BookOpen className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                            <h4 className="font-medium group-hover:text-primary transition-colors">
-                              {language === "en"
-                                ? study.en.title
-                                : study.ko.title}
-                            </h4>
-                          </div>
-                          <p className="text-xs text-muted-foreground line-clamp-2 ml-6">
-                            {language === "en"
-                              ? study.en.description
-                              : study.ko.description}
-                          </p>
-                          <div className="flex flex-wrap gap-1 mt-2 ml-6">
-                            {study.tags
-                              .slice(0, 3)
-                              .map((tag: string, index: number) => (
-                                <span
-                                  key={index}
-                                  className="px-2 py-0.5 text-xs rounded-full bg-primary/10 border border-primary/20"
-                                >
-                                  {tag}
-                                </span>
-                              ))}
-                          </div>
-                        </div>
-                      ));
-                  })()}
+                        ));
+                    })()}
+                  </div>
                 </div>
               </div>
             </div>
