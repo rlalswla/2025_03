@@ -207,7 +207,7 @@ export const projects = [
       "Framer motion",
       "linear gradient",
     ],
-    demoUrl: "#",
+    demoUrl: "-1",
     sourceUrl: "https://github.com/Team-Losers/2024_Fall_Capstone",
     screenshots: [
       "/placeholder.svg?height=200&width=350",
@@ -282,8 +282,8 @@ export const projects = [
       "Docker",
       "AI/ML",
     ],
-    demoUrl: "#",
-    sourceUrl: "#",
+    demoUrl: "-1",
+    sourceUrl: "https://github.com/racheliee/ai-LangDevAssist",
     screenshots: [
       "/placeholder.svg?height=200&width=350",
       "/placeholder.svg?height=200&width=350",

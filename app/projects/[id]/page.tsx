@@ -226,14 +226,22 @@ export default function ProjectPage({
                 </ul>
 
                 <div className="mt-6 space-y-3">
-                  <Button asChild variant="default" className="w-full gap-2">
+                  <Button
+                    asChild
+                    variant={demoUrl === "-1" ? "destructive" : "default"}
+                    className="w-full gap-2"
+                  >
                     <Link
-                      href={demoUrl}
-                      target="_blank"
+                      href={demoUrl === "-1" ? "#" : demoUrl}
+                      target={demoUrl === "-1" ? "_self" : "_blank"}
                       rel="noopener noreferrer"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      <span>Live Demo</span>
+                      {demoUrl === "-1" ? (
+                        <span>Demo Dead.,,</span>
+                      ) : (
+                        <span>Live Demo</span>
+                      )}
                     </Link>
                   </Button>
                   {adminDemoUrl && (
