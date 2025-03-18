@@ -81,6 +81,7 @@ export default function ProjectPage({
 
   // Ensure we have valid URLs for links
   const demoUrl = project.demoUrl || "#";
+  const adminDemoUrl = project.adminDemoUrl || null;
   const sourceUrl = project.sourceUrl || "#";
 
   return (
@@ -147,9 +148,12 @@ export default function ProjectPage({
               </section>
 
               <section>
-                <h2 className="text-2xl font-bold mb-4">
-                  Challenges & Solutions
-                </h2>
+                <h2 className="text-2xl font-bold">Challenges & Solutions</h2>
+                <h3 className="text-sm mb-4 text-muted-foreground flex items-center">
+                  {language === "ko"
+                    ? "자세한 설명은 Related Studies 를 참조해주세요"
+                    : "Detailed explanations are provided in Related Studies."}
+                </h3>
                 <div className="space-y-4">
                   {localizedProject.challenges.map(
                     (challenge: any, index: number) => (
@@ -157,7 +161,7 @@ export default function ProjectPage({
                         <h3 className="font-semibold mb-2">
                           {challenge.title}
                         </h3>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground whitespace-pre-wrap">
                           {challenge.description}
                         </p>
                       </div>
@@ -232,6 +236,19 @@ export default function ProjectPage({
                       <span>Live Demo</span>
                     </Link>
                   </Button>
+                  {adminDemoUrl && (
+                    <Button asChild variant="default" className="w-full gap-2">
+                      <Link
+                        href={adminDemoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        <span>Live Demo_admin</span>
+                      </Link>
+                    </Button>
+                  )}
+
                   <Button asChild variant="outline" className="w-full gap-2">
                     <Link
                       href={sourceUrl}

@@ -51,28 +51,34 @@ export const projects = [
         "A real-time chat application for effective communication between students and student council",
       completedDate: "Jan 2025 ~ Feb 2025",
       overview:
-        "ON:U is a chat application built to facilitate communication between students and student council members. The project implements real-time messaging using WebSocket and features a custom caching system inspired by React Query.",
+        "ON:U is a chat application built to facilitate communication between students and student council members. I focused on implementing real-time messaging using WebSocket and a custom caching system inspired by React Query.",
       features: [
         "Real-time chat functionality with WebSocket",
-        "Global socket instance management using Zustand",
-        "Component socket message distribution using Observer pattern",
-        "Custom caching system for optimized data management",
-        "JWT token-based authentication system",
-        "Component-based project using Storybook",
-        "Mobile view adaptation with PWA",
-        "Enhanced user experience with image upload using Presigned URLs",
-        "Infinite scroll functionality considering viewport",
+        "Student opinion submission chat called 'opinion' (1-to-1 chat)",
+        "Student council agenda discussion chat called 'agenda' (1-to-N chat)",
+        "My Opinion page where students can check their participated chat rooms and notifications",
+        "Statistics page for student council to view various analytics",
       ],
       challenges: [
         {
           title: "WebSocket Management",
           description:
-            "Implemented global socket management using Zustand, handling automatic connections on login and subscription management for different chat rooms.",
+            "Used Zustand to manage socket instances globally, enabling automatic connections upon login.\n\nHandled component-specific socket subscriptions using the Observer pattern.",
         },
         {
-          title: "Data Optimization",
+          title: "Asynchronous Data Management",
           description:
-            "Built a custom caching system inspired by React Query to manage server state and real-time updates efficiently.",
+            "Built a custom caching system inspired by React Query (tanstack query) to efficiently manage server state and real-time updates.",
+        },
+        {
+          title: "Enhanced User Experience",
+          description:
+            "Improved image upload speed through AWS S3 Presigned URL approach.\nImplemented various features to enhance mobile-web compatibility, including PWA integration and viewport adjustments when keyboard appears.",
+        },
+        {
+          title: "Error Handling",
+          description:
+            "Implemented global error handling for API requests using Context API.\nDisplayed error messages to users via toast notifications and implemented appropriate error handling logic.",
         },
       ],
     },
@@ -82,32 +88,38 @@ export const projects = [
         "학생과 학생회 간의 효과적인 소통을 위한 실시간 채팅 애플리케이션",
       completedDate: "2025년 01월 ~ 2025년 02월",
       overview:
-        "ON:U는 학생과 학생회 구성원 간의 소통을 원활하게 하기 위해 개발된 채팅 애플리케이션입니다. WebSocket을 사용한 실시간 메시징과 React Query에서 영감을 받은 커스텀 캐싱 시스템을 집중적으로 구현했습니다.",
+        "ON:U는 학생과 학생회 구성원 간의 소통을 원활하게 하기 위해 개발된 채팅 애플리케이션입니다. 저는 WebSocket을 사용한 실시간 메시징과 React Query에서 영감을 받은 커스텀 캐싱 시스템을 집중적으로 구현했습니다.",
       features: [
         "WebSocket을 활용한 실시간 채팅 기능",
-        "Zustand 를 통한 socket 인스턴스 전역적 관리",
-        "옵저버 패턴을 이용한 컴포넌트 소켓 메시지 분배",
-        "최적화된 데이터 관리를 위한 커스텀 캐싱 시스템",
-        "JWT 토큰 기반 인증 시스템",
-        "Storybook 을 활용한 컴포넌트 기반 프로젝트",
-        "PWA 를 활용한 모바일뷰 적응",
-        "Presigned url 을 활용한 이미지 업로드를 통한 사용성 증진",
-        "뷰포트를 고려한 무한스크롤 기능",
+        "학생이 의견을 제시하는 말해요 채팅 (1 대 1 채팅)",
+        "학생회가 제시한 안건에 학생들이 의견을 제시하는 답해요 채팅 (1 대 N 채팅)",
+        "학생 본인이 참여한 채팅방, 알림을 확인할수 있는 내 의견 페이지",
+        "학생회가 다양한 통계를 확인 할 수 있는 통계 페이지 ",
       ],
       challenges: [
         {
-          title: "웹소켓 관리",
+          title: "전역적 웹소켓 관리",
           description:
-            "Zustand를 사용하여 전역 소켓 관리를 구현하고, 로그인 시 자동 연결 및 채팅방별 구독 관리를 처리했습니다.",
+            "Zustand를 사용하여 전역적으로 소켓 인스턴스를 관리하고, 로그인 시 자동 연결 될 수 있도록 구현했습니다 \n옵저버 패턴을 통해 컴포넌트별 소켓에 대한 구독을 처리하였습니다",
         },
         {
-          title: "데이터 최적화",
+          title: "비동기 데이터 관리",
           description:
-            "React Query에서 영감을 받아 서버 상태와 실시간 업데이트를 효율적으로 관리하는 커스텀 캐싱 시스템을 구축했습니다.",
+            "React Query (tanstack query) 에서 영감을 받아 서버 상태와 실시간 업데이트를 효율적으로 관리하는 커스텀 캐싱 시스템을 구축했습니다",
+        },
+        {
+          title: "유저 사용성 증진",
+          description:
+            "AWS S3 - Presigned url 방식을 통해 이미지 업로드 속도를 향상시키고,\n모바일 - 웹 호환성 향상을 위해 PWA, 키보드 등장시 뷰포트 조절등 다양한 고민과 도전을 진행하였습니다",
+        },
+        {
+          title: "에러 핸들링",
+          description:
+            "context API 를 활용하여 전역적으로 API 요청에 관한 에러를 처리할수 있도록 구현했으며 \n에러를 catch 한 후에 유저로 하여금 toast 를 통해 에러메시지를 보이고 이후 적절한 핸들링 로직을 통해 처리했습니다",
         },
       ],
     },
-    image: "/onu-poster.png?height=300&width=500",
+    image: "/onu/onu-poster.png?height=300&width=500",
     technologies: [
       "React",
       "TypeScript",
@@ -116,13 +128,18 @@ export const projects = [
       "styled-components",
       "Vite",
       "Storybook",
+      "Framer-motion",
     ],
     demoUrl: "https://onu-univ.site/",
+    adminDemoUrl: "https://admin.onu-univ.site/",
     sourceUrl: "https://github.com/softeer5th/Team7-BungeoBbang",
     screenshots: [
-      "/placeholder.svg?height=200&width=350",
-      "/placeholder.svg?height=200&width=350",
-      "/placeholder.svg?height=200&width=350",
+      "/onu/student-opinion-entry.png?height=200&width=350",
+      "/onu/student-my.png?height=200&width=350",
+      "/onu/category.png?height=200&width=350",
+      "/onu/onu-student-opinion.png?height=200&width=350",
+      "/onu/student-agenda-entry.png?height=200&width=350",
+      "/onu/student-agenda-chatpage.png?height=200&width=350",
     ],
   },
   {
@@ -158,16 +175,14 @@ export const projects = [
     ko: {
       title: "FLEX - AI 헬스 트레이너",
       description: "AI를 활용한 맞춤형 식단 및 운동 추천 헬스 애플리케이션",
-      completedDate: "2023년 10월",
+      completedDate: "2024년 7월 ~ 2024년 12월",
       overview:
-        "FLEX는 사용자의 선호도와 신체 조건을 분석하여 맞춤형 식단과 운동 루틴을 제공하는 AI 헬스 트레이너 애플리케이션입니다. 음식 인식과 추천 시스템을 위해 고급 AI 모델을 사용합니다.",
+        "FLEX는 사용자의 선호도와 신체 조건을 분석하여 맞춤형 식단과 운동 루틴을 제공하는 AI 헬스 트레이너 애플리케이션입니다. 음식 추천 시스템을 위해 AI 모델을 사용하고 추천된 음식과 사용자 신체정보를 기반으로 자체 알고리즘을 통해 운동을 추천합니다.",
       features: [
-        "냉장고 사진을 통한 AI 식재료 인식",
-        "개인 맞춤형 식단 추천",
-        "목표 기반 맞춤 운동 루틴",
+        "개인 맞춤 (선호, 알러지)형 식단 추천",
+        "목표 및 사용자 기반 맞춤 운동 루틴",
         "진행 상황 추적 대시보드",
-        "실시간 영양 분석",
-        "크로스 플랫폼 호환성",
+        "추천된 혹은 이미 섭취한 식단에 대한 영양 분석 및 활용",
       ],
       challenges: [
         {
@@ -182,10 +197,18 @@ export const projects = [
         },
       ],
     },
-    image: "/placeholder.svg?height=300&width=500",
-    technologies: ["React Native", "TypeScript", "AI/ML", "Node.js", "Docker"],
+    image: "/flex/flex-poster.png?height=300&width=500",
+    technologies: [
+      "React Native",
+      "TypeScript",
+      "AI/ML",
+      "Zustand",
+      "Docker",
+      "Framer motion",
+      "linear gradient",
+    ],
     demoUrl: "#",
-    sourceUrl: "#",
+    sourceUrl: "https://github.com/Team-Losers/2024_Fall_Capstone",
     screenshots: [
       "/placeholder.svg?height=200&width=350",
       "/placeholder.svg?height=200&width=350",
@@ -223,11 +246,11 @@ export const projects = [
       ],
     },
     ko: {
-      title: "언어치료 보조 애플리케이션",
+      title: "떠들자 - 언어치료 보조 애플리케이션",
       description: "언어발달장애 아동을 위한 AI 기반 치료 보조 애플리케이션",
-      completedDate: "2023년 9월",
+      completedDate: "2024년 7월 ~ 2024년 12월",
       overview:
-        "언어발달장애 아동의 치료를 돕기 위해 설계된 혁신적인 애플리케이션입니다. 새싹 해커톤에서 우수상을 수상했으며, SPARK 프로그램의 지원을 받아 추가 개발을 진행했습니다.",
+        "언어발달장애 아동의 치료를 돕기 위해 설계된 애플리케이션입니다. 새싹 해커톤에서 우수상을 수상했으며, SPARK 프로그램의 지원을 받아 추가 개발을 진행했습니다.",
       features: [
         "AI 기반 음성 분석",
         "부모 음성 복제 TTS",
@@ -249,13 +272,15 @@ export const projects = [
         },
       ],
     },
-    image: "/placeholder.svg?height=300&width=500",
+    image: "/archi/cover.png?height=300&width=500",
     technologies: [
       "React Native",
-      "Next.js",
       "TypeScript",
       "WebSocket",
-      "TTS API",
+      "Google TTS API",
+      "NestJS",
+      "Docker",
+      "AI/ML",
     ],
     demoUrl: "#",
     sourceUrl: "#",
