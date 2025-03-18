@@ -37,9 +37,10 @@ export default function StudyPage({
     error: studyError,
   } = usePortfolioData<(typeof studyItems)[0]>("study", studyId);
 
-  // API로 프로젝트 데이터 가져오기 (관련 프로젝트를 찾기 위해 필요한 경우에만)
-  const { data: projectsData, loading: projectsLoading } =
-    usePortfolioData<typeof projects>("projects");
+  // API로 프로젝트 데이터 가져오기 (관련 프로젝트를 찾기 위해 필요한 경우에만) - 요약 데이터만 가져오기
+  const { data: projectsData, loading: projectsLoading } = usePortfolioData<
+    typeof projects
+  >("projects", undefined, true); // summary=true 파라미터 추가
 
   useEffect(() => {
     // API에서 데이터 로드가 완료되면

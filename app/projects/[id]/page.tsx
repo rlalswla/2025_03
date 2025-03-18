@@ -45,8 +45,9 @@ export default function ProjectPage({
   } = usePortfolioData<(typeof projects)[0]>("projects", projectId);
 
   // 모든 스터디 항목 가져오기 (관련 스터디 찾기 위해)
-  const { data: studiesData, loading: studiesLoading } =
-    usePortfolioData<typeof studyItems>("study");
+  const { data: studiesData, loading: studiesLoading } = usePortfolioData<
+    typeof studyItems
+  >("study", undefined, true);
 
   useEffect(() => {
     // API에서 데이터 로드가 완료되면
