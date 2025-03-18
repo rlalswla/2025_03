@@ -6,12 +6,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Calendar, Tag, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { studyItems, projects } from "@/data";
+import { studyItems, projects } from "@/data"; // 타입 정의를 위해서만 import
 import { useLanguage } from "@/contexts/language-context";
 import { translations } from "@/data/translations";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/sections/footer";
 import { use } from "react";
+import { usePortfolioData } from "@/hooks/usePortfolioData";
 
 export default function StudyPage({
   params,
@@ -29,33 +30,62 @@ export default function StudyPage({
   const resolvedParams = use(params);
   const studyId = Number.parseInt(resolvedParams.id);
 
+  // API로 스터디 데이터 가져오기
+  const {
+    data: studyData,
+    loading: studyLoading,
+    error: studyError,
+  } = usePortfolioData<(typeof studyItems)[0]>("study", studyId);
+
+  // API로 프로젝트 데이터 가져오기 (관련 프로젝트를 찾기 위해 필요한 경우에만)
+  const { data: projectsData, loading: projectsLoading } =
+    usePortfolioData<typeof projects>("projects");
+
   useEffect(() => {
-    // Find the study item with the matching ID
-    const foundStudy = studyItems.find((s) => s.id === studyId);
+    // API에서 데이터 로드가 완료되면
+    if (!studyLoading && !projectsLoading && studyData) {
+      setStudy(studyData);
 
-    if (foundStudy) {
-      setStudy(foundStudy);
+      // 관련 프로젝트 찾기
+      if (projectsData) {
+        // Special case for Advanced Algorithm Study (id: 1) - show ON:U project
+        if (studyData.id === 1) {
+          const onuProject = projectsData.find((project) => project.id === 1);
+          if (onuProject) {
+            setRelatedProjects([onuProject]);
+          }
+        } else {
+          // 스터디 태그 기반으로 관련 프로젝트 찾기
+          const studyTags = studyData.tags.map((tag) => tag.toLowerCase());
+          const related = projectsData
+            .filter((project) =>
+              project.technologies.some((tech) =>
+                studyTags.includes(tech.toLowerCase())
+              )
+            )
+            .slice(0, 2);
 
-      // Find related projects based on study tags
-      const studyTags = foundStudy.tags.map((tag) => tag.toLowerCase());
-      const related = projects
-        .filter((project) =>
-          project.technologies.some((tech) =>
-            studyTags.includes(tech.toLowerCase())
-          )
-        )
-        .slice(0, 2);
+          setRelatedProjects(related);
+        }
+      }
 
-      setRelatedProjects(related);
-    } else {
-      // Redirect to study section if study not found
+      setLoading(false);
+    } else if (!studyLoading && studyError) {
+      // 스터디를 찾을 수 없는 경우
       router.push("/#study");
+      setLoading(false);
     }
+  }, [
+    studyData,
+    projectsData,
+    studyLoading,
+    projectsLoading,
+    studyError,
+    router,
+  ]);
 
-    setLoading(false);
-  }, [studyId, router]);
-
-  if (loading) {
+  // 기존 로딩 UI 유지
+  if (loading || studyLoading || projectsLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
@@ -67,17 +97,15 @@ export default function StudyPage({
     return null;
   }
 
-  // Get localized study data based on current language
+  // 기존 코드와 동일하게 유지
   const localizedStudy = language === "en" ? study.en : study.ko;
-
-  // Ensure we have valid URLs for links
   const studyUrl = study.url || "#";
 
   return (
     <>
       <Navbar />
       <main className="pt-20 pb-16">
-        {/* Header */}
+        {/* Header - 기존 디자인 유지 */}
         <div className="bg-muted/30 py-12">
           <div className="container max-w-4xl mx-auto px-4">
             <Button
@@ -114,7 +142,7 @@ export default function StudyPage({
           </div>
         </div>
 
-        {/* Content */}
+        {/* Content - 기존 디자인 유지 */}
         <div className="container max-w-4xl mx-auto px-4 py-12">
           <div className="grid gap-8 md:grid-cols-3">
             <div className="md:col-span-2 space-y-8">
@@ -199,117 +227,50 @@ export default function StudyPage({
                 </div>
               </div>
 
+              {/* 관련 프로젝트 섹션 - API에서 가져온 데이터 사용 */}
               <div className="p-6 rounded-lg border bg-card">
                 <h3 className="text-xl font-semibold mb-4">Related Projects</h3>
                 <div className="space-y-4">
-                  {(() => {
-                    // Special case for Advanced Algorithm Study (id: 1) - show ON:U project
-                    if (study.id === 1) {
-                      const onuProject = projects.find(
-                        (project) => project.id === 1
-                      ); // ON:U project has id 1
-                      if (onuProject) {
-                        return (
-                          <div
-                            key={onuProject.id}
-                            className="group cursor-pointer"
-                            onClick={() =>
-                              router.push(`/projects/${onuProject.id}`)
-                            }
-                          >
-                            <div className="relative h-24 mb-2 overflow-hidden rounded-md">
-                              <Image
-                                src={
-                                  onuProject.image ||
-                                  "/placeholder.svg?height=100&width=200"
-                                }
-                                alt={
-                                  language === "en"
-                                    ? onuProject.en.title
-                                    : onuProject.ko.title
-                                }
-                                fill
-                                className="object-cover transition-transform group-hover:scale-105"
-                              />
-                            </div>
-                            <h4 className="font-medium group-hover:text-primary transition-colors">
-                              {language === "en"
-                                ? onuProject.en.title
-                                : onuProject.ko.title}
-                            </h4>
-                            <div className="flex flex-wrap gap-1 mt-2">
-                              {onuProject.technologies
-                                .slice(0, 3)
-                                .map((tech: string, index: number) => (
-                                  <span
-                                    key={index}
-                                    className="px-2 py-0.5 text-xs rounded-full bg-primary/10 border border-primary/20"
-                                  >
-                                    {tech}
-                                  </span>
-                                ))}
-                            </div>
-                          </div>
-                        );
-                      }
-                    }
-
-                    // For other studies, show related projects based on matching tags
-                    return projects
-                      .filter((project) => {
-                        // If this is not the Advanced Algorithm Study, use normal matching
-                        if (study.id !== 1) {
-                          const studyTags = study.tags.map((tag: string) =>
-                            tag.toLowerCase()
-                          );
-                          return project.technologies.some((tech) =>
-                            studyTags.includes(tech.toLowerCase())
-                          );
-                        }
-                        return false;
-                      })
-                      .slice(0, 2)
-                      .map((project) => (
-                        <div
-                          key={project.id}
-                          className="group cursor-pointer"
-                          onClick={() => router.push(`/projects/${project.id}`)}
-                        >
-                          <div className="relative h-24 mb-2 overflow-hidden rounded-md">
-                            <Image
-                              src={
-                                project.image ||
-                                "/placeholder.svg?height=100&width=200"
-                              }
-                              alt={
-                                language === "en"
-                                  ? project.en.title
-                                  : project.ko.title
-                              }
-                              fill
-                              className="object-cover transition-transform group-hover:scale-105"
-                            />
-                          </div>
-                          <h4 className="font-medium group-hover:text-primary transition-colors">
-                            {language === "en"
+                  {relatedProjects.map((project) => (
+                    <div
+                      key={project.id}
+                      className="group cursor-pointer"
+                      onClick={() => router.push(`/projects/${project.id}`)}
+                    >
+                      <div className="relative h-24 mb-2 overflow-hidden rounded-md">
+                        <Image
+                          src={
+                            project.image ||
+                            "/placeholder.svg?height=100&width=200"
+                          }
+                          alt={
+                            language === "en"
                               ? project.en.title
-                              : project.ko.title}
-                          </h4>
-                          <div className="flex flex-wrap gap-1 mt-2">
-                            {project.technologies
-                              .slice(0, 3)
-                              .map((tech: string, index: number) => (
-                                <span
-                                  key={index}
-                                  className="px-2 py-0.5 text-xs rounded-full bg-primary/10 border border-primary/20"
-                                >
-                                  {tech}
-                                </span>
-                              ))}
-                          </div>
-                        </div>
-                      ));
-                  })()}
+                              : project.ko.title
+                          }
+                          fill
+                          className="object-cover transition-transform group-hover:scale-105"
+                        />
+                      </div>
+                      <h4 className="font-medium group-hover:text-primary transition-colors">
+                        {language === "en"
+                          ? project.en.title
+                          : project.ko.title}
+                      </h4>
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {project.technologies
+                          .slice(0, 3)
+                          .map((tech: string, index: number) => (
+                            <span
+                              key={index}
+                              className="px-2 py-0.5 text-xs rounded-full bg-primary/10 border border-primary/20"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

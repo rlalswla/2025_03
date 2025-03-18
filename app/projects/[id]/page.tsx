@@ -13,12 +13,13 @@ import {
   BookOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { projects, studyItems } from "@/data";
+import { projects, studyItems } from "@/data"; // 타입 정의를 위해서만 import
 import { useLanguage } from "@/contexts/language-context";
 import { translations } from "@/data/translations";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/sections/footer";
 import { use } from "react";
+import { usePortfolioData } from "@/hooks/usePortfolioData";
 
 export default function ProjectPage({
   params,
@@ -36,35 +37,56 @@ export default function ProjectPage({
   const resolvedParams = use(params);
   const projectId = Number.parseInt(resolvedParams.id);
 
+  // API로 프로젝트 데이터 가져오기
+  const {
+    data: projectData,
+    loading: projectLoading,
+    error: projectError,
+  } = usePortfolioData<(typeof projects)[0]>("projects", projectId);
+
+  // 모든 스터디 항목 가져오기 (관련 스터디 찾기 위해)
+  const { data: studiesData, loading: studiesLoading } =
+    usePortfolioData<typeof studyItems>("study");
+
   useEffect(() => {
-    // Find the project with the matching ID
-    const foundProject = projects.find((p) => p.id === projectId);
+    // API에서 데이터 로드가 완료되면
+    if (!projectLoading && !studiesLoading && projectData) {
+      setProject(projectData);
 
-    if (foundProject) {
-      setProject(foundProject);
-
-      // Find related studies based on technologies used in the project
-      const projectTechnologies = foundProject.technologies.map((tech) =>
-        tech.toLowerCase()
-      );
-      const related = studyItems
-        .filter((study) =>
-          study.tags.some((tag) =>
-            projectTechnologies.includes(tag.toLowerCase())
+      // 관련 스터디 찾기
+      if (studiesData) {
+        // 프로젝트 기술 스택 기반으로 관련 스터디 찾기
+        const projectTechnologies = projectData.technologies.map((tech) =>
+          tech.toLowerCase()
+        );
+        const related = studiesData
+          .filter((study) =>
+            study.tags.some((tag) =>
+              projectTechnologies.includes(tag.toLowerCase())
+            )
           )
-        )
-        .slice(0, 2);
+          .slice(0, 2);
 
-      setRelatedStudies(related);
-    } else {
-      // Redirect to projects section if project not found
+        setRelatedStudies(related);
+      }
+
+      setLoading(false);
+    } else if (!projectLoading && projectError) {
+      // 프로젝트를 찾을 수 없는 경우
       router.push("/#projects");
+      setLoading(false);
     }
+  }, [
+    projectData,
+    studiesData,
+    projectLoading,
+    studiesLoading,
+    projectError,
+    router,
+  ]);
 
-    setLoading(false);
-  }, [projectId, router]);
-
-  if (loading) {
+  // 기존 로딩 UI 유지
+  if (loading || projectLoading || studiesLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
@@ -76,10 +98,8 @@ export default function ProjectPage({
     return null;
   }
 
-  // Get localized project data based on current language
+  // 기존 코드와 동일하게 유지
   const localizedProject = language === "en" ? project.en : project.ko;
-
-  // Ensure we have valid URLs for links
   const demoUrl = project.demoUrl || "#";
   const adminDemoUrl = project.adminDemoUrl || null;
   const sourceUrl = project.sourceUrl || "#";
@@ -88,7 +108,7 @@ export default function ProjectPage({
     <>
       <Navbar />
       <main className="pt-20 pb-16">
-        {/* Hero Section */}
+        {/* Hero Section - 기존 코드 유지 */}
         <div className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <Image
@@ -115,7 +135,7 @@ export default function ProjectPage({
           </div>
         </div>
 
-        {/* Content */}
+        {/* Content - 기존 코드 유지 */}
         <div className="container max-w-4xl mx-auto px-4 py-12">
           <Button
             variant="ghost"
@@ -275,8 +295,8 @@ export default function ProjectPage({
                 <div className="space-y-4">
                   {(() => {
                     // Special case for ON:U project (id: 1) - show Advanced Algorithm Study
-                    if (project.id === 1) {
-                      const algorithmStudy = studyItems.find(
+                    if (project.id === 1 && studiesData) {
+                      const algorithmStudy = studiesData.find(
                         (study) => study.id === 1
                       ); // Advanced Algorithm Study has id 1
                       if (algorithmStudy) {
@@ -318,9 +338,9 @@ export default function ProjectPage({
                       }
                     }
 
-                    // For other projects, show related studies based on matching technologies
-                    return studyItems
-                      .filter((study) => {
+                    // API에서 가져온 관련 스터디 표시
+                    return studiesData
+                      ?.filter((study) => {
                         // If this is not the ON:U project, use normal matching
                         if (project.id !== 1) {
                           const projectTechnologies = project.technologies.map(

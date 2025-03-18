@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 // Personal Information
 export const personalInfo = {
