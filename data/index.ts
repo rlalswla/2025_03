@@ -130,8 +130,8 @@ export const projects = [
       "Storybook",
       "Framer-motion",
     ],
-    demoUrl: "https://onu-univ.site/",
-    adminDemoUrl: "https://admin.onu-univ.site/",
+    demoUrl: "https://onu-univ.site",
+    adminDemoUrl: "https://admin.onu-univ.site",
     sourceUrl: "https://github.com/softeer5th/Team7-BungeoBbang",
     screenshots: [
       "/onu/student-opinion-entry.png?height=200&width=350",
@@ -378,9 +378,9 @@ export const studyItems = [
       title: "Advanced Algorithm Study",
       description:
         "Intensive study of advanced algorithms and data structures through Samsung's algorithm education program",
-      publishedDate: "August 2023",
+      publishedDate: "July 2023 ~ August 2023",
       content: `
-        Participated in Samsung's intensive algorithm education program, focusing on advanced data structures and algorithms.
+        Participated in Samsung Electronics DX part intensive algorithm education program with cpp, focusing on advanced data structures and algorithms.
         The program involved daily problem-solving sessions with 2-3 high-difficulty problems and theoretical lectures.
         
         Key areas covered included complex tree structures, graph algorithms, and optimization techniques.
@@ -390,11 +390,16 @@ export const studyItems = [
         which has been invaluable in tackling complex development challenges.
       `,
       keyTakeaways: [
-        "Mastered advanced data structures and algorithms",
-        "Improved problem-solving approach and efficiency",
-        "Learned optimization techniques for complex problems",
-        "Developed systematic debugging strategies",
-        "Enhanced analytical thinking skills",
+        "STL (Standard Template Library)",
+        "Tree Data Structures",
+        "Heap",
+        "Union Find Algorithm",
+        "Binary Search",
+        "Graph Algorithms",
+        "Dijkstra Algorithm",
+        "Hash Tables",
+        "Trie Data Structure",
+        "Segment Tree",
       ],
       codeExample: `
 // Example of implementing Union Find algorithm
@@ -435,9 +440,10 @@ class UnionFind {
       title: "고급 알고리즘 학습",
       description:
         "삼성 알고리즘 교육 프로그램을 통한 고급 알고리즘과 자료구조 집중 학습",
-      publishedDate: "2023년 8월",
+      publishedDate: "2023년 7월 ~ 2023년 8월",
       content: `
-        삼성의 집중 알고리즘 교육 프로그램에 참여하여 고급 자료구조와 알고리즘을 학습했습니다.
+        삼성전자 DX 부문의 집중 알고리즘 교육 프로그램에 참여하여 C++ 언어를 통한 고급 자료구조와 알고리즘을 학습했습니다.
+
         매일 2-3개의 고난도 문제 해결 세션과 이론 강의로 구성된 프로그램이었습니다.
         
         복잡한 트리 구조, 그래프 알고리즘, 최적화 기법 등을 중점적으로 다뤘습니다.
@@ -447,11 +453,16 @@ class UnionFind {
         이는 복잡한 개발 과제를 해결하는 데 큰 도움이 되었습니다.
       `,
       keyTakeaways: [
-        "고급 자료구조와 알고리즘 마스터",
-        "문제 해결 접근법과 효율성 향상",
-        "복잡한 문제에 대한 최적화 기법 학습",
-        "체계적인 디버깅 전략 개발",
-        "분석적 사고력 향상",
+        "STL (Standard Template Library)",
+        "Tree Data Structures",
+        "Heap",
+        "Union Find Algorithm",
+        "Binary Search",
+        "Graph Algorithms",
+        "Dijkstra Algorithm",
+        "Hash Tables",
+        "Trie Data Structure",
+        "Segment Tree",
       ],
       codeExample: `
 // Union Find 알고리즘 구현 예시
@@ -494,10 +505,10 @@ class UnionFind {
   {
     id: 2,
     en: {
-      title: "Operating System Implementation",
+      title: "xv6 Operating System Implementation",
       description:
         "Deep dive into operating system concepts through xv6 implementation",
-      publishedDate: "December 2023",
+      publishedDate: "March 2024 ~ June 2024",
       content: `
         Implemented various system features based on xv6, gaining deep understanding of core operating system concepts.
         The project focused on CPU scheduling, virtual memory management, and page replacement algorithms.
@@ -548,9 +559,9 @@ struct proc* pick_next_task(void) {
         "This deep understanding of operating systems has been invaluable in optimizing application performance and resource utilization in various projects, particularly in managing memory usage in the AI health trainer application.",
     },
     ko: {
-      title: "운영체제 구현",
+      title: "xv6 운영체제 구현",
       description: "xv6 구현을 통한 운영체제 개념 심화 학습",
-      publishedDate: "2023년 12월",
+      publishedDate: "2024년 3월 ~ 2024년 6월",
       content: `
         xv6를 기반으로 다양한 시스템 기능을 구현하며 운영체제의 핵심 개념에 대한 깊은 이해를 얻었습니다.
         CPU 스케줄링, 가상 메모리 관리, 페이지 교체 알고리즘에 중점을 두고 진행했습니다.

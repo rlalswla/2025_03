@@ -27,7 +27,7 @@ export const translations = {
     },
     // Projects section
     projects: {
-      title: "My Projects",
+      title: "Team Projects",
       viewDemo: "View Demo",
       sourceCode: "Source Code",
       backToProjects: "Back to Main page",
@@ -54,7 +54,7 @@ export const translations = {
     // Navigation
     nav: {
       home: "홈",
-      projects: "프로젝트",
+      projects: "팀 프로젝트",
       study: "학습",
       contact: "연락처",
     },

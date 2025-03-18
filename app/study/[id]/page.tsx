@@ -166,7 +166,9 @@ export default function StudyPage({
                   <li className="flex items-start gap-2">
                     <Calendar className="w-5 h-5 text-primary mt-0.5" />
                     <div>
-                      <span className="block text-sm font-medium">Date</span>
+                      <span className="block text-sm font-medium">
+                        Duration
+                      </span>
                       <span className="text-sm text-muted-foreground">
                         {localizedStudy.publishedDate}
                       </span>
