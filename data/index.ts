@@ -290,6 +290,84 @@ export const projects = [
       "/placeholder.svg?height=200&width=350",
     ],
   },
+  {
+    id: 4,
+    en: {
+      title: "SKKU Recruit - Project Recruitment Platform",
+      description:
+        "Mobile web application for project team formation and recruitment among university students",
+      completedDate: "March 2024 ~ June 2024",
+      overview:
+        "SKKU Recruit is a platform designed to help university students find project teammates and evaluate team members after project completion. The system features user authentication, project posting, team matching, and post-project evaluation functionality.",
+      features: [
+        "JWT authentication for secure user login and registration",
+        "Project posts browsing page with search and filtering features",
+        "Project posting functionality for team member recruitment",
+        "Project detail view page",
+        "Project status management (recruiting, completed) with dynamic UI changes based on status",
+        "Team member evaluation system",
+      ],
+      challenges: [
+        {
+          title: "Efficient Data Storage",
+          description:
+            "Utilized bitmask techniques for efficient storage and retrieval of technology stacks, significantly reducing database query complexity and improving performance.",
+        },
+        {
+          title: "State Management",
+          description:
+            "Applied Zustand for global state management to track team and member information across different components, providing a seamless experience during the team evaluation process.",
+        },
+      ],
+    },
+    ko: {
+      title: "SKKU Recruit - 프로젝트 팀원 모집 플랫폼",
+      description:
+        "대학생들을 위한 프로젝트 팀원 모집 및 평가 모바일 웹 애플리케이션",
+      completedDate: "2024년 3월 ~ 2024년 6월",
+      overview:
+        "SKKU Recruit는 대학생들이 프로젝트 팀원을 찾고 프로젝트 완료 후 팀원을 평가할 수 있는 플랫폼입니다. 사용자 인증, 프로젝트 게시, 팀 매칭, 프로젝트 후 평가 기능을 제공합니다.",
+      features: [
+        "JWT를 활용한 안전한 로그인 및 회원가입 시스템",
+        "게시글 조회 페이지 & 검색 및 필터링",
+        "팀원 구인을 위한 게시물 작성 기능",
+        "프로젝트 상세 조회 페이지",
+        "프로젝트 상태 변경 (구인중, 종료) 및 상태에 따라 동적으로 페이지 UI 변경",
+        "팀원 평가 시스템",
+      ],
+      challenges: [
+        {
+          title: "효율적인 데이터 저장",
+          description:
+            "기술 스택 저장 및 조회를 위해 비트마스킹 기법을 활용하여 데이터베이스 쿼리 복잡성을 크게 줄이고 성능을 향상시켰습니다.",
+        },
+        {
+          title: "상태 관리",
+          description:
+            "팀 및 멤버 정보를 여러 컴포넌트 간에 추적하기 위해 Zustand를 활용한 전역 상태 관리를 적용하여 팀 평가 프로세스 동안 원활한 경험을 제공했습니다.",
+        },
+      ],
+    },
+    image: "/skku-recruit/poster.png?height=300&width=500",
+    technologies: [
+      "React",
+      "CRA",
+      "JavaScript",
+      "Zustand",
+      "Styled Component",
+      "Axios",
+      "Express",
+    ],
+    demoUrl: "-1",
+    sourceUrl: "https://github.com/rlalswla/swe_Front",
+    screenshots: [
+      "/skku-recruit/image.png?height=200&width=350",
+      "/skku-recruit/image copy.png?height=200&width=350",
+      "/skku-recruit/image copy 3.png?height=200&width=350",
+      "/skku-recruit/image copy 2.png?height=200&width=350",
+      "/skku-recruit/image copy 5.png?height=200&width=350",
+    ],
+  },
 ];
 
 // Study Items
