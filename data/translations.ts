@@ -9,7 +9,7 @@ export const translations = {
     },
     // Hero section
     hero: {
-      bio: "Building beautiful, responsive, and user-friendly web applications with modern technologies.",
+      bio: "Building user-friendly web applications with technologies.",
       viewProjects: "View Projects",
       contactMe: "Contact Me",
     },
@@ -60,7 +60,7 @@ export const translations = {
     },
     // Hero section
     hero: {
-      bio: "모던 기술을 활용하여 아름답고, 반응형이며, 사용자 친화적인 웹 애플리케이션을 구축합니다.",
+      bio: "UI/UX 를 중요시 하는 웹 프론트엔드 개발자 입니다.",
       viewProjects: "프로젝트 보기",
       contactMe: "연락하기",
     },
@@ -78,7 +78,7 @@ export const translations = {
     },
     // Projects section
     projects: {
-      title: "프로젝트",
+      title: "팀 프로젝트",
       viewDemo: "데모 보기",
       sourceCode: "소스 코드",
       backToProjects: "홈으로 돌아가기",
