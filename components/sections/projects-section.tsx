@@ -124,20 +124,19 @@ export function ProjectsSection() {
             <div
               key={project.id}
               onClick={(e) => handleCardClick(project.id, e)}
-              className="overflow-hidden transition-all duration-500 rounded-lg group hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-2 bg-background/70 backdrop-blur-md border border-border cursor-pointer flex flex-col h-full"
+              className="overflow-hidden transition-all duration-500 rounded-lg hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-2 bg-background/70 backdrop-blur-md border border-border cursor-pointer flex flex-col h-full"
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              {/* 나머지 JSX 코드는 그대로 유지 */}
               <div className="relative aspect-video overflow-hidden">
                 <img
                   src={project.image || "/placeholder.svg"}
                   alt={language === "en" ? project.en.title : project.ko.title}
-                  className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+                  className="object-cover w-full h-full transition-transform duration-700 hover:scale-110"
                 />
-                <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-primary/20 backdrop-blur-sm group-hover:opacity-100"></div>
+                <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-primary/20 backdrop-blur-sm hover:opacity-100"></div>
               </div>
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="mb-2 text-xl font-semibold group-hover:text-primary transition-colors duration-300">
+                <h3 className="mb-2 text-xl font-semibold hover:text-primary transition-colors duration-300">
                   {language === "en" ? project.en.title : project.ko.title}
                 </h3>
                 <p className="mb-4 text-muted-foreground">
