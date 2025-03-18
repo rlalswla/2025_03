@@ -9,7 +9,7 @@ export const translations = {
     },
     // Hero section
     hero: {
-      bio: "Building user-friendly web applications with technologies.",
+      bio: "Building user-friendly web applications with Front-end technologies.",
       viewProjects: "View Projects",
       contactMe: "Contact Me",
     },
