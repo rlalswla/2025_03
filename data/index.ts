@@ -151,7 +151,7 @@ export const projects = [
         "AI-powered health application providing personalized diet and workout recommendations",
       completedDate: "October 2023",
       overview:
-        "FLEX is an AI health trainer application that analyzes users' preferences and physical conditions to provide personalized diet and workout routines. The app uses advanced AI models for food recognition and recommendation systems.",
+        "FLEX is an AI health trainer application that analyzes users' preferences and physical conditions to provide personalized diet and workout routines. The app uses advanced AI models for food recognition and recommendation systems. ",
       features: [
         "AI-powered food recognition from refrigerator photos",
         "Personalized diet recommendations",
@@ -178,7 +178,7 @@ export const projects = [
       description: "AI를 활용한 맞춤형 식단 및 운동 추천 헬스 애플리케이션",
       completedDate: "2024년 7월 ~ 2024년 12월",
       overview:
-        "FLEX는 사용자의 선호도와 신체 조건을 분석하여 맞춤형 식단과 운동 루틴을 제공하는 AI 헬스 트레이너 애플리케이션입니다. 음식 추천 시스템을 위해 AI 모델을 사용하고 추천된 음식과 사용자 신체정보를 기반으로 자체 알고리즘을 통해 운동을 추천합니다.",
+        "FLEX는 사용자의 선호도와 신체 조건을 분석하여 맞춤형 식단과 운동 루틴을 제공하는 AI 헬스 트레이너 애플리케이션입니다. 음식 추천 시스템을 위해 AI 모델을 사용하고 추천된 음식과 사용자 신체정보를 기반으로 자체 알고리즘을 통해 운동을 추천합니다. ",
       features: [
         "개인 맞춤 (선호, 알러지)형 식단 추천",
         "목표 및 사용자 기반 맞춤 운동 루틴",
@@ -208,13 +208,10 @@ export const projects = [
       "Framer motion",
       "linear gradient",
     ],
-    demoUrl: "-1",
+    demoUrl:
+      "https://ljhpopol.notion.site/FLEX-f1bd18229be44e86976e2269e7e6108a?pvs=4",
     sourceUrl: "https://github.com/Team-Losers/2024_Fall_Capstone",
-    screenshots: [
-      "/placeholder.svg?height=200&width=350",
-      "/placeholder.svg?height=200&width=350",
-      "/placeholder.svg?height=200&width=350",
-    ],
+    screenshots: [],
   },
   {
     id: 3,
@@ -286,9 +283,10 @@ export const projects = [
     demoUrl: "-1",
     sourceUrl: "https://github.com/racheliee/ai-LangDevAssist",
     screenshots: [
-      "/placeholder.svg?height=200&width=350",
-      "/placeholder.svg?height=200&width=350",
-      "/placeholder.svg?height=200&width=350",
+      "/archi/image.png?height=200&width=350",
+      "/archi/image copy.png?height=200&width=350",
+      "/archi/image copy 3.png?height=200&width=350",
+      "/archi/image copy 4.png?height=200&width=350",
     ],
   },
   {
