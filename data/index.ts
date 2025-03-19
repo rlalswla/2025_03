@@ -369,6 +369,105 @@ export const projects = [
       "/skku-recruit/image copy 5.png?height=200&width=350",
     ],
   },
+
+  {
+    id: 5,
+    en: {
+      title: "Personal Portfolio Website",
+      description:
+        "A responsive developer portfolio showcasing projects and technical studies with interactive components",
+      completedDate: "March 2025",
+      overview:
+        "Built a modern, responsive portfolio website using Next.js, TypeScript, and Tailwind CSS to showcase my development projects and technical skills. The site features dynamic content loading, smooth animations, dark/light mode theming, and optimized performance metrics.",
+      features: [
+        "Responsive design with mobile-first approach using Tailwind CSS",
+        "Smooth page transitions and micro-interactions powered by Framer Motion",
+        "Server-side rendering and static generation for optimal performance",
+        "Dark/light mode with system preference detection and user toggle",
+        "Dynamic data fetching with custom caching system",
+        "Category-based filtering for technical studies",
+        "Optimized images and lazy loading for better performance",
+        "Accessible UI components built with Shadcn UI library",
+      ],
+      challenges: [
+        {
+          title: "Performance Optimization",
+          description:
+            "Achieved 98+ Lighthouse performance score by implementing image optimization, code splitting, efficient data fetching patterns, and careful component design to minimize unnecessary re-renders.",
+        },
+        {
+          title: "Custom Data Fetching",
+          description:
+            "Built a custom data fetching hook with in-memory caching to prevent redundant API calls while maintaining data consistency across components, similar to React Query but tailored specifically for portfolio data.",
+        },
+        {
+          title: "Animation System",
+          description:
+            "Developed a reusable animation system for page transitions and scroll-based animations that maintains smooth performance across different devices and doesn't interfere with accessibility features.",
+        },
+        {
+          title: "Responsive Design System",
+          description:
+            "Created a comprehensive responsive design system that maintains visual integrity across devices, from mobile phones to large desktop screens, without any layout shifts or usability issues.",
+        },
+      ],
+    },
+    ko: {
+      title: "포트폴리오 웹사이트",
+      description: "현재 페이지에 해당하는 포트폴리오",
+      completedDate: "2025년 3월",
+      overview:
+        "Next.js, TypeScript, Tailwind CSS를 활용하여 제 개발 프로젝트와 기술적 역량을 선보이는 현대적이고 반응형 포트폴리오 웹사이트를 구축했습니다. 이 사이트는 동적 콘텐츠 로딩, 부드러운 애니메이션, 다크/라이트 모드 테마, 최적화된 성능 지표를 특징으로 합니다.",
+      features: [
+        "Tailwind CSS를 사용한 모바일 우선 접근 방식의 반응형 디자인",
+        "Framer Motion을 활용한 부드러운 페이지 전환 및 마이크로 인터랙션",
+        "최적의 성능을 위한 서버사이드 렌더링 및 정적 생성",
+        "시스템 선호도 감지 및 사용자 토글 기능이 있는 다크/라이트 모드",
+        "커스텀 캐싱 시스템을 통한 동적 데이터 가져오기",
+        "기술 학습을 위한 카테고리 기반 필터링",
+        "성능 향상을 위한 이미지 최적화 및 지연 로딩",
+        "Shadcn UI 라이브러리로 구축된 접근성 높은 UI 컴포넌트",
+      ],
+      challenges: [
+        {
+          title: "성능 최적화",
+          description:
+            "이미지 최적화, 코드 분할, 효율적인 데이터 가져오기 패턴 및 불필요한 리렌더링을 최소화하는 세심한 컴포넌트 설계를 통해 98+ Lighthouse 성능 점수를 달성했습니다.",
+        },
+        {
+          title: "커스텀 데이터 가져오기",
+          description:
+            "React Query와 유사하지만 포트폴리오 데이터에 특화된 인메모리 캐싱을 갖춘 커스텀 데이터 가져오기 훅을 구축하여 중복 API 호출을 방지하면서 컴포넌트 간 데이터 일관성을 유지했습니다.",
+        },
+        {
+          title: "애니메이션 시스템",
+          description:
+            "다양한 디바이스에서 부드러운 성능을 유지하고 접근성 기능을 방해하지 않는 페이지 전환 및 스크롤 기반 애니메이션을 위한 재사용 가능한 애니메이션 시스템을 개발했습니다.",
+        },
+        {
+          title: "반응형 디자인 시스템",
+          description:
+            "모바일 폰부터 대형 데스크톱 화면까지 레이아웃 이동이나 사용성 문제 없이 시각적 무결성을 유지하는 포괄적인 반응형 디자인 시스템을 만들었습니다.",
+        },
+      ],
+    },
+    image: "/popol/poster.png?height=300&width=500",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "React",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Shadcn UI",
+      "API Routes",
+      "Server Components",
+      "Client Components",
+      "Memory Caching",
+    ],
+    demoUrl: "/",
+    sourceUrl: "https://github.com/rlalswla/rlalswla_popol",
+    screenshots: [],
+  },
 ];
 
 // Study Items
@@ -4184,6 +4283,192 @@ select(selector) {
       "Event-driven Programming",
     ],
     url: "#",
+  },
+  {
+    id: 14,
+    en: {
+      title: "Next.js App Router와 서버 컴포넌트",
+      description:
+        "Next.js의 App Router 아키텍처와 서버 컴포넌트를 활용한 현대적 웹 개발",
+      publishedDate: "February 2025",
+      content: `
+        포트폴리오 웹사이트를 개발하면서 Next.js의 App Router 아키텍처와 React 서버 컴포넌트(RSC)에 대한 깊은 이해를 얻었습니다.
+        
+        App Router는 기존의 Pages Router와 다르게 파일 시스템 기반의 라우팅을 제공하며, 계층적 레이아웃, 중첩 라우팅, 로딩 상태,
+        에러 핸들링 등의 기능을 내장하고 있습니다. 이를 통해 더 직관적이고 관리하기 쉬운 라우팅 구조를 만들 수 있었습니다.
+        
+        React 서버 컴포넌트는 기존 클라이언트 컴포넌트와는 달리 서버에서 렌더링되어 HTML로 전송되므로 JavaScript 번들 크기를
+        줄이고 초기 로딩 성능을 개선할 수 있습니다. 이 기술을 통해 데이터 페칭, SEO 최적화, 초기 페이지 로드 성능을 크게 개선할 수 있었습니다.
+        
+        주요 학습 내용:
+        
+        1. 서버 컴포넌트와 클라이언트 컴포넌트의 차이점과 각각의 사용 사례
+        
+        2. 데이터 페칭 패턴:
+           - 서버 컴포넌트에서 직접 데이터 페칭
+           - API 라우트를 통한 데이터 페칭
+           - 클라이언트 측 SWR/React Query 등을 통한 데이터 페칭
+        
+        3. 성능 최적화 기법:
+           - 정적 렌더링과 동적 렌더링의 적절한 활용
+           - 선택적 하이드레이션과 스트리밍
+           - Route Segment Config 옵션을 통한 캐싱 전략
+        
+        4. 병렬 라우트, 인터셉트 라우트, 그룹 라우트와 같은 고급 라우팅 패턴
+      `,
+      keyTakeaways: [
+        "서버와 클라이언트 컴포넌트 간의 균형 잡힌 설계",
+        "App Router의 파일 기반 라우팅 아키텍처",
+        "서버 컴포넌트를 활용한 성능 최적화",
+        "병렬 및 인터셉트 라우트 패턴의 적용",
+        "클라이언트 사이드 내비게이션 최적화",
+        "Next.js의 캐싱 메커니즘과 재검증 전략",
+      ],
+      codeExample: `
+// 서버 컴포넌트 예시
+// app/projects/page.tsx
+import { ProjectCard } from '@/components/project-card';
+
+// 서버 컴포넌트에서 직접 데이터 가져오기
+async function getProjects() {
+  const res = await fetch('/api/portfolio/projects');
+  if (!res.ok) throw new Error('Failed to fetch projects');
+  return res.json();
+}
+
+export default async function ProjectsPage() {
+  // async/await 직접 사용 가능
+  const projects = await getProjects();
+  
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map(project => (
+        <ProjectCard key={project.id} project={project} />
+      ))}
+    </div>
+  );
+}
+
+// 클라이언트 컴포넌트 예시
+// components/project-card.tsx
+"use client"; // 클라이언트 컴포넌트 명시
+
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+
+export function ProjectCard({ project }) {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <motion.div
+      whileHover={{ y: -5 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* 카드 내용 */}
+    </motion.div>
+  );
+}
+      `,
+      application:
+        "이러한 Next.js App Router 아키텍처와 서버 컴포넌트를 활용하여 포트폴리오 웹사이트를 구축했습니다. 특히 서버 컴포넌트를 통해 데이터 페칭이 필요한 페이지에서 JavaScript 번들 크기를 최소화하고, 클라이언트 컴포넌트는 인터랙티브한 요소에만 사용하여 전체적인 성능과 사용자 경험을 최적화했습니다. 병렬 라우트를 활용해 이미지 모달과 같은 오버레이 UI를 구현하고, 인터셉트 라우트로 프로젝트 목록에서 상세 페이지로의 전환을 부드럽게 만들었습니다.",
+    },
+    ko: {
+      title: "Next.js App Router와 서버 컴포넌트",
+      description:
+        "Next.js의 App Router 아키텍처와 서버 컴포넌트를 활용한 현대적 웹 개발",
+      publishedDate: "2025년 2월",
+      content: `
+        포트폴리오 웹사이트를 개발하면서 Next.js의 App Router 아키텍처와 React 서버 컴포넌트(RSC)에 대한 깊은 이해를 얻었습니다.
+        
+        App Router는 기존의 Pages Router와 다르게 파일 시스템 기반의 라우팅을 제공하며, 계층적 레이아웃, 중첩 라우팅, 로딩 상태,
+        에러 핸들링 등의 기능을 내장하고 있습니다. 이를 통해 더 직관적이고 관리하기 쉬운 라우팅 구조를 만들 수 있었습니다.
+        
+        React 서버 컴포넌트는 기존 클라이언트 컴포넌트와는 달리 서버에서 렌더링되어 HTML로 전송되므로 JavaScript 번들 크기를
+        줄이고 초기 로딩 성능을 개선할 수 있습니다. 이 기술을 통해 데이터 페칭, SEO 최적화, 초기 페이지 로드 성능을 크게 개선할 수 있었습니다.
+        
+        주요 학습 내용:
+        
+        1. 서버 컴포넌트와 클라이언트 컴포넌트의 차이점과 각각의 사용 사례
+        
+        2. 데이터 페칭 패턴:
+           - 서버 컴포넌트에서 직접 데이터 페칭
+           - API 라우트를 통한 데이터 페칭
+           - 클라이언트 측 SWR/React Query 등을 통한 데이터 페칭
+        
+        3. 성능 최적화 기법:
+           - 정적 렌더링과 동적 렌더링의 적절한 활용
+           - 선택적 하이드레이션과 스트리밍
+           - Route Segment Config 옵션을 통한 캐싱 전략
+        
+        4. 병렬 라우트, 인터셉트 라우트, 그룹 라우트와 같은 고급 라우팅 패턴
+      `,
+      keyTakeaways: [
+        "서버와 클라이언트 컴포넌트 간의 균형 잡힌 설계",
+        "App Router의 파일 기반 라우팅 아키텍처",
+        "서버 컴포넌트를 활용한 성능 최적화",
+        "병렬 및 인터셉트 라우트 패턴의 적용",
+        "클라이언트 사이드 내비게이션 최적화",
+        "Next.js의 캐싱 메커니즘과 재검증 전략",
+      ],
+      codeExample: `
+// 서버 컴포넌트 예시
+// app/projects/page.tsx
+import { ProjectCard } from '@/components/project-card';
+
+// 서버 컴포넌트에서 직접 데이터 가져오기
+async function getProjects() {
+  const res = await fetch('/api/portfolio/projects');
+  if (!res.ok) throw new Error('프로젝트 데이터를 가져오는데 실패했습니다');
+  return res.json();
+}
+
+export default async function ProjectsPage() {
+  // async/await 직접 사용 가능
+  const projects = await getProjects();
+  
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map(project => (
+        <ProjectCard key={project.id} project={project} />
+      ))}
+    </div>
+  );
+}
+
+// 클라이언트 컴포넌트 예시
+// components/project-card.tsx
+"use client"; // 클라이언트 컴포넌트 명시
+
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+
+export function ProjectCard({ project }) {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <motion.div
+      whileHover={{ y: -5 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* 카드 내용 */}
+    </motion.div>
+  );
+}
+      `,
+      application:
+        "이러한 Next.js App Router 아키텍처와 서버 컴포넌트를 활용하여 포트폴리오 웹사이트를 구축했습니다. 특히 서버 컴포넌트를 통해 데이터 페칭이 필요한 페이지에서 JavaScript 번들 크기를 최소화하고, 클라이언트 컴포넌트는 인터랙티브한 요소에만 사용하여 전체적인 성능과 사용자 경험을 최적화했습니다. 병렬 라우트를 활용해 이미지 모달과 같은 오버레이 UI를 구현하고, 인터셉트 라우트로 프로젝트 목록에서 상세 페이지로의 전환을 부드럽게 만들었습니다.",
+    },
+    tags: [
+      "Next.js",
+      "React",
+      "Server Components",
+      "App Router",
+      "Performance Optimization",
+      "Web Development",
+    ],
+    url: "https://nextjs.org/docs",
   },
 ];
 
