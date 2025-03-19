@@ -2586,7 +2586,6 @@ const decrement = () => ({ type: 'DECREMENT' });
     },
     tags: [
       "Technology Selection",
-      "Performance Optimization",
       "Bundle Size",
       "Developer Experience",
       "React Ecosystem",
@@ -3401,13 +3400,7 @@ document.querySelector('.complex-ui').addEventListener('click', function(event) 
       application:
         "사용자가 스크롤할 때 제품을 동적으로 로드하는 복잡한 이커머스 제품 리스팅 페이지에 이벤트 위임을 적용했습니다. 개별 제품 카드 대신 제품 컨테이너에 단일 이벤트 리스너를 연결함으로써 메모리 사용량을 약 80% 감소시키고 코드베이스를 단순화했습니다. 이 접근 방식은 또한 새 제품이 로드될 때 이벤트를 재바인딩할 필요성을 제거하여 애플리케이션 성능을 향상시키면서 원활한 사용자 경험을 제공했습니다. 이 기법은 특히 수백 개의 제품 요소에 걸쳐 빠른 보기 모달, 위시리스트 토글 및 비교 선택기와 같은 상호작용 기능을 구현할 때 매우 가치가 있었습니다.",
     },
-    tags: [
-      "JavaScript",
-      "Event Handling",
-      "DOM",
-      "Performance Optimization",
-      "Event Bubbling",
-    ],
+    tags: ["JavaScript", "Event Handling", "DOM", "Event Bubbling"],
     url: "#",
   },
 

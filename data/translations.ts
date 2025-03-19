@@ -90,9 +90,9 @@ export const translations = {
     },
     // Contact section
     contact: {
-      title: "연락하기",
+      title: "연락처",
       description:
-        "현재 프리랜서 작업이나 정규직 포지션을 찾고 있습니다. 창의적인 터치가 필요한 프로젝트가 있다면 연락해주세요!",
+        "현재 프리랜서 작업이나 정규직 포지션을 찾고 있습니다. 필요한 프로젝트가 있다면 연락해주세요!",
       emailMe: "이메일 보내기",
       github: "깃허브",
     },
