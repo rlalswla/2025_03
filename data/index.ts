@@ -372,31 +372,22 @@ export const projects = [
     id: 5,
     en: {
       title: "Personal Portfolio Website",
-      description:
-        "A responsive developer portfolio showcasing projects and technical studies with interactive components",
+      description: "Personal portfolio website",
       completedDate: "March 2025",
       overview:
         "Built a modern, responsive portfolio website using Next.js, TypeScript, and Tailwind CSS to showcase my development projects and technical skills. The site features dynamic content loading, smooth animations, dark/light mode theming, and optimized performance metrics.",
       features: [
-        "Responsive design with mobile-first approach using Tailwind CSS",
-        "Smooth page transitions and micro-interactions powered by Framer Motion",
-        "Server-side rendering and static generation for optimal performance",
-        "Dark/light mode with system preference detection and user toggle",
-        "Dynamic data fetching with custom caching system",
-        "Category-based filtering for technical studies",
-        "Optimized images and lazy loading for better performance",
-        "Accessible UI components built with Shadcn UI library",
+        "Responsive design with Tailwind CSS, dark mode & multi-language support",
+        "Server-side rendering and static generation",
+        "Data management through custom caching system",
+        "Category-based filtering",
+        "Projects - Study connections",
       ],
       challenges: [
         {
-          title: "Performance Optimization",
+          title: "Data Fetching and Caching Optimization",
           description:
-            "Achieved 98+ Lighthouse performance score by implementing image optimization, code splitting, efficient data fetching patterns, and careful component design to minimize unnecessary re-renders.",
-        },
-        {
-          title: "Custom Data Fetching",
-          description:
-            "Built a custom data fetching hook with in-memory caching to prevent redundant API calls while maintaining data consistency across components, similar to React Query but tailored specifically for portfolio data.",
+            "Initially, I loaded all data as a single object directly from the client, which caused longer initial loading times as data grew.\n\nTo solve this, I restructured the architecture to utilize API Routes and implemented a system to request only necessary data (differentiating between summary and detailed data).\n\nI built a custom in-memory caching system that reuses previously fetched data, preventing unnecessary API calls and improving the user experience when navigating between pages.",
         },
         {
           title: "Animation System",
@@ -417,25 +408,17 @@ export const projects = [
       overview:
         "Next.js, TypeScript, Tailwind CSS를 활용하여 제 개발 프로젝트와 기술적 역량을 선보이는 현대적이고 반응형 포트폴리오 웹사이트를 구축했습니다. 이 사이트는 동적 콘텐츠 로딩, 부드러운 애니메이션, 다크/라이트 모드 테마, 최적화된 성능 지표를 특징으로 합니다.",
       features: [
-        "Tailwind CSS를 사용한 모바일 우선 접근 방식의 반응형 디자인",
-        "Framer Motion을 활용한 부드러운 페이지 전환 및 마이크로 인터랙션",
-        "최적의 성능을 위한 서버사이드 렌더링 및 정적 생성",
-        "시스템 선호도 감지 및 사용자 토글 기능이 있는 다크/라이트 모드",
-        "커스텀 캐싱 시스템을 통한 동적 데이터 가져오기",
-        "기술 학습을 위한 카테고리 기반 필터링",
-        "성능 향상을 위한 이미지 최적화 및 지연 로딩",
-        "Shadcn UI 라이브러리로 구축된 접근성 높은 UI 컴포넌트",
+        "Tailwind CSS를 사용한 반응형 디자인 & 다크 모드 & 영어 지원 ",
+        "서버사이드 렌더링 및 정적 생성",
+        "커스텀 캐싱 시스템을 통한 데이터 관리",
+        "카테고리 기반 필터링",
+        "프로젝트 - 학습 연결",
       ],
       challenges: [
         {
-          title: "성능 최적화",
+          title: "데이터 패칭 및 캐싱 최적화",
           description:
-            "이미지 최적화, 코드 분할, 효율적인 데이터 가져오기 패턴 및 불필요한 리렌더링을 최소화하는 세심한 컴포넌트 설계를 통해 98+ Lighthouse 성능 점수를 달성했습니다.",
-        },
-        {
-          title: "커스텀 데이터 가져오기",
-          description:
-            "React Query와 유사하지만 포트폴리오 데이터에 특화된 인메모리 캐싱을 갖춘 커스텀 데이터 가져오기 훅을 구축하여 중복 API 호출을 방지하면서 컴포넌트 간 데이터 일관성을 유지했습니다.",
+            "초기에는 클라이언트에서 직접 모든 데이터를 하나의 객체로 불러오는 방식을 사용했으나, 이는 데이터가 많아질수록 초기 로딩 시간이 길어지는 문제가 있었습니다.\n\n이를 해결하기 위해 API Routes를 활용한 아키텍처로 변경하고, 필요한 데이터만 요청하는 방식(요약 데이터와 상세 데이터를 구분)을 도입했습니다.\n\n인메모리 캐싱 시스템을 직접 구현하여 한번 불러온 데이터는 재사용함으로써 불필요한 API 호출을 방지하고, 페이지 간 이동 시 사용자 경험을 개선했습니다.",
         },
         {
           title: "애니메이션 시스템",

@@ -105,26 +105,26 @@ export default function StudyPage({
   return (
     <>
       <Navbar />
-      <main className="pt-20 pb-16">
+      <main className="pt-20 pb-16 overflow-hidden">
         {/* Header - 기존 디자인 유지 */}
-        <div className="bg-muted/30 py-12">
+        <div className="bg-muted/30 py-8 sm:py-12">
           <div className="container max-w-4xl mx-auto px-4">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
               {localizedStudy.title}
             </h1>
 
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
               {study.tags.map((tag: string, index: number) => (
                 <span
                   key={index}
-                  className="px-3 py-1 text-sm rounded-full bg-primary/10 border border-primary/20"
+                  className="px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full bg-primary/10 border border-primary/20"
                 >
                   {tag}
                 </span>
               ))}
             </div>
 
-            <div className="text-sm text-muted-foreground">
+            <div className="text-xs sm:text-sm text-muted-foreground">
               Published on{" "}
               <span className="font-medium">
                 {localizedStudy.publishedDate}
@@ -133,98 +133,124 @@ export default function StudyPage({
           </div>
         </div>
 
-        {/* Content - 기존 디자인 유지 */}
-        <div className="container max-w-4xl mx-auto px-4 py-12">
+        {/* Content - 향상된 모바일 호환성 */}
+        <div className="container max-w-4xl mx-auto px-4 py-8 sm:py-12">
+          {/* 모바일에서는 컬럼 대신 행으로 배치 */}
           <div className="grid gap-8 md:grid-cols-3">
-            <div className="md:col-span-2 space-y-8">
+            {/* 메인 콘텐츠 영역 */}
+            <div className="md:col-span-2 space-y-6 sm:space-y-8">
               <section>
-                <h2 className="text-2xl font-bold mb-4">Summary</h2>
-                <div className="text-muted-foreground whitespace-pre-line">
+                <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+                  Summary
+                </h2>
+                <div className="text-sm sm:text-base text-muted-foreground whitespace-pre-line break-words">
                   {localizedStudy.content}
                 </div>
               </section>
 
               <section>
-                <h2 className="text-2xl font-bold mb-4">Key Takeaways</h2>
-                <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+                  Key Takeaways
+                </h2>
+                <ul className="list-disc list-inside space-y-2 text-sm sm:text-base text-muted-foreground">
                   {localizedStudy.keyTakeaways.map(
                     (takeaway: string, index: number) => (
-                      <li key={index}>{takeaway}</li>
+                      <li key={index} className="break-words">
+                        <span className="inline-block align-top">
+                          {takeaway}
+                        </span>
+                      </li>
                     )
                   )}
                 </ul>
               </section>
 
               <section>
-                <h2 className="text-2xl font-bold mb-4">Code Example</h2>
-                <div className="p-4 bg-muted/30 rounded-lg overflow-x-auto">
-                  <pre className="text-sm">
-                    <code>{localizedStudy.codeExample}</code>
+                <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+                  Code Example
+                </h2>
+                {/* 코드 예제 부분의 오버플로우 처리 개선 */}
+                <div className="p-3 sm:p-4 bg-muted/30 rounded-lg overflow-hidden">
+                  <pre
+                    className="text-xs sm:text-sm overflow-x-auto scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent pb-2"
+                    style={{ maxWidth: "100%" }}
+                  >
+                    <code className="break-all whitespace-pre-wrap sm:whitespace-pre">
+                      {localizedStudy.codeExample}
+                    </code>
                   </pre>
                 </div>
               </section>
 
               <section>
-                <h2 className="text-2xl font-bold mb-4">Application</h2>
-                <p className="text-muted-foreground mb-4">
+                <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+                  Application
+                </h2>
+                <p className="text-sm sm:text-base text-muted-foreground mb-4">
                   Here's how I applied this knowledge in a real-world project:
                 </p>
-                <div className="p-4 border rounded-lg">
+                <div className="p-3 sm:p-4 border rounded-lg">
                   <h3 className="font-semibold mb-2">Project Implementation</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs sm:text-sm text-muted-foreground break-words">
                     {localizedStudy.application}
                   </p>
                 </div>
               </section>
             </div>
 
-            {/* 오른쪽 사이드바에 sticky 포지션 추가 */}
-            <div className="relative">
-              <div className="sticky top-20 space-y-6 max-h-[calc(100vh-6rem)] overflow-y-auto pb-4 scrollbar-thin">
-                <div className="p-6 rounded-lg border bg-card">
-                  <h3 className="text-xl font-semibold mb-4">Study Details</h3>
+            {/* 사이드바 영역 - 모바일에서는 아래에 배치 */}
+            <div className="relative mt-6 md:mt-0">
+              <div className="md:sticky md:top-20 space-y-4 sm:space-y-6 max-h-full md:max-h-[calc(100vh-6rem)] md:overflow-y-auto pb-4 scrollbar-thin">
+                <div className="p-4 sm:p-6 rounded-lg border bg-card">
+                  <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">
+                    Study Details
+                  </h3>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-2">
-                      <Calendar className="w-5 h-5 text-primary mt-0.5" />
+                      <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-primary mt-0.5" />
                       <div>
-                        <span className="block text-sm font-medium">
+                        <span className="block text-xs sm:text-sm font-medium">
                           Duration
                         </span>
-                        <span className="text-sm text-muted-foreground">
+                        <span className="text-xs sm:text-sm text-muted-foreground">
                           {localizedStudy.publishedDate}
                         </span>
                       </div>
                     </li>
                     <li className="flex items-start gap-2">
-                      <Tag className="w-5 h-5 text-primary mt-0.5" />
-                      <div>
-                        <span className="block text-sm font-medium">
+                      <Tag className="w-4 h-4 sm:w-5 sm:h-5 text-primary mt-0.5" />
+                      <div className="flex-1">
+                        <span className="block text-xs sm:text-sm font-medium">
                           Topics
                         </span>
-                        <span className="text-sm text-muted-foreground">
+                        <span className="text-xs sm:text-sm text-muted-foreground break-words">
                           {study.tags.join(", ")}
                         </span>
                       </div>
                     </li>
                   </ul>
 
-                  <div className="mt-6">
-                    <Button asChild variant="default" className="w-full gap-2">
+                  <div className="mt-4 sm:mt-6">
+                    <Button
+                      asChild
+                      variant="default"
+                      className="w-full gap-2 text-xs sm:text-sm"
+                    >
                       <Link
                         href={studyUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <ExternalLink className="w-4 h-4" />
+                        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
                         <span>View Original Resource</span>
                       </Link>
                     </Button>
                   </div>
                 </div>
 
-                {/* 관련 프로젝트 섹션 - API에서 가져온 데이터 사용 */}
-                <div className="p-6 rounded-lg border bg-card">
-                  <h3 className="text-xl font-semibold mb-4">
+                {/* 관련 프로젝트 섹션 */}
+                <div className="p-4 sm:p-6 rounded-lg border bg-card">
+                  <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">
                     Related Projects
                   </h3>
                   <div className="space-y-4">
@@ -234,7 +260,7 @@ export default function StudyPage({
                         className="group cursor-pointer"
                         onClick={() => router.push(`/projects/${project.id}`)}
                       >
-                        <div className="relative h-24 mb-2 overflow-hidden rounded-md">
+                        <div className="relative h-20 sm:h-24 mb-2 overflow-hidden rounded-md">
                           <Image
                             src={
                               project.image ||
@@ -249,7 +275,7 @@ export default function StudyPage({
                             className="object-cover transition-transform group-hover:scale-105"
                           />
                         </div>
-                        <h4 className="font-medium group-hover:text-primary transition-colors">
+                        <h4 className="text-sm sm:text-base font-medium group-hover:text-primary transition-colors break-words">
                           {language === "en"
                             ? project.en.title
                             : project.ko.title}
@@ -260,7 +286,7 @@ export default function StudyPage({
                             .map((tech: string, index: number) => (
                               <span
                                 key={index}
-                                className="px-2 py-0.5 text-xs rounded-full bg-primary/10 border border-primary/20"
+                                className="px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-xs rounded-full bg-primary/10 border border-primary/20"
                               >
                                 {tech}
                               </span>
