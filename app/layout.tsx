@@ -12,7 +12,7 @@ export const metadata = {
     "Personal portfolio showcasing my projects and skills as a frontend developer",
   generator: "Lee Jihoon",
   icons: {
-    icon: "/profile-image.png",
+    icon: "/favicon.png",
   },
 };
 
