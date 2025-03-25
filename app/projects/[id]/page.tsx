@@ -122,7 +122,7 @@ export default function ProjectPage({
             <h1 className="text-3xl md:text-5xl font-bold text-center mb-4">
               {localizedProject.title}
             </h1>
-           
+
             <div className="flex flex-wrap justify-center gap-2 mb-6">
               {project.technologies.map((tech: string) => (
                 <span
@@ -262,7 +262,7 @@ export default function ProjectPage({
                     {adminDemoUrl && (
                       <Button
                         asChild
-                        variant="default"
+                        variant={demoUrl === "-1" ? "destructive" : "default"}
                         className="w-full gap-2"
                       >
                         <Link
@@ -271,7 +271,11 @@ export default function ProjectPage({
                           rel="noopener noreferrer"
                         >
                           <ExternalLink className="w-4 h-4" />
-                          <span>Live Demo_admin</span>
+                          {adminDemoUrl === "-1" ? (
+                            <span>Demo Dead.,,</span>
+                          ) : (
+                            <span>Live Demo</span>
+                          )}
                         </Link>
                       </Button>
                     )}

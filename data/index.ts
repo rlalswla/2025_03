@@ -136,8 +136,8 @@ export const projects = [
       "Infinity Scroll",
       "Observer Pattern",
     ],
-    demoUrl: "https://onu-univ.site",
-    adminDemoUrl: "https://admin.onu-univ.site",
+    demoUrl: "-1",
+    adminDemoUrl: "-1",
     sourceUrl: "https://github.com/softeer5th/Team7-BungeoBbang",
     screenshots: [
       "/onu/student-opinion-entry.png?height=200&width=350",
