@@ -220,6 +220,7 @@ export const projects = [
       "Docker",
       "Framer motion",
       "linear gradient",
+      "Algorithm",
     ],
     demoUrl:
       "https://ljhpopol.notion.site/FLEX-f1bd18229be44e86976e2269e7e6108a?pvs=4",
@@ -235,14 +236,7 @@ export const projects = [
       completedDate: "September 2023",
       overview:
         "An innovative application designed to assist children with language development disorders. The project won an excellence award at the Saessak Hackathon and received support from the SPARK program for further development.",
-      features: [
-        "AI-powered speech analysis",
-        "Parent voice cloning for TTS",
-        "Interactive learning content",
-        "Progress tracking system",
-        "Customized therapy programs",
-        "Real-time feedback system",
-      ],
+      features: ["TTS", "Overall UI/UX design", "Overall FE develop"],
       challenges: [
         {
           title: "Voice Processing",
@@ -262,14 +256,7 @@ export const projects = [
       completedDate: "2024년 7월 ~ 2024년 12월",
       overview:
         "언어발달장애 아동의 치료를 돕기 위해 설계된 애플리케이션입니다. 새싹 해커톤에서 우수상을 수상했으며, SPARK 프로그램의 지원을 받아 추가 개발을 진행했습니다.",
-      features: [
-        "AI 기반 음성 분석",
-        "부모 음성 복제 TTS",
-        "인터랙티브 학습 콘텐츠",
-        "진행 상황 추적 시스템",
-        "맞춤형 치료 프로그램",
-        "실시간 피드백 시스템",
-      ],
+      features: ["TTS 기술 도입", "UI/UX 디자인 ", "전체 FE 개발"],
       challenges: [
         {
           title: "음성 처리",
@@ -610,7 +597,7 @@ class UnionFind {
       application:
         "이러한 알고리즘 개념들을 실제 프로젝트에 적용했으며, 특히 채팅 애플리케이션의 메시지 처리 시스템 최적화와 FLEX 프로젝트의 효율적인 검색 알고리즘 구현에 활용했습니다.",
     },
-    tags: ["Algorithms", "Data Structures", "C++", "Problem Solving"],
+    tags: ["Algorithm", "Data Structure", "C++", "Problem Solving"],
     url: "#",
   },
   {

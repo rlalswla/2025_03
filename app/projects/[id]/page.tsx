@@ -122,6 +122,7 @@ export default function ProjectPage({
             <h1 className="text-3xl md:text-5xl font-bold text-center mb-4">
               {localizedProject.title}
             </h1>
+           
             <div className="flex flex-wrap justify-center gap-2 mb-6">
               {project.technologies.map((tech: string) => (
                 <span
