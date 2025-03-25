@@ -147,7 +147,7 @@ export default function ProjectPage({
               </section>
 
               <section>
-                <h2 className="text-2xl font-bold mb-4">Key Features</h2>
+                <h2 className="text-2xl font-bold mb-4">My role</h2>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground">
                   {localizedProject.features.map(
                     (feature: string, index: number) => (

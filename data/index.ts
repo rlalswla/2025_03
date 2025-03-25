@@ -53,11 +53,12 @@ export const projects = [
       overview:
         "ON:U is a chat application built to facilitate communication between students and student council members. I focused on implementing real-time messaging using WebSocket and a custom caching system inspired by React Query.",
       features: [
-        "Real-time chat functionality with WebSocket",
-        "Student opinion submission chat called 'opinion' (1-to-1 chat)",
-        "Student council agenda discussion chat called 'agenda' (1-to-N chat)",
-        "My Opinion page where students can check their participated chat rooms and notifications",
+        "Project structure design and development environment setup",
+        "OAuth login and registration, JWT-based authorization",
+        "Real-time chat and chat room rendering with WebSocket, notification features",
+        "Student opinion submission chat page (1-to-1 chat)",
         "Statistics page for student council to view various analytics",
+        "Error handling and routing",
       ],
       challenges: [
         {
@@ -90,11 +91,12 @@ export const projects = [
       overview:
         "ON:U는 학생과 학생회 구성원 간의 소통을 원활하게 하기 위해 개발된 채팅 애플리케이션입니다. 저는 WebSocket을 사용한 실시간 메시징과 React Query에서 영감을 받은 커스텀 캐싱 시스템을 집중적으로 구현했습니다.",
       features: [
-        "WebSocket을 활용한 실시간 채팅 기능",
-        "학생이 의견을 제시하는 말해요 채팅 (1 대 1 채팅)",
-        "학생회가 제시한 안건에 학생들이 의견을 제시하는 답해요 채팅 (1 대 N 채팅)",
-        "학생 본인이 참여한 채팅방, 알림을 확인할수 있는 내 의견 페이지",
+        "프로젝트 구조 설계 및 개발 환경 세팅",
+        "OAuth 를 이용한 로그인 및 회원가입, JWT 를 이용한 인가 절차",
+        "WebSocket을 활용한 실시간 채팅 및 채팅방 렌더링, 알림 기능",
+        "학생이 의견을 제시하는 말해요 채팅 페이지 (1 대 1 채팅)",
         "학생회가 다양한 통계를 확인 할 수 있는 통계 페이지 ",
+        "애러 핸들링 및 라우팅",
       ],
       challenges: [
         {
@@ -152,27 +154,30 @@ export const projects = [
       title: "FLEX - AI Health Trainer",
       description:
         "AI-powered health application providing personalized diet and workout recommendations",
-      completedDate: "October 2023",
+      completedDate: "July 2024 ~ December 2024",
       overview:
-        "FLEX is an AI health trainer application that analyzes users' preferences and physical conditions to provide personalized diet and workout routines. The app uses advanced AI models for food recognition and recommendation systems. ",
+        "FLEX is an AI health trainer application that analyzes users' preferences and physical conditions to provide personalized diet and workout routines. The app uses advanced AI models for food recommendation systems and recommends exercises through a custom algorithm based on suggested foods and user physical information.",
       features: [
-        "AI-powered food recognition from refrigerator photos",
-        "Personalized diet recommendations",
-        "Custom workout routines based on goals",
-        "Progress tracking dashboard",
-        "Real-time nutrition analysis",
-        "Cross-platform compatibility",
+        "FE/BE project development setup",
+        "User-based personalized workout routine BE algorithm design",
+        "UI/UX Design & Frontend development",
+        "RESTful API design, API documentation, and database schema design",
       ],
       challenges: [
         {
-          title: "AI Integration",
+          title: "Project Environment Setup with Docker",
           description:
-            "Successfully integrated YOLO and ResNeXt models for food recognition, and implemented BERT model for preference analysis.",
+            "Set up a consistent development environment using Docker for team members who were new to web development. Throughout this process, I learned Django and enabled each team member to develop in their local environment.",
+        },
+        {
+          title: "Workout Recommendation Algorithm Development",
+          description:
+            "Faced the challenge of recommending exercises considering each individual's metabolic rate, dietary habits, and physical information.\n\nDeveloped a workout recommendation algorithm that considers each user's basal metabolic rate and meal calorie intake. Additionally, implemented a feature that analyzes users' current muscle and body fat levels by area to focus exercise on areas that need improvement.",
         },
         {
           title: "User Preference Analysis",
           description:
-            "Developed sophisticated preference analysis system using NLTK and ABSA techniques for accurate diet recommendations.",
+            "Developed a sophisticated preference analysis system using NLTK and ABSA techniques for accurate diet recommendations, achieving over 90% accuracy.",
         },
       ],
     },
@@ -183,21 +188,26 @@ export const projects = [
       overview:
         "FLEX는 사용자의 선호도와 신체 조건을 분석하여 맞춤형 식단과 운동 루틴을 제공하는 AI 헬스 트레이너 애플리케이션입니다. 음식 추천 시스템을 위해 AI 모델을 사용하고 추천된 음식과 사용자 신체정보를 기반으로 자체 알고리즘을 통해 운동을 추천합니다. ",
       features: [
-        "개인 맞춤 (선호, 알러지)형 식단 추천",
-        "목표 및 사용자 기반 맞춤 운동 루틴",
-        "진행 상황 추적 대시보드",
-        "추천된 혹은 이미 섭취한 식단에 대한 영양 분석 및 활용",
+        "FE BE 프로젝트 개발 세팅",
+        "사용자 기반 맞춤 운동 루틴 BE 알고리즘 설계",
+        "UI/UX Design & FE 개발",
+        "RESTful API 설게 및 API 명세 작성, DB 설계",
       ],
       challenges: [
         {
-          title: "AI 통합",
+          title: "Docker 를 통한 프로젝트 환경 조성",
           description:
-            "YOLO와 ResNeXt 모델을 활용한 식재료 인식, BERT 모델을 활용한 선호도 분석을 성공적으로 구현했습니다.",
+            "웹개발이 처음인 팀원들을 위해 Docker를 통해 일괄적인 개발 환경을 구성하였으며, 이 과정에서 Django 를 학습하고, 각자의 로컬 환경에서 이를 통한 개발을 진행할수 있도록 하였습니다.",
+        },
+        {
+          title: "운동 추천 알고리즘 개발",
+          description:
+            "개개인 마다의 대사량, 식습관, 신체정보 등을 고려하여 운동을 추천해야한다는 어려움이 있었습니다.\n이에 저희는 개개인의 기초 대사량 및 식사 열량을 고려하여 운동 추천 알고리즘을 개발 하였습니다. 또한 사용자의 현재 근육량 및 체지방량을 부위별로 분석한뒤 부족한 부분을 집중적으로 운동할수 있게끔 구현하였습니다.",
         },
         {
           title: "사용자 선호도 분석",
           description:
-            "정확한 식단 추천을 위해 NLTK와 ABSA 기술을 활용한 정교한 선호도 분석 시스템을 개발했습니다.",
+            "정확한 식단 추천을 위해 NLTK와 ABSA 기술을 활용한 정교한 선호도 분석 시스템을 개발했으며, 90% 이상의 정확도를 이끌어 내었습니다.",
         },
       ],
     },
