@@ -413,8 +413,8 @@ export const projects = [
       ],
     },
     ko: {
-      title: "포트폴리오 웹사이트",
-      description: "현재 페이지에 해당하는 포트폴리오",
+      title: "포트폴리오",
+      description: "개인 포트폴리오 사이트",
       completedDate: "2025년 3월",
       overview:
         "Next.js, TypeScript, Tailwind CSS를 활용하여 제 개발 프로젝트와 기술적 역량을 선보이는 현대적이고 반응형 포트폴리오 웹사이트를 구축했습니다. 이 사이트는 동적 콘텐츠 로딩, 부드러운 애니메이션, 다크/라이트 모드 테마, 최적화된 성능 지표를 특징으로 합니다.",
