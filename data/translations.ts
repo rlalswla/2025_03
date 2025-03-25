@@ -40,8 +40,7 @@ export const translations = {
     // Contact section
     contact: {
       title: "Get In Touch",
-      description:
-        "I'm currently available for freelance work or full-time positions. If you have a project that needs some creative touch, let's talk!",
+      description: "let's talk! give me message whenever you want",
       emailMe: "Email Me",
       github: "GitHub",
     },
@@ -91,8 +90,7 @@ export const translations = {
     // Contact section
     contact: {
       title: "연락처",
-      description:
-        "현재 프리랜서 작업이나 정규직 포지션을 찾고 있습니다. 필요한 프로젝트가 있다면 연락해주세요!",
+      description: "궁금하신점이 있다면 언제든 편하게 연락해주세요!",
       emailMe: "이메일 보내기",
       github: "깃허브",
     },
