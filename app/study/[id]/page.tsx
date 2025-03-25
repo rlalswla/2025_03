@@ -105,7 +105,7 @@ export default function StudyPage({
   return (
     <>
       <Navbar />
-      <main className="pt-20 pb-16 overflow-hidden">
+      <main className="pt-20 pb-16 min-h-screen">
         {/* Header - 기존 디자인 유지 */}
         <div className="bg-muted/30 py-8 sm:py-12">
           <div className="container max-w-4xl mx-auto px-4">
@@ -198,9 +198,9 @@ export default function StudyPage({
               </section>
             </div>
 
-            {/* 사이드바 영역 - 모바일에서는 아래에 배치 */}
-            <div className="relative mt-6 md:mt-0">
-              <div className="md:sticky md:top-20 space-y-4 sm:space-y-6 max-h-full md:max-h-[calc(100vh-6rem)] md:overflow-y-auto pb-4 scrollbar-thin">
+            {/* 사이드바 영역 */}
+            <div className="relative">
+              <div className="sticky top-20 space-y-4 sm:space-y-6 max-h-[calc(100vh-6rem)] overflow-y-auto pb-4 scrollbar-thin">
                 <div className="p-4 sm:p-6 rounded-lg border bg-card">
                   <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">
                     Study Details
