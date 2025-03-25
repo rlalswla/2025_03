@@ -179,7 +179,7 @@ export function StudySection() {
                     },
                   }}
                   onClick={(e) => handleCardClick(item.id, e)}
-                  className="flex flex-col min-h-[200px] p-6 rounded-lg border border-border bg-card hover:shadow-lg hover:shadow-primary/5 cursor-pointer"
+                  className="flex flex-col min-h-[200px] p-6 rounded-lg border border-border bg-background/70 hover:shadow-lg hover:shadow-primary/5 cursor-pointer"
                 >
                   {/* 여러 카테고리 배지 표시 */}
                   <div className="flex flex-wrap gap-2 mb-3">
