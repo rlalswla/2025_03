@@ -132,6 +132,7 @@ export const projects = [
       "Presigned URL",
       "PWA",
       "Infinity Scroll",
+      "Observer Pattern",
     ],
     demoUrl: "https://onu-univ.site",
     adminDemoUrl: "https://admin.onu-univ.site",

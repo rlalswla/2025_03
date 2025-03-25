@@ -60,13 +60,12 @@ export default function ProjectPage({
         const projectTechnologies = projectData.technologies.map((tech) =>
           tech.toLowerCase()
         );
-        const related = studiesData
-          .filter((study) =>
-            study.tags.some((tag) =>
-              projectTechnologies.includes(tag.toLowerCase())
-            )
+        const related = studiesData.filter((study) =>
+          study.tags.some((tag) =>
+            projectTechnologies.includes(tag.toLowerCase())
           )
-          .slice(0, 2);
+        );
+        // .slice(0, 2);
 
         setRelatedStudies(related);
       }
@@ -295,66 +294,16 @@ export default function ProjectPage({
                   </h3>
                   <div className="space-y-4">
                     {(() => {
-                      // Special case for ON:U project (id: 1) - show Advanced Algorithm Study
-                      if (project.id === 1 && studiesData) {
-                        const algorithmStudy = studiesData.find(
-                          (study) => study.id === 1
-                        ); // Advanced Algorithm Study has id 1
-                        if (algorithmStudy) {
-                          return (
-                            <div
-                              key={algorithmStudy.id}
-                              className="group cursor-pointer"
-                              onClick={() =>
-                                router.push(`/study/${algorithmStudy.id}`)
-                              }
-                            >
-                              <div className="flex items-start gap-2 mb-2">
-                                <BookOpen className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                                <h4 className="font-medium group-hover:text-primary transition-colors">
-                                  {language === "en"
-                                    ? algorithmStudy.en.title
-                                    : algorithmStudy.ko.title}
-                                </h4>
-                              </div>
-                              <p className="text-xs text-muted-foreground line-clamp-2 ml-6">
-                                {language === "en"
-                                  ? algorithmStudy.en.description
-                                  : algorithmStudy.ko.description}
-                              </p>
-                              <div className="flex flex-wrap gap-1 mt-2 ml-6">
-                                {algorithmStudy.tags
-                                  .slice(0, 3)
-                                  .map((tag: string, index: number) => (
-                                    <span
-                                      key={index}
-                                      className="px-2 py-0.5 text-xs rounded-full bg-primary/10 border border-primary/20"
-                                    >
-                                      {tag}
-                                    </span>
-                                  ))}
-                              </div>
-                            </div>
-                          );
-                        }
-                      }
-
                       // API에서 가져온 관련 스터디 표시
                       return studiesData
                         ?.filter((study) => {
-                          // If this is not the ON:U project, use normal matching
-                          if (project.id !== 1) {
-                            const projectTechnologies =
-                              project.technologies.map((tech: string) =>
-                                tech.toLowerCase()
-                              );
-                            return study.tags.some((tag) =>
-                              projectTechnologies.includes(tag.toLowerCase())
-                            );
-                          }
-                          return false;
+                          const projectTechnologies = project.technologies.map(
+                            (tech: string) => tech.toLowerCase()
+                          );
+                          return study.tags.some((tag) =>
+                            projectTechnologies.includes(tag.toLowerCase())
+                          );
                         })
-                        .slice(0, 2)
                         .map((study) => (
                           <div
                             key={study.id}
