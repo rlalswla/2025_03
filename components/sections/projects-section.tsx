@@ -138,7 +138,13 @@ export function ProjectsSection() {
               <div className="p-6 flex flex-col flex-grow">
                 <h3 className="mb-2 text-xl font-semibold hover:text-primary transition-colors duration-300">
                   {language === "en" ? project.en.title : project.ko.title}
+                  {project.id === 1 && (
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary text-primary-foreground ">
+                      Latest
+                    </span>
+                  )}
                 </h3>
+
                 <p className="mb-4 text-muted-foreground">
                   {language === "en"
                     ? project.en.description
