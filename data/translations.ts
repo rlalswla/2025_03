@@ -77,7 +77,7 @@ export const translations = {
     },
     // Projects section
     projects: {
-      title: "팀 프로젝트",
+      title: "프로젝트",
       viewDemo: "데모 보기",
       sourceCode: "소스 코드",
       backToProjects: "홈으로 돌아가기",
