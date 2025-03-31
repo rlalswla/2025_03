@@ -900,9 +900,7 @@ const uploadImageWithPresignedUrl = async (file) => {
       content: `
         Designed and implemented a global WebSocket management system for the ON:U chat platform using Zustand.
         
-        Managing WebSocket connections in a React application presents several challenges, especially when 
-        multiple components need to access the same socket connection. The traditional approach of passing
-        socket instances through props can lead to prop drilling and makes the codebase harder to maintain.
+        Managing WebSocket connections in a React application presents several challenges, especially when multiple components need to access the same socket connection. The traditional approach of passing socket instances through props can lead to prop drilling and makes the codebase harder to maintain.
         
         Our solution involved:
         1. Creating a centralized WebSocket store with Zustand
@@ -1052,11 +1050,9 @@ const ChatComponent = () => {
       content: `
         ON:U 채팅 플랫폼을 위해 Zustand를 사용한 전역 웹소켓 관리 시스템을 설계하고 구현했습니다.
         
-        React 애플리케이션에서 웹소켓 연결을 관리하는 것은 여러 도전 과제를 제시합니다. 특히 여러 컴포넌트가 
-        동일한 소켓 연결에 접근해야 할 때 기존의 props를 통한 소켓 인스턴스 전달 방식은 prop drilling 문제를 
-        일으키고 코드베이스 유지보수를 어렵게 만듭니다.
+        React 애플리케이션에서 웹소켓 연결을 관리하는 것은 여러 도전 과제를 제시합니다. 특히 여러 컴포넌트가 동일한 소켓 연결에 접근해야 할 때 기존의 props를 통한 소켓 인스턴스 전달 방식은 prop drilling 문제를 일으키고 코드베이스 유지보수를 어렵게 만듭니다.
         
-        우리의 해결책은 다음과 같습니다:
+        해결책은 다음과 같습니다:
         1. Zustand를 사용한 중앙집중식 웹소켓 스토어 생성
         2. 사용자 로그인 시 자동 소켓 연결 구현
         3. 소켓 생명주기 이벤트 처리(연결, 연결 해제, 재연결)
