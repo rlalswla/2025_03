@@ -110,7 +110,7 @@ export function StudySection() {
 
         {/* 카테고리 필터 UI - 고정 카테고리 사용 */}
         <div className="mb-8">
-          <h3 className="text-lg font-medium mb-3">카테고리 필터</h3>
+          {/* <h3 className="text-lg font-medium mb-3">카테고리 필터</h3> */}
           <div className="flex flex-wrap gap-2 mb-4">
             <Button
               variant={selectedCategory === null ? "default" : "outline"}
