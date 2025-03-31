@@ -198,7 +198,7 @@ export function StudySection() {
                     ))}
 
                     {/* 태그 표시는 유지 */}
-                    {item.tags.slice(0, 2).map((tag) => (
+                    {item.tags.map((tag) => (
                       <Badge
                         key={tag}
                         variant="outline"
