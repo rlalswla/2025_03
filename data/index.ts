@@ -580,7 +580,7 @@ class UnionFind {
       application:
         "이러한 알고리즘 개념들을 실제 프로젝트에 적용했으며, 특히 채팅 애플리케이션의 메시지 처리 시스템 최적화와 FLEX 프로젝트의 효율적인 검색 알고리즘 구현에 활용했습니다.",
     },
-    tags: ["Algorithm", "Data Structure", "C++", "Problem Solving"],
+    tags: ["Algorithm", "Data Structure", "C++", "PS"],
     url: "#",
   },
   {
@@ -607,37 +607,6 @@ class UnionFind {
         "System call implementation experience",
         "Performance optimization techniques",
       ],
-      codeExample: `
-// Example of CFS scheduler implementation
-struct proc {
-  int nice;
-  uint vruntime;
-  // ... other fields
-};
-
-void update_vruntime(struct proc *p) {
-  uint weight = get_weight(p->nice);
-  p->vruntime += (1024 / weight);
-}
-
-struct proc* pick_next_task(void) {
-  struct proc *p;
-  struct proc *selected = 0;
-  uint min_vruntime = -1;
-  
-  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
-    if(p->state != RUNNABLE)
-      continue;
-    if(p->vruntime < min_vruntime) {
-      min_vruntime = p->vruntime;
-      selected = p;
-    }
-  }
-  return selected;
-}
-      `,
-      application:
-        "This deep understanding of operating systems has been invaluable in optimizing application performance and resource utilization in various projects, particularly in managing memory usage in the AI health trainer application.",
     },
     ko: {
       title: "xv6 운영체제 구현",
@@ -660,37 +629,37 @@ struct proc* pick_next_task(void) {
         "시스템 콜 구현 경험",
         "성능 최적화 기법",
       ],
-      codeExample: `
-// CFS 스케줄러 구현 예시
-struct proc {
-  int nice;
-  uint vruntime;
-  // ... 다른 필드들
-};
+      //       codeExample: `
+      // // CFS 스케줄러 구현 예시
+      // struct proc {
+      //   int nice;
+      //   uint vruntime;
+      //   // ... 다른 필드들
+      // };
 
-void update_vruntime(struct proc *p) {
-  uint weight = get_weight(p->nice);
-  p->vruntime += (1024 / weight);
-}
+      // void update_vruntime(struct proc *p) {
+      //   uint weight = get_weight(p->nice);
+      //   p->vruntime += (1024 / weight);
+      // }
 
-struct proc* pick_next_task(void) {
-  struct proc *p;
-  struct proc *selected = 0;
-  uint min_vruntime = -1;
-  
-  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
-    if(p->state != RUNNABLE)
-      continue;
-    if(p->vruntime < min_vruntime) {
-      min_vruntime = p->vruntime;
-      selected = p;
-    }
-  }
-  return selected;
-}
-      `,
-      application:
-        "이러한 운영체제에 대한 깊은 이해는 다양한 프로젝트에서 애플리케이션 성능과 리소스 활용을 최적화하는 데 큰 도움이 되었으며, 특히 AI 헬스 트레이너 애플리케이션의 메모리 사용 관리에 활용되었습니다.",
+      // struct proc* pick_next_task(void) {
+      //   struct proc *p;
+      //   struct proc *selected = 0;
+      //   uint min_vruntime = -1;
+
+      //   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
+      //     if(p->state != RUNNABLE)
+      //       continue;
+      //     if(p->vruntime < min_vruntime) {
+      //       min_vruntime = p->vruntime;
+      //       selected = p;
+      //     }
+      //   }
+      //   return selected;
+      // }
+      //       `,
+      // application:
+      //   "이러한 운영체제에 대한 깊은 이해는 다양한 프로젝트에서 애플리케이션 성능과 리소스 활용을 최적화하는 데 큰 도움이 되었으며, 특히 AI 헬스 트레이너 애플리케이션의 메모리 사용 관리에 활용되었습니다.",
     },
     tags: ["Operating Systems", "C", "System Programming", "Memory Management"],
     url: "#",
