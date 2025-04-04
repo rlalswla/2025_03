@@ -97,6 +97,7 @@ export const projects = [
         "학생이 의견을 제시하는 말해요 채팅 페이지 (1 대 1 채팅)",
         "학생회가 다양한 통계를 확인 할 수 있는 통계 페이지 ",
         "애러 핸들링 및 라우팅",
+        "https://github.com/softeer5th/Team7-BungeoBbang/wiki 에서 확인",
       ],
       challenges: [
         {
@@ -629,37 +630,6 @@ class UnionFind {
         "시스템 콜 구현 경험",
         "성능 최적화 기법",
       ],
-      //       codeExample: `
-      // // CFS 스케줄러 구현 예시
-      // struct proc {
-      //   int nice;
-      //   uint vruntime;
-      //   // ... 다른 필드들
-      // };
-
-      // void update_vruntime(struct proc *p) {
-      //   uint weight = get_weight(p->nice);
-      //   p->vruntime += (1024 / weight);
-      // }
-
-      // struct proc* pick_next_task(void) {
-      //   struct proc *p;
-      //   struct proc *selected = 0;
-      //   uint min_vruntime = -1;
-
-      //   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
-      //     if(p->state != RUNNABLE)
-      //       continue;
-      //     if(p->vruntime < min_vruntime) {
-      //       min_vruntime = p->vruntime;
-      //       selected = p;
-      //     }
-      //   }
-      //   return selected;
-      // }
-      //       `,
-      // application:
-      //   "이러한 운영체제에 대한 깊은 이해는 다양한 프로젝트에서 애플리케이션 성능과 리소스 활용을 최적화하는 데 큰 도움이 되었으며, 특히 AI 헬스 트레이너 애플리케이션의 메모리 사용 관리에 활용되었습니다.",
     },
     tags: ["Operating Systems", "C", "System Programming", "Memory Management"],
     url: "#",
@@ -667,186 +637,140 @@ class UnionFind {
   {
     id: 3,
     en: {
-      title: "AWS S3 Presigned URL for Optimized Image Upload",
+      title: "Optimized Image Upload with AWS S3 Presigned URL",
       description:
-        "Implementation of efficient image upload system using AWS S3 Presigned URL",
-      publishedDate: "January 2025",
+        "Achieved over 2x faster image upload speeds by transitioning from server-based uploads to Presigned URL-based uploads",
+      publishedDate: "February 2025",
       content: `
-        Studied and implemented an optimized image upload system using AWS S3 Presigned URLs for the ON:U project.
+        For the ON:U project, I researched and implemented an optimized image upload system using AWS S3 Presigned URLs.
         
-        Traditional image upload approaches often involve sending the image to the server first, which then uploads
-        it to cloud storage. This creates unnecessary load on the server and increases latency. The Presigned URL
-        approach enables direct client-to-S3 uploads, bypassing the server completely for the file transfer.
+        Initially, the image upload process involved sending images to the server first, which then uploaded them to cloud storage.
+        However, as image sizes grew, this approach caused unnecessary server load and increased latency. To address this,
+        I adopted the Presigned URL approach, enabling clients to upload images directly to S3, bypassing the server for file transfers.
         
-        The process involves:
-        1. Client requests a Presigned URL from the server
-        2. Server generates a temporary authorized URL with AWS SDK
-        3. Client uploads the image directly to S3 using the Presigned URL
-        4. After successful upload, client sends the image URL to the server for database storage
-        
-        This approach significantly reduced server load and improved upload speeds, especially 
-        important for mobile users with limited bandwidth.
+        The process involved the following steps:
+        1. The client requests a Presigned URL from the server.
+        2. The server generates a temporary authorized URL using the AWS SDK.
+        3. The client uploads the image directly to S3 using the Presigned URL (leveraging Promise.all for parallel uploads).
+        4. After a successful upload, the client sends the image URL to the server for database storage.
       `,
       keyTakeaways: [
-        "Server bypass for file uploads, reducing server load",
-        "Improved upload performance by 70%",
-        "Enhanced security through temporary credentials",
-        "Better user experience with faster image uploads",
+        "Bypassing the server for file uploads reduced server load",
+        "Achieved a 70% improvement in upload performance",
+        "Enhanced user experience with faster image uploads",
         "Scalable solution for handling large file uploads",
-        "Cost-effective approach by reducing server bandwidth usage",
       ],
       codeExample: `
-// Server-side code for generating Presigned URL (Node.js)
-import AWS from 'aws-sdk';
-
-// AWS S3 configuration
-const s3 = new AWS.S3({
-  region: process.env.AWS_REGION,
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SECRET_KEY
-});
-
-// Generate Presigned URL function
-const generatePresignedUrl = async (fileName, fileType) => {
-  const params = {
-    Bucket: process.env.S3_BUCKET_NAME,
-    Key: \`uploads/\${Date.now()}-\${fileName}\`,
-    ContentType: fileType,
-    Expires: 60 // URL expires in 60 seconds
-  };
-
-  try {
-    const url = await s3.getSignedUrlPromise('putObject', params);
-    return {
-      url,
-      key: params.Key
-    };
-  } catch (error) {
-    console.error('Error generating presigned URL:', error);
-    throw error;
-  }
-};
-
-// Client-side code for uploading with Presigned URL (React)
-const uploadImageWithPresignedUrl = async (file) => {
-  // Step 1: Request presigned URL from server
-  const response = await fetch('/api/presigned-url', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      fileName: file.name,
-      fileType: file.type
-    })
-  });
-  
-  const { url, key } = await response.json();
-  
-  // Step 2: Upload directly to S3
-  await fetch(url, {
-    method: 'PUT',
-    body: file,
-    headers: {
-      'Content-Type': file.type
-    }
-  });
-  
-  // Step 3: Send the image URL/key to server for storage
-  return \`https://\${process.env.S3_BUCKET_NAME}.s3.amazonaws.com/\${key}\`;
-};
+      // Receiving a Presigned URL from the server
+      const getSignedUrl = async (file: File): Promise<PresignedUrlResponse> => {
+        const response = await api.post('/api/images/presigned', {
+          contentType: file.type,
+        });
+        return response.data;
+      };
+    
+      // Uploading the image to S3 using the Presigned URL
+      const uploadToS3 = async (file: File, signedUrl: string) => {
+        await fetch(signedUrl, {
+          method: 'PUT',
+          body: file,
+          headers: { 'Content-Type': file.type },
+        });
+      };
+    
+      // Using Promise.all for parallel image uploads
+      const uploadImages = async (files: File[]): Promise<string[]> => {
+        try {
+          const uploadPromises = files.map(async (file) => {
+            try {
+              const { presignedUrl, fileName } = await getSignedUrl(file);
+              await uploadToS3(file, presignedUrl);
+    
+              return "{AUTH_CONFIG.API.S3_URL}/{fileName}";
+            } catch (error) {
+              console.error("Failed to upload file: {file.name}", error);
+              return null;
+            }
+          });
+    
+          const results = await Promise.all(uploadPromises);
+    
+          const successfulUploads = results.filter((url): url is string => url !== null);
+          return successfulUploads;
+        } catch (error) {
+          console.error("Error during image uploads:", error);
+          throw error;
+        }
+      };
       `,
       application:
-        "Applied this technique in the ON:U campus communication platform, resulting in significantly faster image uploads in chat conversations. This was particularly important for mobile users on campus networks. The improved upload speed enhanced the real-time nature of the chat application, allowing for smoother communication flow.",
+        "This technique was applied to the ON:U campus communication platform, significantly improving image upload speeds in chat conversations and post creation pages. The faster upload times enhanced the real-time nature of the chat application, particularly benefiting mobile users on campus networks.",
     },
     ko: {
       title: "AWS S3 Presigned URL을 활용한 이미지 업로드 최적화",
       description:
-        "AWS S3 Presigned URL을 사용한 효율적인 이미지 업로드 시스템 구현",
-      publishedDate: "2025년 1월",
+        "서버를 통한 이미지 업로드 -> Presigned URL 을 통해 2배 이상의 속도향상을 이루어냄",
+      publishedDate: "2025년 2월",
       content: `
         ON:U 프로젝트를 위해 AWS S3 Presigned URL을 활용한 최적화된 이미지 업로드 시스템을 연구하고 구현했습니다.
         
-        전통적인 이미지 업로드 방식은 이미지를 먼저 서버로 전송한 다음, 서버가 이를 클라우드 스토리지에 업로드하는 방식입니다.
-        이는 서버에 불필요한 부하를 발생시키고 지연 시간을 증가시킵니다. Presigned URL 접근 방식은 클라이언트에서 S3로 직접
-        업로드할 수 있게 하여, 파일 전송 과정에서 서버를 완전히 우회합니다.
+        개발 초기 이미지 업로드 방식은 이미지를 먼저 서버로 전송한 다음, 서버가 이를 클라우드 스토리지에 업로드하는 방식이었습니다.
+        하지만 이미지 용량이 커지는 경우 이는 서버에 불필요한 부하를 발생시키고 지연 시간을 증가시켰습니다. 
+        이를 해결하기 위해  Presigned URL 방식을 도입하여 클라이언트에서 S3로 직접 업로드할 수 있게 하여 서버 경유에 따른 시간 지연을 해소하고자 했습니다.
         
         그 과정은 다음과 같습니다:
+
         1. 클라이언트가 서버에 Presigned URL을 요청
         2. 서버가 AWS SDK를 사용하여 임시 인증된 URL 생성
-        3. 클라이언트가 Presigned URL을 통해 이미지를 S3에 직접 업로드
+        3. 클라이언트가 Presigned URL을 통해 이미지를 S3에 직접 업로드 (Promise all 을 활용해 병렬 처리)
         4. 업로드 성공 후, 클라이언트가 이미지 URL을 데이터베이스 저장을 위해 서버로 전송
         
-        이 접근 방식은 서버 부하를 크게 줄이고 업로드 속도를 향상시켰으며, 특히 대역폭이 제한된
-        모바일 사용자에게 중요한 개선점이었습니다.
       `,
       keyTakeaways: [
         "파일 업로드를 위한 서버 우회로 서버 부하 감소",
         "업로드 성능 70% 향상",
-        "임시 자격 증명을 통한 향상된 보안",
         "더 빠른 이미지 업로드로 사용자 경험 개선",
         "대용량 파일 업로드 처리를 위한 확장 가능한 솔루션",
-        "서버 대역폭 사용량 감소로 비용 효율적인 접근 방식",
       ],
       codeExample: `
-// Presigned URL 생성을 위한 서버 측 코드 (Node.js)
-import AWS from 'aws-sdk';
-
-// AWS S3 설정
-const s3 = new AWS.S3({
-  region: process.env.AWS_REGION,
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SECRET_KEY
-});
-
-// Presigned URL 생성 함수
-const generatePresignedUrl = async (fileName, fileType) => {
-  const params = {
-    Bucket: process.env.S3_BUCKET_NAME,
-    Key: \`uploads/\${Date.now()}-\${fileName}\`,
-    ContentType: fileType,
-    Expires: 60 // URL은 60초 후 만료
+  // 서버로 부터 URL 수신
+  const getSignedUrl = async (file: File): Promise<PresignedUrlResponse> => {
+    const response = await api.post('/api/images/presigned', {
+      contentType: file.type,
+    });
+    return response.data;
   };
 
-  try {
-    const url = await s3.getSignedUrlPromise('putObject', params);
-    return {
-      url,
-      key: params.Key
-    };
-  } catch (error) {
-    console.error('Presigned URL 생성 오류:', error);
-    throw error;
-  }
-};
+  // URL 으로 이미지 업로드 
+  const uploadToS3 = async (file: File, signedUrl: string) => {
+    await fetch(signedUrl, {
+      method: 'PUT',
+      body: file,
+      headers: { 'Content-Type': file.type },
+    });
+  };
 
-// Presigned URL을 사용한 업로드를 위한 클라이언트 측 코드 (React)
-const uploadImageWithPresignedUrl = async (file) => {
-  // 1단계: 서버에서 presigned URL 요청
-  const response = await fetch('/api/presigned-url', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      fileName: file.name,
-      fileType: file.type
-    })
-  });
-  
-  const { url, key } = await response.json();
-  
-  // 2단계: S3에 직접 업로드
-  await fetch(url, {
-    method: 'PUT',
-    body: file,
-    headers: {
-      'Content-Type': file.type
-    }
-  });
-  
-  // 3단계: 저장을 위해 이미지 URL/키를 서버로 전송
-  return \`https://\${process.env.S3_BUCKET_NAME}.s3.amazonaws.com/\${key}\`;
-};
+  // promise all 을 통한 이미지 업로드
+  const uploadImages = async (files: File[]): Promise<string[]> => {
+    try {
+      const uploadPromises = files.map(async (file) => {
+        try {
+          const { presignedUrl, fileName } = await getSignedUrl(file);
+          await uploadToS3(file, presignedUrl);
+
+          return "{AUTH_CONFIG.API.S3_URL}/{fileName}";
+        } catch (error) {
+          console.error("파일 업로드 실패: {file.name}", error);
+          return null;
+        }
+      });
+
+      const results = await Promise.all(uploadPromises);
+
+      const successfulUploads = results.filter((url): url is string => url !== null);
       `,
       application:
-        "이 기술을 ON:U 캠퍼스 커뮤니케이션 플랫폼에 적용하여 채팅 대화에서 이미지 업로드 속도를 크게 향상시켰습니다. 이는 특히 캠퍼스 네트워크를 사용하는 모바일 사용자에게 중요했습니다. 향상된 업로드 속도는 채팅 애플리케이션의 실시간 특성을 강화하여 더 원활한 커뮤니케이션 흐름을 가능하게 했습니다.",
+        "이 기술을 ON:U 캠퍼스 커뮤니케이션 플랫폼에 적용하여 채팅 대화 및 게시글 생성 페이지에서 이미지 업로드 속도를 크게 향상시켰습니다.",
     },
     tags: [
       "AWS",
@@ -857,7 +781,6 @@ const uploadImageWithPresignedUrl = async (file) => {
     ],
     url: "https://github.com/softeer5th/Team7-BungeoBbang/wiki/Presigned-Url-%EC%9D%84-%ED%86%B5%ED%95%9C-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%97%85%EB%A1%9C%EB%93%9C",
   },
-  // 기존 studyItems 배열에 아래 항목들을 추가합니다
 
   {
     id: 4,
@@ -1012,10 +935,10 @@ const ChatComponent = () => {
         "This solution was applied in the ON:U chat platform to provide seamless real-time communication between students and student council members. The global WebSocket management enabled consistent connection state across the application, allowing users to receive real-time updates anywhere in the app without reconnecting.",
     },
     ko: {
-      title: "Zustand를 활용한 전역 웹소켓 관리",
+      title: "전역 웹소켓 관리",
       description:
         "Zustand를 사용하여 실시간 애플리케이션을 위한 전역 웹소켓 관리 시스템 구현",
-      publishedDate: "2025년 1월",
+      publishedDate: "2025년 2월",
       content: `
         ON:U 채팅 플랫폼을 위해 Zustand를 사용한 전역 웹소켓 관리 시스템을 설계하고 구현했습니다.
         
