@@ -164,38 +164,43 @@ export default function StudyPage({
                   )}
                 </ul>
               </section>
+              {localizedStudy.codeExample && (
+                <section>
+                  <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+                    Code Example
+                  </h2>
+                  {/* 코드 예제 부분의 오버플로우 처리 개선 */}
+                  <div className="p-3 sm:p-4 bg-muted/30 rounded-lg overflow-hidden">
+                    <pre
+                      className="text-xs sm:text-sm overflow-x-auto scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent pb-2"
+                      style={{ maxWidth: "100%" }}
+                    >
+                      <code className="break-all whitespace-pre-wrap sm:whitespace-pre">
+                        {localizedStudy.codeExample}
+                      </code>
+                    </pre>
+                  </div>
+                </section>
+              )}
 
-              <section>
-                <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
-                  Code Example
-                </h2>
-                {/* 코드 예제 부분의 오버플로우 처리 개선 */}
-                <div className="p-3 sm:p-4 bg-muted/30 rounded-lg overflow-hidden">
-                  <pre
-                    className="text-xs sm:text-sm overflow-x-auto scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent pb-2"
-                    style={{ maxWidth: "100%" }}
-                  >
-                    <code className="break-all whitespace-pre-wrap sm:whitespace-pre">
-                      {localizedStudy.codeExample}
-                    </code>
-                  </pre>
-                </div>
-              </section>
-
-              <section>
-                <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
-                  Application
-                </h2>
-                <p className="text-sm sm:text-base text-muted-foreground mb-4">
-                  Here's how I applied this knowledge in a real-world project:
-                </p>
-                <div className="p-3 sm:p-4 border rounded-lg">
-                  <h3 className="font-semibold mb-2">Project Implementation</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground break-words">
-                    {localizedStudy.application}
+              {localizedStudy.application && (
+                <section>
+                  <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+                    Application
+                  </h2>
+                  <p className="text-sm sm:text-base text-muted-foreground mb-4">
+                    Here's how I applied this knowledge in a real-world project:
                   </p>
-                </div>
-              </section>
+                  <div className="p-3 sm:p-4 border rounded-lg">
+                    <h3 className="font-semibold mb-2">
+                      Project Implementation
+                    </h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground break-words">
+                      {localizedStudy.application}
+                    </p>
+                  </div>
+                </section>
+              )}
             </div>
 
             {/* 사이드바 영역 */}
@@ -233,7 +238,7 @@ export default function StudyPage({
                   <div className="mt-4 sm:mt-6">
                     <Button
                       asChild
-                      variant="default"
+                      variant={studyUrl === "#" ? "destructive" : "default"}
                       className="w-full gap-2 text-xs sm:text-sm"
                     >
                       <Link
@@ -242,7 +247,11 @@ export default function StudyPage({
                         rel="noopener noreferrer"
                       >
                         <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
-                        <span>View Original Resource</span>
+                        {studyUrl === "#" ? (
+                          <span>No Resource for this study</span>
+                        ) : (
+                          <span>View Original Resource</span>
+                        )}
                       </Link>
                     </Button>
                   </div>
