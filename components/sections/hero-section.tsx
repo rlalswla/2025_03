@@ -27,15 +27,15 @@ export function HeroSection() {
       <div className="container relative z-10 max-w-6xl px-4 mx-auto">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 items-center">
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <div className="hidden md:block mb-6">
-              <Image
+            <div className="hidden md:block mb-6 w-52 h-">
+              {/* <Image
                 src="/profile-image.png?height=200&width=200"
                 alt="Profile"
                 width={200}
                 height={200}
                 className="rounded-lg shadow-lg"
                 priority
-              />
+              /> */}
             </div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
               <span className="block text-primary text-5xl text-slate-700 dark:text-gray-300">
