@@ -9,7 +9,7 @@ export const translations = {
     },
     // Hero section
     hero: {
-      bio: "Building user-friendly web applications with Front-end technologies.",
+      bio: "Building user-friendly applications with Front-end technologies.",
       viewProjects: "View Projects",
       contactMe: "Contact Me",
     },
@@ -59,7 +59,7 @@ export const translations = {
     },
     // Hero section
     hero: {
-      bio: "UI/UX 를 중요시 하는 웹 프론트엔드 개발자 입니다.",
+      bio: "UI/UX 를 중요시 하는 프론트엔드 개발자 입니다.",
       viewProjects: "프로젝트 보기",
       contactMe: "연락하기",
     },
