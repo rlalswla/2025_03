@@ -4161,49 +4161,50 @@ select(selector) {
   {
     id: 14,
     en: {
-      title: "Next.js App Router와 서버 컴포넌트",
+      title: "Next.js App Router and Server Components",
       description:
-        "Next.js의 App Router 아키텍처와 서버 컴포넌트를 활용한 현대적 웹 개발",
+        "Modern web development using Next.js App Router architecture and server components",
       publishedDate: "February 2025",
       content: `
-        포트폴리오 웹사이트를 개발하면서 Next.js의 App Router 아키텍처와 React 서버 컴포넌트(RSC)에 대한 깊은 이해를 얻었습니다.
+        While developing a portfolio website, I gained a deep understanding of Next.js's App Router architecture and React Server Components (RSC).
         
-        App Router는 기존의 Pages Router와 다르게 파일 시스템 기반의 라우팅을 제공하며, 계층적 레이아웃, 중첩 라우팅, 로딩 상태,
-        에러 핸들링 등의 기능을 내장하고 있습니다. 이를 통해 더 직관적이고 관리하기 쉬운 라우팅 구조를 만들 수 있었습니다.
+        Unlike the previous Pages Router, App Router provides file system-based routing with built-in features like hierarchical layouts, 
+        nested routing, loading states, and error handling. This allowed me to create a more intuitive and manageable routing structure.
         
-        React 서버 컴포넌트는 기존 클라이언트 컴포넌트와는 달리 서버에서 렌더링되어 HTML로 전송되므로 JavaScript 번들 크기를
-        줄이고 초기 로딩 성능을 개선할 수 있습니다. 이 기술을 통해 데이터 페칭, SEO 최적화, 초기 페이지 로드 성능을 크게 개선할 수 있었습니다.
+        React Server Components are rendered on the server and transmitted as HTML, unlike traditional client components. This reduces 
+        JavaScript bundle size and improves initial loading performance. I was able to significantly enhance data fetching, SEO optimization, 
+        and initial page load performance using this technology.
         
-        주요 학습 내용:
+        Key learning areas:
         
-        1. 서버 컴포넌트와 클라이언트 컴포넌트의 차이점과 각각의 사용 사례
+        1. Differences between server components and client components, and use cases for each
         
-        2. 데이터 페칭 패턴:
-           - 서버 컴포넌트에서 직접 데이터 페칭
-           - API 라우트를 통한 데이터 페칭
-           - 클라이언트 측 SWR/React Query 등을 통한 데이터 페칭
+        2. Data fetching patterns:
+           - Direct data fetching in server components
+           - Data fetching through API routes
+           - Client-side data fetching using SWR/React Query
         
-        3. 성능 최적화 기법:
-           - 정적 렌더링과 동적 렌더링의 적절한 활용
-           - 선택적 하이드레이션과 스트리밍
-           - Route Segment Config 옵션을 통한 캐싱 전략
+        3. Performance optimization techniques:
+           - Appropriate use of static and dynamic rendering
+           - Selective hydration and streaming
+           - Caching strategies through Route Segment Config options
         
-        4. 병렬 라우트, 인터셉트 라우트, 그룹 라우트와 같은 고급 라우팅 패턴
+        4. Advanced routing patterns such as parallel routes, intercepting routes, and route groups
       `,
       keyTakeaways: [
-        "서버와 클라이언트 컴포넌트 간의 균형 잡힌 설계",
-        "App Router의 파일 기반 라우팅 아키텍처",
-        "서버 컴포넌트를 활용한 성능 최적화",
-        "병렬 및 인터셉트 라우트 패턴의 적용",
-        "클라이언트 사이드 내비게이션 최적화",
-        "Next.js의 캐싱 메커니즘과 재검증 전략",
+        "Balanced design between server and client components",
+        "File-based routing architecture with App Router",
+        "Performance optimization using server components",
+        "Application of parallel and intercepting route patterns",
+        "Client-side navigation optimization",
+        "Next.js caching mechanisms and revalidation strategies",
       ],
       codeExample: `
-// 서버 컴포넌트 예시
+// Server Component Example
 // app/projects/page.tsx
 import { ProjectCard } from '@/components/project-card';
 
-// 서버 컴포넌트에서 직접 데이터 가져오기
+// Direct data fetching in server component
 async function getProjects() {
   const res = await fetch('/api/portfolio/projects');
   if (!res.ok) throw new Error('Failed to fetch projects');
@@ -4211,7 +4212,7 @@ async function getProjects() {
 }
 
 export default async function ProjectsPage() {
-  // async/await 직접 사용 가능
+  // Can use async/await directly
   const projects = await getProjects();
   
   return (
@@ -4223,9 +4224,9 @@ export default async function ProjectsPage() {
   );
 }
 
-// 클라이언트 컴포넌트 예시
+// Client Component Example
 // components/project-card.tsx
-"use client"; // 클라이언트 컴포넌트 명시
+"use client"; // Mark as client component
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -4239,13 +4240,13 @@ export function ProjectCard({ project }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* 카드 내용 */}
+      {/* Card content */}
     </motion.div>
   );
 }
       `,
       application:
-        "이러한 Next.js App Router 아키텍처와 서버 컴포넌트를 활용하여 포트폴리오 웹사이트를 구축했습니다. 특히 서버 컴포넌트를 통해 데이터 페칭이 필요한 페이지에서 JavaScript 번들 크기를 최소화하고, 클라이언트 컴포넌트는 인터랙티브한 요소에만 사용하여 전체적인 성능과 사용자 경험을 최적화했습니다. 병렬 라우트를 활용해 이미지 모달과 같은 오버레이 UI를 구현하고, 인터셉트 라우트로 프로젝트 목록에서 상세 페이지로의 전환을 부드럽게 만들었습니다.",
+        "I built a portfolio website using this Next.js App Router architecture and server components. By using server components for pages that require data fetching, I minimized JavaScript bundle size, while using client components only for interactive elements to optimize overall performance and user experience. I implemented overlay UIs like image modals using parallel routes and created smooth transitions from project lists to detail pages with intercepting routes.",
     },
     ko: {
       title: "Next.js App Router와 서버 컴포넌트",
