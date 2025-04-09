@@ -457,182 +457,341 @@ export const studyItems = [
   {
     id: 1,
     en: {
-      title: "Advanced Algorithm Study",
+      title: "Technology Stack Selection - Best Practices and Considerations",
       description:
-        "Intensive study of advanced algorithms and data structures through Samsung's algorithm education program",
-      publishedDate: "July 2023 ~ August 2023",
+        "A deep dive into the decision-making process for selecting appropriate libraries and technologies for web applications",
+      publishedDate: "March 2025",
       content: `
-        Participated in Samsung Electronics DX part intensive algorithm education program with cpp, focusing on advanced data structures and algorithms.
-        The program involved daily problem-solving sessions with 2-3 high-difficulty problems and theoretical lectures.
-        
-        Key areas covered included complex tree structures, graph algorithms, and optimization techniques.
-        The program significantly improved my problem-solving abilities and algorithmic thinking.
-        
-        Daily practice and theoretical learning helped build a strong foundation in algorithmic problem-solving,
-        which has been invaluable in tackling complex development challenges.
-      `,
+      Led a comprehensive technology selection process for the ON:U project, establishing a framework for evaluating and choosing appropriate libraries and frameworks.
+      
+      Selecting the right technology stack is one of the most critical decisions in any software project, with long-lasting implications for development efficiency, application performance, and long-term maintenance. For the ON:U project, we needed a technology stack that would support real-time features while ensuring a smooth user experience and developer productivity.
+      
+      Our technology selection process involved:
+      
+      1. Requirement Analysis: Identifying functional and non-functional requirements, with special attention to real-time communication needs, state management complexity, and mobile compatibility
+      
+      2. Technology Evaluation Framework: Creating a structured approach to evaluate technologies based on:
+         - Performance metrics
+         - Community support and ecosystem
+         - Learning curve and team familiarity
+         - Long-term maintenance considerations
+         - Bundle size and load performance
+         - Integration capabilities with other libraries
+      
+      3. Comparative Testing: Building small prototypes with various technology options to empirically evaluate their performance and developer experience
+      
+      4. Team Input: Gathering insights from all team members to ensure the selected technologies aligned with team skills and preferences
+      
+      Technology Selection Decisions:
+      
+      1. State Management: Zustand vs Redux
+      
+      We chose Zustand over Redux for several key reasons:
+      - Bundle Size: Zustand added only 2.2KB to our bundle compared to Redux's 16KB (including react-redux and redux-toolkit)
+      - API Simplicity: Zustand's API is significantly more straightforward, requiring fewer boilerplate files
+      - Learning Curve: Team members without Redux experience could quickly adopt Zustand's intuitive approach
+      - TypeScript Integration: Zustand provided better TypeScript support with fewer type annotations needed
+      - Middleware Support: While Redux has a larger middleware ecosystem, Zustand offered the core capabilities we needed (persist, devtools)
+      
+      2. Styling Solution: Styled-Components vs Tailwind CSS
+      
+      After evaluating several options, we selected styled-components over Tailwind CSS:
+      - Component Encapsulation: Better alignment with our React component architecture
+      - Dynamic Styling: Superior support for styling based on props and theme variables
+      - Scoped Styles: Eliminated style conflicts through automatic CSS-in-JS scoping
+      - Developer Experience: Team was more familiar with CSS syntax than Tailwind's utility classes
+      - Bundle Size Consideration: We implemented code splitting, making styled-components' larger initial size less impactful
+      
+      3. Routing: React Router vs TanStack Router
+      
+      We chose React Router despite TanStack Router's promising features:
+      - Community Support: Much larger ecosystem and community resources
+      - Maturity: Battle-tested in production environments with well-documented patterns
+      - Learning Curve: Team's existing familiarity reduced development time
+      - Feature Needs: Our routing requirements didn't necessitate TanStack Router's advanced features
+      - Performance: Benchmarks showed minimal difference for our specific use cases (5% difference)
+      
+      4. Build Tool: Vite vs Create React App (CRA)
+      
+      Vite was selected over CRA due to:
+      - Development Speed: Significantly faster hot module replacement and startup times
+      - Modern Architecture: ESM-based approach with optimized production builds
+      - Flexibility: Better support for various plugins and custom configurations
+      - Build Performance: 60-70% faster builds in our testing compared to CRA
+      - Active Development: More active maintenance and alignment with modern web standards
+      
+      This structured approach allowed us to make informed decisions that balanced immediate development needs with long-term maintenance and performance considerations.
+    `,
       keyTakeaways: [
-        "STL (Standard Template Library)",
-        "Tree Data Structures",
-        "Heap",
-        "Union Find Algorithm",
-        "Binary Search",
-        "Graph Algorithms",
-        "Dijkstra Algorithm",
-        "Hash Tables",
-        "Trie Data Structure",
-        "Segment Tree",
+        "Technology evaluation framework development",
+        "Trade-off analysis between competing technologies",
+        "Performance benchmarking strategies",
+        "Bundle size optimization considerations",
+        "Developer experience prioritization",
+        "Ecosystem and community support assessment",
       ],
       codeExample: `
-// Example of implementing Union Find algorithm
-class UnionFind {
-  constructor(size) {
-    this.parent = Array.from({length: size}, (_, i) => i);
-    this.rank = new Array(size).fill(0);
-  }
+// Example of a client-side router comparison test
+// Testing performance impact of different routing libraries
 
-  find(x) {
-    if (this.parent[x] !== x) {
-      this.parent[x] = this.find(this.parent[x]); // Path compression
-    }
-    return this.parent[x];
-  }
+// React Router implementation
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-  union(x, y) {
-    const rootX = this.find(x);
-    const rootY = this.find(y);
-    
-    if (rootX !== rootY) {
-      if (this.rank[rootX] < this.rank[rootY]) {
-        this.parent[rootX] = rootY;
-      } else if (this.rank[rootX] > this.rank[rootY]) {
-        this.parent[rootY] = rootX;
-      } else {
-        this.parent[rootY] = rootX;
-        this.rank[rootX]++;
-      }
-    }
-  }
+function ReactRouterApp() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/chat/:id" element={<ChatPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
-      `,
-      application:
-        "Applied these algorithmic concepts in real projects, particularly in optimizing data structures for the chat application's message handling system and implementing efficient search algorithms in the FLEX project.",
-    },
-    ko: {
-      title: "고급 알고리즘 학습",
-      description:
-        "삼성 알고리즘 교육 프로그램을 통한 고급 알고리즘과 자료구조 집중 학습",
-      publishedDate: "2023년 7월 ~ 2023년 8월",
-      content: `
-        삼성전자 DX 부문의 집중 알고리즘 교육 프로그램에 참여하여 C++ 언어를 통한 고급 자료구조와 알고리즘을 학습했습니다.
 
-        매일 2-3개의 고난도 문제 해결 세션과 이론 강의로 구성된 프로그램이었습니다.
-        
-        복잡한 트리 구조, 그래프 알고리즘, 최적화 기법 등을 중점적으로 다뤘습니다.
-        이 프로그램을 통해 문제 해결 능력과 알고리즘적 사고가 크게 향상되었습니다.
-        
-        매일의 실습과 이론 학습을 통해 알고리즘 문제 해결의 탄탄한 기초를 쌓았으며,
-        이는 복잡한 개발 과제를 해결하는 데 큰 도움이 되었습니다.
-      `,
-      keyTakeaways: [
-        "STL (Standard Template Library)",
-        "Tree Data Structures",
-        "Heap",
-        "Union Find Algorithm",
-        "Binary Search",
-        "Graph Algorithms",
-        "Dijkstra Algorithm",
-        "Hash Tables",
-        "Trie Data Structure",
-        "Segment Tree",
-      ],
-      codeExample: `
-// Union Find 알고리즘 구현 예시
-class UnionFind {
-  constructor(size) {
-    this.parent = Array.from({length: size}, (_, i) => i);
-    this.rank = new Array(size).fill(0);
-  }
+// TanStack Router implementation
+import {
+  Router,
+  RouterProvider,
+  Route,
+  RootRoute
+} from '@tanstack/react-router';
 
-  find(x) {
-    if (this.parent[x] !== x) {
-      this.parent[x] = this.find(this.parent[x]); // 경로 압축
-    }
-    return this.parent[x];
-  }
+const rootRoute = new RootRoute();
 
-  union(x, y) {
-    const rootX = this.find(x);
-    const rootY = this.find(y);
-    
-    if (rootX !== rootY) {
-      if (this.rank[rootX] < this.rank[rootY]) {
-        this.parent[rootX] = rootY;
-      } else if (this.rank[rootX] > this.rank[rootY]) {
-        this.parent[rootY] = rootX;
-      } else {
-        this.parent[rootY] = rootX;
-        this.rank[rootX]++;
-      }
-    }
-  }
+const homeRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: '/',
+  component: HomePage
+});
+
+const chatRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: '/chat/$id',
+  component: ChatPage
+});
+
+const profileRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: '/profile',
+  component: ProfilePage
+});
+
+const notFoundRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: '*',
+  component: NotFoundPage
+});
+
+const routeTree = rootRoute.addChildren([
+  homeRoute,
+  chatRoute,
+  profileRoute,
+  notFoundRoute
+]);
+
+const router = new Router({ routeTree });
+
+function TanStackRouterApp() {
+  return <RouterProvider router={router} />;
 }
-      `,
-      application:
-        "이러한 알고리즘 개념들을 실제 프로젝트에 적용했으며, 특히 채팅 애플리케이션의 메시지 처리 시스템 최적화와 FLEX 프로젝트의 효율적인 검색 알고리즘 구현에 활용했습니다.",
-    },
-    tags: ["Algorithm", "Data Structure", "C++", "PS"],
-    url: "#",
+
+// Performance measurement code
+import { useState, useEffect } from 'react';
+
+function BenchmarkTest() {
+  const [reactRouterTime, setReactRouterTime] = useState(null);
+  const [tanStackRouterTime, setTanStackRouterTime] = useState(null);
+  
+  useEffect(() => {
+    // Measure React Router
+    const reactRouterStart = performance.now();
+    const reactRouterApp = document.createElement('div');
+    ReactDOM.render(<ReactRouterApp />, reactRouterApp);
+    setTimeout(() => {
+      const reactRouterEnd = performance.now();
+      setReactRouterTime(reactRouterEnd - reactRouterStart);
+      ReactDOM.unmountComponentAtNode(reactRouterApp);
+    }, 500);
+    
+    // Measure TanStack Router
+    const tanStackRouterStart = performance.now();
+    const tanStackRouterApp = document.createElement('div');
+    ReactDOM.render(<TanStackRouterApp />, tanStackRouterApp);
+    setTimeout(() => {
+      const tanStackRouterEnd = performance.now();
+      setTanStackRouterTime(tanStackRouterEnd - tanStackRouterStart);
+      ReactDOM.unmountComponentAtNode(tanStackRouterApp);
+    }, 500);
+  }, []);
+  
+  return (
+    <div>
+      <h2>Router Performance Comparison</h2>
+      <p>React Router render time: {reactRouterTime}ms</p>
+      <p>TanStack Router render time: {tanStackRouterTime}ms</p>
+      <p>Difference: {reactRouterTime && tanStackRouterTime ? 
+        Math.abs(reactRouterTime - tanStackRouterTime).toFixed(2) + 'ms' : 
+        'Calculating...'}</p>
+    </div>
+  );
+}
+
+// Bundle size analysis for different state management libraries
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+
+// Configuration for analyzing Zustand bundle size
+const zustandWebpackConfig = {
+  // ... other webpack configuration
+  entry: './src/zustand-test.js',
+  output: {
+    filename: 'zustand-bundle.js'
   },
-  {
-    id: 2,
-    en: {
-      title: "xv6 Operating System Implementation",
-      description:
-        "Deep dive into operating system concepts through xv6 implementation",
-      publishedDate: "March 2024 ~ June 2024",
-      content: `
-        Implemented various system features based on xv6, gaining deep understanding of core operating system concepts.
-        The project focused on CPU scheduling, virtual memory management, and page replacement algorithms.
-        
-        For CPU scheduling, implemented a priority-based system using nice values and applied the CFS
-        (Completely Fair Scheduler) algorithm to ensure fair CPU time distribution among processes.
-        
-        In virtual memory management, added memory mapping functionality using mmap and implemented
-        efficient page replacement algorithms for optimal memory resource utilization.
-      `,
-      keyTakeaways: [
-        "Deep understanding of OS internals",
-        "Implementation of CPU scheduling algorithms",
-        "Virtual memory management expertise",
-        "System call implementation experience",
-        "Performance optimization techniques",
-      ],
+  plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      reportFilename: 'zustand-report.html',
+      openAnalyzer: false
+    })
+  ]
+};
+
+// Configuration for analyzing Redux bundle size
+const reduxWebpackConfig = {
+  // ... other webpack configuration
+  entry: './src/redux-test.js',
+  output: {
+    filename: 'redux-bundle.js'
+  },
+  plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      reportFilename: 'redux-report.html',
+      openAnalyzer: false
+    })
+  ]
+};
+
+// Example of Zustand implementation for the comparison
+// zustand-test.js
+import create from 'zustand';
+
+const useStore = create((set) => ({
+  count: 0,
+  increment: () => set((state) => ({ count: state.count + 1 })),
+  decrement: () => set((state) => ({ count: state.count - 1 }))
+}));
+
+// Example of Redux implementation for the comparison
+// redux-test.js
+import { createStore } from 'redux';
+import { Provider, useSelector, useDispatch } from 'react-redux';
+
+// Reducer
+const counterReducer = (state = { count: 0 }, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { count: state.count + 1 };
+    case 'DECREMENT':
+      return { count: state.count - 1 };
+    default:
+      return state;
+  }
+};
+
+// Store
+const store = createStore(counterReducer);
+
+// Actions
+const increment = () => ({ type: 'INCREMENT' });
+const decrement = () => ({ type: 'DECREMENT' });
+    `,
+      application:
+        "This structured approach to technology selection was applied to the ON:U project, resulting in a well-balanced technology stack. Our selection of Zustand over Redux reduced our bundle size by approximately 14KB and significantly accelerated development due to its simpler API. The choice of styled-components aligned perfectly with our component-based architecture and enabled dynamic styling based on theme and user preferences. Selecting Vite as our build tool improved developer experience with 60% faster rebuilds during development and reduced average deployment time from 4 minutes to 1.5 minutes. These deliberate technology choices collectively improved both development velocity and end-user experience, with our application achieving a performance score increase from 76 to 89 in Lighthouse benchmarks.",
     },
     ko: {
-      title: "xv6 운영체제 구현",
-      description: "xv6 구현을 통한 운영체제 개념 심화 학습",
-      publishedDate: "2024년 3월 ~ 2024년 6월",
+      title: "FE 기술 스택 (라이브러리 & 프레임워크) 선정 이유",
+      description:
+        "웹 애플리케이션을 위한 적절한 라이브러리와 기술 선택 과정에 대한 이유",
+      publishedDate: "2025년 3월",
       content: `
-        xv6를 기반으로 다양한 시스템 기능을 구현하며 운영체제의 핵심 개념에 대한 깊은 이해를 얻었습니다.
-        CPU 스케줄링, 가상 메모리 관리, 페이지 교체 알고리즘에 중점을 두고 진행했습니다.
-        
-        CPU 스케줄링을 위해 nice value를 이용한 우선순위 기반 시스템을 구현하고,
-        CFS(Completely Fair Scheduler) 알고리즘을 적용하여 프로세스 간 공정한 CPU 시간 분배를 구현했습니다.
-        
-        가상 메모리 관리에서는 mmap을 이용한 메모리 매핑 기능을 추가하고,
-        효율적인 페이지 교체 알고리즘을 구현하여 메모리 자원의 최적 활용을 도모했습니다.
-      `,
+      단순히 많이 사용되는 기술을 이해하지 못한채로 사용하는 상황을 최대한 방지하고자 기술들에 대한 학습들을 진행하였습니다.
+      
+      기술 선택 프로세스는 다음과 같은 단계로 진행되었습니다:
+      
+      1. 요구사항 분석: 실시간 통신 요구사항, 상태 관리 복잡성, 모바일 호환성 등등 프로젝트의 기능적 및 비기능적 요구사항에 따른 선택.
+      
+      2. 기술 평가 지표: 다음 기준에 따라 기술을 평가하였습니다:
+         - 성능 지표
+         - 커뮤니티 지원 및 생태계
+         - 학습 곡선 및 팀 친숙도
+         - 장기적인 유지보수 고려사항
+         - 번들 크기 및 로드 성능
+         - 다른 라이브러리와의 통합 능력
+      
+      기술 선택 결정:
+      
+      1. 전역적 상태 관리: Zustand
+
+      프로젝트의 크기가 커짐에 따라 Context API 는 불필요한 리렌더링을 많이 불러오고, 코드의 복잡성을 늘릴것이라고 판단했습니다.
+      이에 전역 상태관리 라이브러리를 사용하기로 하였고, 다음과 같은 이유로 Redux 대신 Zustand를 선택했습니다:
+      - 번들 크기: Zustand는 Redux(react-redux 및 redux-toolkit 포함)의 16KB에 비해 번들에 단 2.2KB만 추가했습니다
+      - API 단순성: Zustand의 API는 상당히 더 간단하며, 보일러플레이트 파일이 적게 필요합니다
+      - 학습 곡선: Redux 경험이 없는 팀원들도 Zustand의 직관적인 접근 방식을 빠르게 채택할 수 있었습니다
+      - TypeScript 통합: Zustand는 더 적은 타입 주석으로 더 나은 TypeScript 지원을 제공했습니다
+      - 미들웨어 지원: Redux가 더 큰 미들웨어 생태계를 보유하고 있지만, Zustand는 우리가 필요한 핵심 기능(persist, devtools)을 제공했습니다
+      
+      2. 스타일링 솔루션: Styled-Components vs Tailwind CSS
+      
+      여러 옵션을 평가한 후 Tailwind CSS 대신 styled-components를 선택했습니다:
+      - 컴포넌트 캡슐화: React 컴포넌트 아키텍처와 더 잘 일치
+      - 동적 스타일링: props와 테마 변수에 기반한 스타일링에 대한 우수한 지원
+      - 범위가 지정된 스타일: CSS-in-JS 범위 지정을 통해 스타일 충돌 제거
+      - 개발자 경험: 팀이 Tailwind의 유틸리티 클래스보다 CSS 구문에 더 친숙했습니다
+      - 번들 크기 고려: 코드 분할을 구현하여 styled-components의 초기 크기가 더 크더라도 영향을 줄였습니다
+      
+      3. 라우팅: React Router vs TanStack Router
+      
+      TanStack Router의 유망한 기능에도 불구하고 React Router를 선택했습니다:
+      - 커뮤니티 지원: 훨씬 더 큰 생태계와 커뮤니티 리소스
+      - 성숙도: 잘 문서화된 패턴으로 프로덕션 환경에서 검증됨
+      - 학습 곡선: 팀의 기존 친숙도로 개발 시간 단축
+      - 기능 요구사항: 우리의 라우팅 요구사항은 TanStack Router의 고급 기능을 필요로 하지 않았습니다
+      - 성능: 벤치마크 테스트 결과 특정 사용 사례에서 최소한의 차이만 보였습니다 (약 5% 차이)
+      
+      4. 빌드 도구: Vite vs Create React App (CRA)
+      
+      다음과 같은 이유로 CRA 대신 Vite를 선택했습니다:
+      - 개발 속도: 상당히 더 빠른 핫 모듈 교체 및 시작 시간
+      - 현대적 아키텍처: 최적화된 프로덕션 빌드가 있는 ESM 기반 접근 방식
+      - 유연성: 다양한 플러그인 및 사용자 정의 구성에 대한 더 나은 지원
+      - 빌드 성능: 우리 테스트에서 CRA보다 60-70% 더 빠른 빌드
+      - 활발한 개발: 더 활발한 유지보수와 현대 웹 표준과의 정렬
+      
+      이러한 구조화된 접근 방식을 통해 즉각적인 개발 요구사항과 장기적인 유지보수 및 성능 고려사항 사이의 균형을 맞춘 정보에 기반한 결정을 내릴 수 있었습니다.
+    `,
       keyTakeaways: [
-        "운영체제 내부 구조의 깊은 이해",
-        "CPU 스케줄링 알고리즘 구현",
-        "가상 메모리 관리 전문성",
-        "시스템 콜 구현 경험",
-        "성능 최적화 기법",
+        "기술 평가 프레임워크 개발",
+        "경쟁 기술 간의 트레이드오프 분석",
+        "성능 벤치마킹 전략",
+        "번들 크기 최적화 고려사항",
+        "개발자 경험 우선순위 지정",
+        "생태계 및 커뮤니티 지원 평가",
       ],
+      codeExample: `No code Example`,
+      application:
+        "이러한 구조화된 기술 선택 접근 방식은 ON:U 프로젝트에 적용되어 균형 잡힌 기술 스택을 구축할 수 있었습니다. Redux 대신 Zustand를 선택한 것은 번들 크기를 약 14KB 줄이고 더 간단한 API 덕분에 개발 속도를 크게 향상시켰습니다. styled-components 선택은 컴포넌트 기반 아키텍처와 완벽하게 일치하여 테마와 사용자 선호도에 따른 동적 스타일링을 가능하게 했습니다. 빌드 도구로 Vite를 선택한 것은 개발 중 60% 더 빠른 리빌드와 배포 시간을 평균 4분에서 1.5분으로 줄이는 등 개발자 경험을 향상시켰습니다. 이러한 의도적인 기술 선택은 전체적으로 개발 속도와 최종 사용자 경험을 모두 개선하여, 우리 애플리케이션은 Lighthouse 벤치마크에서 성능 점수가 76에서 89로 향상되었습니다.",
     },
-    tags: ["Operating Systems", "C", "System Programming", "Memory Management"],
-    url: "#",
+    tags: [
+      "Technology Selection",
+      "Bundle Size",
+      "Developer Experience",
+      "React Ecosystem",
+      "Zustand",
+      "styled-components",
+    ],
+    url: "https://github.com/softeer5th/Team7-BungeoBbang/wiki/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-(%EA%B8%B0%EC%88%A0)-%EC%84%A0%ED%83%9D-%EC%9D%B4%EC%9C%A0",
   },
   {
     id: 3,
@@ -2223,350 +2382,6 @@ function registerValidSW(swUrl) {
     url: "https://github.com/softeer5th/Team7-BungeoBbang/wiki/%EB%AA%A8%EB%B0%94%EC%9D%BC-%ED%98%B8%ED%99%98%EC%84%B1%EC%9D%84-%EC%9C%84%ED%95%9C-%EB%85%B8%EB%A0%A5%EB%93%A4",
   },
 
-  {
-    id: 8,
-    en: {
-      title: "Technology Stack Selection - Best Practices and Considerations",
-      description:
-        "A deep dive into the decision-making process for selecting appropriate libraries and technologies for web applications",
-      publishedDate: "March 2025",
-      content: `
-      Led a comprehensive technology selection process for the ON:U project, establishing a framework for evaluating and choosing appropriate libraries and frameworks.
-      
-      Selecting the right technology stack is one of the most critical decisions in any software project, with long-lasting implications for development efficiency, application performance, and long-term maintenance. For the ON:U project, we needed a technology stack that would support real-time features while ensuring a smooth user experience and developer productivity.
-      
-      Our technology selection process involved:
-      
-      1. Requirement Analysis: Identifying functional and non-functional requirements, with special attention to real-time communication needs, state management complexity, and mobile compatibility
-      
-      2. Technology Evaluation Framework: Creating a structured approach to evaluate technologies based on:
-         - Performance metrics
-         - Community support and ecosystem
-         - Learning curve and team familiarity
-         - Long-term maintenance considerations
-         - Bundle size and load performance
-         - Integration capabilities with other libraries
-      
-      3. Comparative Testing: Building small prototypes with various technology options to empirically evaluate their performance and developer experience
-      
-      4. Team Input: Gathering insights from all team members to ensure the selected technologies aligned with team skills and preferences
-      
-      Technology Selection Decisions:
-      
-      1. State Management: Zustand vs Redux
-      
-      We chose Zustand over Redux for several key reasons:
-      - Bundle Size: Zustand added only 2.2KB to our bundle compared to Redux's 16KB (including react-redux and redux-toolkit)
-      - API Simplicity: Zustand's API is significantly more straightforward, requiring fewer boilerplate files
-      - Learning Curve: Team members without Redux experience could quickly adopt Zustand's intuitive approach
-      - TypeScript Integration: Zustand provided better TypeScript support with fewer type annotations needed
-      - Middleware Support: While Redux has a larger middleware ecosystem, Zustand offered the core capabilities we needed (persist, devtools)
-      
-      2. Styling Solution: Styled-Components vs Tailwind CSS
-      
-      After evaluating several options, we selected styled-components over Tailwind CSS:
-      - Component Encapsulation: Better alignment with our React component architecture
-      - Dynamic Styling: Superior support for styling based on props and theme variables
-      - Scoped Styles: Eliminated style conflicts through automatic CSS-in-JS scoping
-      - Developer Experience: Team was more familiar with CSS syntax than Tailwind's utility classes
-      - Bundle Size Consideration: We implemented code splitting, making styled-components' larger initial size less impactful
-      
-      3. Routing: React Router vs TanStack Router
-      
-      We chose React Router despite TanStack Router's promising features:
-      - Community Support: Much larger ecosystem and community resources
-      - Maturity: Battle-tested in production environments with well-documented patterns
-      - Learning Curve: Team's existing familiarity reduced development time
-      - Feature Needs: Our routing requirements didn't necessitate TanStack Router's advanced features
-      - Performance: Benchmarks showed minimal difference for our specific use cases (5% difference)
-      
-      4. Build Tool: Vite vs Create React App (CRA)
-      
-      Vite was selected over CRA due to:
-      - Development Speed: Significantly faster hot module replacement and startup times
-      - Modern Architecture: ESM-based approach with optimized production builds
-      - Flexibility: Better support for various plugins and custom configurations
-      - Build Performance: 60-70% faster builds in our testing compared to CRA
-      - Active Development: More active maintenance and alignment with modern web standards
-      
-      This structured approach allowed us to make informed decisions that balanced immediate development needs with long-term maintenance and performance considerations.
-    `,
-      keyTakeaways: [
-        "Technology evaluation framework development",
-        "Trade-off analysis between competing technologies",
-        "Performance benchmarking strategies",
-        "Bundle size optimization considerations",
-        "Developer experience prioritization",
-        "Ecosystem and community support assessment",
-      ],
-      codeExample: `
-// Example of a client-side router comparison test
-// Testing performance impact of different routing libraries
-
-// React Router implementation
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-function ReactRouterApp() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/chat/:id" element={<ChatPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
-
-// TanStack Router implementation
-import {
-  Router,
-  RouterProvider,
-  Route,
-  RootRoute
-} from '@tanstack/react-router';
-
-const rootRoute = new RootRoute();
-
-const homeRoute = new Route({
-  getParentRoute: () => rootRoute,
-  path: '/',
-  component: HomePage
-});
-
-const chatRoute = new Route({
-  getParentRoute: () => rootRoute,
-  path: '/chat/$id',
-  component: ChatPage
-});
-
-const profileRoute = new Route({
-  getParentRoute: () => rootRoute,
-  path: '/profile',
-  component: ProfilePage
-});
-
-const notFoundRoute = new Route({
-  getParentRoute: () => rootRoute,
-  path: '*',
-  component: NotFoundPage
-});
-
-const routeTree = rootRoute.addChildren([
-  homeRoute,
-  chatRoute,
-  profileRoute,
-  notFoundRoute
-]);
-
-const router = new Router({ routeTree });
-
-function TanStackRouterApp() {
-  return <RouterProvider router={router} />;
-}
-
-// Performance measurement code
-import { useState, useEffect } from 'react';
-
-function BenchmarkTest() {
-  const [reactRouterTime, setReactRouterTime] = useState(null);
-  const [tanStackRouterTime, setTanStackRouterTime] = useState(null);
-  
-  useEffect(() => {
-    // Measure React Router
-    const reactRouterStart = performance.now();
-    const reactRouterApp = document.createElement('div');
-    ReactDOM.render(<ReactRouterApp />, reactRouterApp);
-    setTimeout(() => {
-      const reactRouterEnd = performance.now();
-      setReactRouterTime(reactRouterEnd - reactRouterStart);
-      ReactDOM.unmountComponentAtNode(reactRouterApp);
-    }, 500);
-    
-    // Measure TanStack Router
-    const tanStackRouterStart = performance.now();
-    const tanStackRouterApp = document.createElement('div');
-    ReactDOM.render(<TanStackRouterApp />, tanStackRouterApp);
-    setTimeout(() => {
-      const tanStackRouterEnd = performance.now();
-      setTanStackRouterTime(tanStackRouterEnd - tanStackRouterStart);
-      ReactDOM.unmountComponentAtNode(tanStackRouterApp);
-    }, 500);
-  }, []);
-  
-  return (
-    <div>
-      <h2>Router Performance Comparison</h2>
-      <p>React Router render time: {reactRouterTime}ms</p>
-      <p>TanStack Router render time: {tanStackRouterTime}ms</p>
-      <p>Difference: {reactRouterTime && tanStackRouterTime ? 
-        Math.abs(reactRouterTime - tanStackRouterTime).toFixed(2) + 'ms' : 
-        'Calculating...'}</p>
-    </div>
-  );
-}
-
-// Bundle size analysis for different state management libraries
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-
-// Configuration for analyzing Zustand bundle size
-const zustandWebpackConfig = {
-  // ... other webpack configuration
-  entry: './src/zustand-test.js',
-  output: {
-    filename: 'zustand-bundle.js'
-  },
-  plugins: [
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      reportFilename: 'zustand-report.html',
-      openAnalyzer: false
-    })
-  ]
-};
-
-// Configuration for analyzing Redux bundle size
-const reduxWebpackConfig = {
-  // ... other webpack configuration
-  entry: './src/redux-test.js',
-  output: {
-    filename: 'redux-bundle.js'
-  },
-  plugins: [
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      reportFilename: 'redux-report.html',
-      openAnalyzer: false
-    })
-  ]
-};
-
-// Example of Zustand implementation for the comparison
-// zustand-test.js
-import create from 'zustand';
-
-const useStore = create((set) => ({
-  count: 0,
-  increment: () => set((state) => ({ count: state.count + 1 })),
-  decrement: () => set((state) => ({ count: state.count - 1 }))
-}));
-
-// Example of Redux implementation for the comparison
-// redux-test.js
-import { createStore } from 'redux';
-import { Provider, useSelector, useDispatch } from 'react-redux';
-
-// Reducer
-const counterReducer = (state = { count: 0 }, action) => {
-  switch (action.type) {
-    case 'INCREMENT':
-      return { count: state.count + 1 };
-    case 'DECREMENT':
-      return { count: state.count - 1 };
-    default:
-      return state;
-  }
-};
-
-// Store
-const store = createStore(counterReducer);
-
-// Actions
-const increment = () => ({ type: 'INCREMENT' });
-const decrement = () => ({ type: 'DECREMENT' });
-    `,
-      application:
-        "This structured approach to technology selection was applied to the ON:U project, resulting in a well-balanced technology stack. Our selection of Zustand over Redux reduced our bundle size by approximately 14KB and significantly accelerated development due to its simpler API. The choice of styled-components aligned perfectly with our component-based architecture and enabled dynamic styling based on theme and user preferences. Selecting Vite as our build tool improved developer experience with 60% faster rebuilds during development and reduced average deployment time from 4 minutes to 1.5 minutes. These deliberate technology choices collectively improved both development velocity and end-user experience, with our application achieving a performance score increase from 76 to 89 in Lighthouse benchmarks.",
-    },
-    ko: {
-      title: "기술 스택 선정 이유",
-      description:
-        "웹 애플리케이션을 위한 적절한 라이브러리와 기술 선택 과정에 대한 이유",
-      publishedDate: "2025년 3월",
-      content: `
-      ON:U 프로젝트를 위한 포괄적인 기술 선택 프로세스를 주도하여, 적절한 라이브러리와 프레임워크를 평가하고 선택하는 프레임워크를 수립했습니다.
-      
-      적절한 기술 스택 선택은 개발 효율성, 애플리케이션 성능 및 장기적인 유지보수에 영향을 미치는 소프트웨어 프로젝트의 가장 중요한 결정 중 하나입니다. ON:U 프로젝트에서는 실시간 기능을 지원하면서도 원활한 사용자 경험과 개발자 생산성을 보장할 수 있는 기술 스택이 필요했습니다.
-      
-      우리의 기술 선택 프로세스는 다음과 같은 단계로 진행되었습니다:
-      
-      1. 요구사항 분석: 실시간 통신 요구사항, 상태 관리 복잡성, 모바일 호환성 등에 특별히 주의하면서 기능적 및 비기능적 요구사항을 식별했습니다.
-      
-      2. 기술 평가 프레임워크: 다음 기준에 따라 기술을 평가하는 구조화된 접근 방식을 수립했습니다:
-         - 성능 지표
-         - 커뮤니티 지원 및 생태계
-         - 학습 곡선 및 팀 친숙도
-         - 장기적인 유지보수 고려사항
-         - 번들 크기 및 로드 성능
-         - 다른 라이브러리와의 통합 능력
-      
-      3. 비교 테스트: 다양한 기술 옵션으로 작은 프로토타입을 구축하여 경험적으로 성능과 개발자 경험을 평가했습니다.
-      
-      4. 팀 의견 수렴: 선택된 기술이 팀 기술 및 선호도와 일치하는지 확인하기 위해 모든 팀원의 의견을 수렴했습니다.
-      
-      기술 선택 결정:
-      
-      1. 상태 관리: Zustand vs Redux
-      
-      다음과 같은 핵심 이유로 Redux 대신 Zustand를 선택했습니다:
-      - 번들 크기: Zustand는 Redux(react-redux 및 redux-toolkit 포함)의 16KB에 비해 번들에 단 2.2KB만 추가했습니다
-      - API 단순성: Zustand의 API는 상당히 더 간단하며, 보일러플레이트 파일이 적게 필요합니다
-      - 학습 곡선: Redux 경험이 없는 팀원들도 Zustand의 직관적인 접근 방식을 빠르게 채택할 수 있었습니다
-      - TypeScript 통합: Zustand는 더 적은 타입 주석으로 더 나은 TypeScript 지원을 제공했습니다
-      - 미들웨어 지원: Redux가 더 큰 미들웨어 생태계를 보유하고 있지만, Zustand는 우리가 필요한 핵심 기능(persist, devtools)을 제공했습니다
-      
-      2. 스타일링 솔루션: Styled-Components vs Tailwind CSS
-      
-      여러 옵션을 평가한 후 Tailwind CSS 대신 styled-components를 선택했습니다:
-      - 컴포넌트 캡슐화: React 컴포넌트 아키텍처와 더 잘 일치
-      - 동적 스타일링: props와 테마 변수에 기반한 스타일링에 대한 우수한 지원
-      - 범위가 지정된 스타일: CSS-in-JS 범위 지정을 통해 스타일 충돌 제거
-      - 개발자 경험: 팀이 Tailwind의 유틸리티 클래스보다 CSS 구문에 더 친숙했습니다
-      - 번들 크기 고려: 코드 분할을 구현하여 styled-components의 초기 크기가 더 크더라도 영향을 줄였습니다
-      
-      3. 라우팅: React Router vs TanStack Router
-      
-      TanStack Router의 유망한 기능에도 불구하고 React Router를 선택했습니다:
-      - 커뮤니티 지원: 훨씬 더 큰 생태계와 커뮤니티 리소스
-      - 성숙도: 잘 문서화된 패턴으로 프로덕션 환경에서 검증됨
-      - 학습 곡선: 팀의 기존 친숙도로 개발 시간 단축
-      - 기능 요구사항: 우리의 라우팅 요구사항은 TanStack Router의 고급 기능을 필요로 하지 않았습니다
-      - 성능: 벤치마크 테스트 결과 특정 사용 사례에서 최소한의 차이만 보였습니다 (약 5% 차이)
-      
-      4. 빌드 도구: Vite vs Create React App (CRA)
-      
-      다음과 같은 이유로 CRA 대신 Vite를 선택했습니다:
-      - 개발 속도: 상당히 더 빠른 핫 모듈 교체 및 시작 시간
-      - 현대적 아키텍처: 최적화된 프로덕션 빌드가 있는 ESM 기반 접근 방식
-      - 유연성: 다양한 플러그인 및 사용자 정의 구성에 대한 더 나은 지원
-      - 빌드 성능: 우리 테스트에서 CRA보다 60-70% 더 빠른 빌드
-      - 활발한 개발: 더 활발한 유지보수와 현대 웹 표준과의 정렬
-      
-      이러한 구조화된 접근 방식을 통해 즉각적인 개발 요구사항과 장기적인 유지보수 및 성능 고려사항 사이의 균형을 맞춘 정보에 기반한 결정을 내릴 수 있었습니다.
-    `,
-      keyTakeaways: [
-        "기술 평가 프레임워크 개발",
-        "경쟁 기술 간의 트레이드오프 분석",
-        "성능 벤치마킹 전략",
-        "번들 크기 최적화 고려사항",
-        "개발자 경험 우선순위 지정",
-        "생태계 및 커뮤니티 지원 평가",
-      ],
-      codeExample: `No code Example`,
-      application:
-        "이러한 구조화된 기술 선택 접근 방식은 ON:U 프로젝트에 적용되어 균형 잡힌 기술 스택을 구축할 수 있었습니다. Redux 대신 Zustand를 선택한 것은 번들 크기를 약 14KB 줄이고 더 간단한 API 덕분에 개발 속도를 크게 향상시켰습니다. styled-components 선택은 컴포넌트 기반 아키텍처와 완벽하게 일치하여 테마와 사용자 선호도에 따른 동적 스타일링을 가능하게 했습니다. 빌드 도구로 Vite를 선택한 것은 개발 중 60% 더 빠른 리빌드와 배포 시간을 평균 4분에서 1.5분으로 줄이는 등 개발자 경험을 향상시켰습니다. 이러한 의도적인 기술 선택은 전체적으로 개발 속도와 최종 사용자 경험을 모두 개선하여, 우리 애플리케이션은 Lighthouse 벤치마크에서 성능 점수가 76에서 89로 향상되었습니다.",
-    },
-    tags: [
-      "Technology Selection",
-      "Bundle Size",
-      "Developer Experience",
-      "React Ecosystem",
-      "Zustand",
-      "styled-components",
-    ],
-    url: "https://github.com/softeer5th/Team7-BungeoBbang/wiki/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-(%EA%B8%B0%EC%88%A0)-%EC%84%A0%ED%83%9D-%EC%9D%B4%EC%9C%A0",
-  },
   {
     id: 9,
     en: {
