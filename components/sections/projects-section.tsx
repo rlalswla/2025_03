@@ -136,7 +136,7 @@ export function ProjectsSection() {
             <div
               key={project.id}
               onClick={(e) => handleCardClick(project.id, e)}
-              className="overflow-hidden transition-all duration-500 rounded-lg hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-2 bg-background/70 backdrop-blur-md border border-border cursor-pointer flex flex-col h-full"
+              className="overflow-hidden transition-all duration-500 rounded-lg hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-2 bg-background/70 backdrop-blur-md border-2 border-border cursor-pointer flex flex-col h-full"
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               <div className="relative aspect-video overflow-hidden">
