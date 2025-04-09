@@ -1,23 +1,19 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useLanguage } from "@/contexts/language-context";
 
-// 메모리 캐시 (앱 실행 중에만 유지됨)
+// 메모리 캐시
 const memoryCache: Record<string, { data: any; timestamp: number }> = {};
 
 // 캐시 만료 시간 (1시간)
 const CACHE_EXPIRY = 60 * 60 * 1000;
 
 interface PortfolioDataOptions {
-  /** 캐시 데이터가 오래되었다고 간주되기 전 유효 시간(ms) */
   staleTime?: number;
-  /** 관련 프로젝트/스터디 필터링을 위한 태그 */
   relatedTags?: string[];
 }
 
-/**
- * 포트폴리오 데이터를 가져오고 메모리에 캐싱하는 훅
- */
 export function usePortfolioData<T>(
   endpoint: string,
   id?: number,
@@ -27,13 +23,12 @@ export function usePortfolioData<T>(
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
-
-  // 요청 중복 방지를 위한 ref
+  const { language } = useLanguage(); // 현재 언어 상태 가져오기
   const isFetchingRef = useRef<boolean>(false);
 
-  // 캐시 키 생성
+  // 캐시 키 생성 (언어 포함)
   const getCacheKey = () => {
-    let key = `portfolio_${endpoint}`;
+    let key = `portfolio_${endpoint}_${language}`;
 
     if (id !== undefined) {
       key += `_${id}`;
@@ -46,7 +41,6 @@ export function usePortfolioData<T>(
     }
 
     if (options.relatedTags?.length) {
-      // 태그를 키에 포함시켜 다른 태그 조합으로 요청할 때마다 개별 캐싱
       key += `_tags_${options.relatedTags.sort().join("_")}`;
     }
 
@@ -54,17 +48,13 @@ export function usePortfolioData<T>(
   };
 
   useEffect(() => {
-    // 필요한 데이터가 없을 때만 요청하도록 제한
-    // 예: relatedTags가 있으면 특정 항목만 가져오는 경우
     if (endpoint === "projects" && !id && options.relatedTags?.length === 0) {
-      // 관련 프로젝트가 필요하지 않은 경우 요청 방지
       setData([] as any);
       setLoading(false);
       return;
     }
 
     if (endpoint === "study" && !id && options.relatedTags?.length === 0) {
-      // 관련 스터디가 필요하지 않은 경우 요청 방지
       setData([] as any);
       setLoading(false);
       return;
@@ -75,8 +65,6 @@ export function usePortfolioData<T>(
 
       const cacheKey = getCacheKey();
       const staleTime = options.staleTime || CACHE_EXPIRY;
-
-      // 메모리 캐시 확인
       const cachedData = memoryCache[cacheKey];
       const now = Date.now();
 
@@ -86,13 +74,11 @@ export function usePortfolioData<T>(
         return;
       }
 
-      // API 호출
       try {
         isFetchingRef.current = true;
         setLoading(true);
 
         let url = "";
-
         if (
           endpoint === "personalInfo" ||
           endpoint === "skills" ||
@@ -105,10 +91,13 @@ export function usePortfolioData<T>(
 
           // 쿼리 파라미터 구성
           const params = new URLSearchParams();
+          params.append("locale", language); // 현재 언어 설정 추가
 
           if (id !== undefined) {
             params.append("id", id.toString());
-          } else if (summary) {
+          }
+
+          if (summary) {
             params.append("summary", "true");
           }
 
@@ -132,10 +121,7 @@ export function usePortfolioData<T>(
         }
 
         const result = await response.json();
-
-        // 메모리 캐시 업데이트
         memoryCache[cacheKey] = { data: result, timestamp: Date.now() };
-
         setData(result);
       } catch (err) {
         setError(
@@ -154,20 +140,18 @@ export function usePortfolioData<T>(
     endpoint,
     id,
     summary,
+    language, // 언어가 변경될 때마다 데이터 다시 로드
     options.staleTime,
     JSON.stringify(options.relatedTags),
   ]);
 
-  // 데이터 새로고침 함수는 그대로 유지합니다...
+  // 데이터 새로고침 함수 (필요시 사용)
   const refresh = async () => {
     const cacheKey = getCacheKey();
-
-    // 메모리 캐시 삭제
     if (memoryCache[cacheKey]) {
       delete memoryCache[cacheKey];
     }
 
-    // 다시 데이터 로드
     setLoading(true);
     setError(null);
 
@@ -182,11 +166,24 @@ export function usePortfolioData<T>(
       ) {
         url = `/api/portfolio?section=${endpoint}`;
       } else if (endpoint === "projects" || endpoint === "study") {
-        if (id) {
-          url = `/api/portfolio/${endpoint}?id=${id}`;
-        } else {
-          url = `/api/portfolio/${endpoint}${summary ? "?summary=true" : ""}`;
+        const params = new URLSearchParams();
+        params.append("locale", language);
+
+        if (id !== undefined) {
+          params.append("id", id.toString());
         }
+
+        if (summary) {
+          params.append("summary", "true");
+        }
+
+        if (options.relatedTags?.length) {
+          options.relatedTags.forEach((tag) => {
+            params.append("tag", tag.toLowerCase());
+          });
+        }
+
+        url = `/api/portfolio/${endpoint}?${params.toString()}`;
       }
 
       const response = await fetch(url);
@@ -196,10 +193,7 @@ export function usePortfolioData<T>(
       }
 
       const result = await response.json();
-
-      // 메모리 캐시 업데이트
       memoryCache[cacheKey] = { data: result, timestamp: Date.now() };
-
       setData(result);
     } catch (err) {
       setError(

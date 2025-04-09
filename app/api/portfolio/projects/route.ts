@@ -1,47 +1,78 @@
-import { projects } from "@/data";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import {
+  getAllProjects,
+  getProjectBySlug,
+  getProjectsByTags,
+} from "@/lib/markdown";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
+  const locale = searchParams.get("locale") || "en";
   const summary = searchParams.get("summary") === "true";
+  const tags = searchParams.getAll("tag");
 
-  if (id) {
-    const projectId = Number(id);
-    const project = projects.find((p) => p.id === projectId);
+  try {
+    // 태그 기반 필터링
+    if (tags.length > 0) {
+      const projects = getProjectsByTags(tags, locale as string);
 
-    if (project) {
+      if (summary) {
+        return NextResponse.json(projects.map(({ content, ...rest }) => rest));
+      }
+
+      return NextResponse.json(projects);
+    }
+
+    // ID로 특정 프로젝트 조회
+    if (id) {
+      // ID는 숫자 또는 슬러그 둘 다 지원
+      const isNumeric = !isNaN(Number(id));
+
+      let project;
+      if (isNumeric) {
+        // 숫자 ID로 모든 프로젝트에서 찾기
+        const allProjects = getAllProjects(locale as string);
+        const matchingProject = allProjects.find((p) => p!.id === Number(id));
+
+        if (matchingProject) {
+          const slug = String(matchingProject.id).padStart(2, "0");
+          project = getProjectBySlug(slug, locale as string);
+        }
+      } else {
+        // 슬러그로 직접 찾기
+        project = getProjectBySlug(id, locale as string);
+      }
+
+      if (!project) {
+        return NextResponse.json(
+          { error: "Project not found" },
+          { status: 404 }
+        );
+      }
+
+      // summary 모드일 경우 content는 제외
+      if (summary) {
+        const { content, ...rest } = project;
+        return NextResponse.json(rest);
+      }
+
       return NextResponse.json(project);
     }
+
+    // 모든 프로젝트 조회
+    const projects = getAllProjects(locale as string);
+
+    if (summary) {
+      return NextResponse.json(projects.map(({ content, ...rest }) => rest));
+    }
+
+    return NextResponse.json(projects);
+  } catch (error) {
+    console.error("Failed to fetch projects:", error);
     return NextResponse.json(
-      { error: "프로젝트를 찾을 수 없습니다." },
-      { status: 404 }
+      { error: "Failed to fetch projects" },
+      { status: 500 }
     );
   }
-
-  // summary 파라미터가 있으면 요약 정보만 반환
-  if (summary) {
-    const projectSummaries = projects.map((project) => ({
-      id: project.id,
-      en: {
-        title: project.en.title,
-        description: project.en.description,
-        completedDate: project.en.completedDate,
-      },
-      ko: {
-        title: project.ko.title,
-        description: project.ko.description,
-        completedDate: project.ko.completedDate,
-      },
-      image: project.image,
-      technologies: project.technologies,
-      demoUrl: project.demoUrl,
-      sourceUrl: project.sourceUrl,
-    }));
-
-    return NextResponse.json(projectSummaries);
-  }
-
-  // 요약 정보가 요청되지 않은 경우 전체 데이터 반환
-  return NextResponse.json(projects);
 }

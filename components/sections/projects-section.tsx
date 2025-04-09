@@ -3,29 +3,41 @@
 import type React from "react";
 
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { AnimatedSection } from "@/components/animated-section";
 import { Button } from "@/components/ui/button";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
-import { projects as projectsType } from "@/data"; // 타입 정의를 위해서만 import
 import { useLanguage } from "@/contexts/language-context";
 import { translations } from "@/data/translations";
-import { Skeleton } from "@/components/ui/skeleton"; // Skeleton UI 추가 필요
+import { Skeleton } from "@/components/ui/skeleton";
+
+// 타입 정의 - 기존 data/index.ts 대신 직접 정의
+interface ProjectMeta {
+  id: number;
+  title: string;
+  description: string;
+  completedDate: string;
+  image: string;
+  technologies: string[];
+  demoUrl: string;
+  adminDemoUrl?: string;
+  sourceUrl: string;
+  screenshots: string[];
+  locale: string;
+}
 
 export function ProjectsSection() {
   const router = useRouter();
   const { language } = useLanguage();
   const t = translations[language];
 
-  // usePortfolioData 훅 사용 - summary 파라미터 추가
+  // usePortfolioData 훅 사용하여 마크다운 기반 데이터 가져오기
   const {
     data: projects,
     loading,
     error,
-  } = usePortfolioData<typeof projectsType>("projects", undefined, true); // summary=true로 설정
+  } = usePortfolioData<ProjectMeta[]>("projects", undefined, true);
 
   const handleCardClick = (projectId: number, e: React.MouseEvent) => {
-    // Only navigate if the click wasn't on a button
     if (!(e.target as HTMLElement).closest("button")) {
       router.push(`/projects/${projectId}`);
     }
@@ -90,14 +102,14 @@ export function ProjectsSection() {
           <div className="flex justify-center items-center py-12">
             <div className="text-center p-6 bg-destructive/10 rounded-lg">
               <p className="text-destructive font-medium mb-2">
-                {t.errors.failedToLoadProjects ||
+                {t.errors?.failedToLoadProjects ||
                   "프로젝트를 불러오는데 실패했습니다"}
               </p>
               <Button
                 variant="outline"
                 onClick={() => window.location.reload()}
               >
-                {t.errors.retry || "다시 시도"}
+                {t.errors?.retry || "다시 시도"}
               </Button>
             </div>
           </div>
@@ -106,7 +118,7 @@ export function ProjectsSection() {
     );
   }
 
-  // 성공 상태 UI - 기존 렌더링 로직 사용
+  // 성공 상태 UI
   return (
     <AnimatedSection
       id="projects"
@@ -130,77 +142,57 @@ export function ProjectsSection() {
               <div className="relative aspect-video overflow-hidden">
                 <img
                   src={project.image || "/placeholder.svg"}
-                  alt={language === "en" ? project.en.title : project.ko.title}
-                  className="object-cover w-full h-full transition-transform duration-700 hover:scale-110"
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform hover:scale-105"
                 />
-                <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-primary/20 backdrop-blur-sm hover:opacity-100"></div>
               </div>
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="mb-2 text-xl font-semibold hover:text-primary transition-colors duration-300">
-                  {language === "en" ? project.en.title : project.ko.title}
-                  {project.id === 1 && (
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary text-primary-foreground ">
-                      Latest
+              <div className="p-6 flex-grow flex flex-col">
+                <h3 className="text-xl font-semibold mb-2 line-clamp-1">
+                  {project.title}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.slice(0, 3).map((tech: string) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 text-xs rounded-full bg-primary/10 border border-primary/20"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {project.technologies.length > 3 && (
+                    <span className="px-2 py-1 text-xs rounded-full bg-muted">
+                      +{project.technologies.length - 3}
                     </span>
                   )}
-                </h3>
-
-                <p className="mb-4 text-muted-foreground">
-                  {language === "en"
-                    ? project.en.description
-                    : project.ko.description}
-                </p>
-
-                {/* Footer section with tags and buttons - moved to bottom */}
-                <div className="mt-auto">
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2 py-1 text-xs rounded-full bg-primary/10 border border-primary/20 transition-all duration-300 hover:bg-primary/20 hover:scale-105"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex gap-2">
+                </div>
+                <div className="flex gap-2 mt-auto">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex-grow"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(`/projects/${project.id}`);
+                    }}
+                  >
+                    {language == "en" ? "Details" : "자세히 보기"}
+                  </Button>
+                  {/* {project.demoUrl !== "-1" && (
                     <Button
-                      asChild
-                      variant="outline"
+                      variant="default"
                       size="sm"
-                      className="group relative overflow-hidden"
+                      className="flex-grow"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(project.demoUrl, "_blank");
+                      }}
                     >
-                      <Link
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
-                          {t.projects.viewDemo}
-                        </span>
-                        <span className="absolute inset-0 z-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
-                      </Link>
+                      {t.projects.viewDemo}
                     </Button>
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="sm"
-                      className="group relative overflow-hidden"
-                    >
-                      <Link
-                        href={project.sourceUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
-                          {t.projects.sourceCode}
-                        </span>
-                        <span className="absolute inset-0 z-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
-                      </Link>
-                    </Button>
-                  </div>
+                  )} */}
                 </div>
               </div>
             </div>

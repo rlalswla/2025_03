@@ -1,17 +1,26 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatedSection } from "@/components/animated-section";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
-import { studyItems as studyItemsType } from "@/data"; // 타입 정의를 위해서만 import
 import { useLanguage } from "@/contexts/language-context";
 import { translations } from "@/data/translations";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion, AnimatePresence } from "framer-motion";
+
+// 타입 정의 - 기존 data/index.ts 대신 직접 정의
+interface StudyMeta {
+  id: number;
+  title: string;
+  description: string;
+  publishedDate: string;
+  tags: string[];
+  url: string;
+  locale: string;
+}
 
 // 고정된 카테고리 목록
 const CATEGORIES = [
@@ -22,13 +31,12 @@ const CATEGORIES = [
   "CS",
   "CSS",
   "Project based",
-  "Algorithm", // Algorithm 카테고리 추가
+  "Algorithm",
 ];
 
 // study ID를 카테고리 배열에 매핑하는 함수 (중복 카테고리 지원)
 const getCategoriesForStudy = (id: number): string[] => {
   // ID 기반으로 각 학습 항목의 카테고리를 직접 매핑
-  // 하나의 항목에 여러 카테고리를 할당할 수 있습니다
   const categoryMapping: Record<number, string[]> = {
     1: ["Algorithm", "CS"], // Advanced Algorithm Study
     2: ["CS"], // xv6 Operating System Implementation
@@ -43,7 +51,6 @@ const getCategoriesForStudy = (id: number): string[] => {
     11: ["Vanilla JS", "Basic Frontend"], // Event Delegation in JavaScript
     12: ["Vanilla JS", "Project based"], // Fetch API and Asynchronous Communication
     13: ["CS", "Project based"], // Observer Pattern Implementation
-    // 필요에 따라 더 많은 매핑 추가
   };
 
   return categoryMapping[id] || ["Project based"]; // 기본값은 Project based
@@ -59,40 +66,103 @@ export function StudySection() {
 
   // usePortfolioData 훅 사용
   const {
-    data: studyItems,
+    data: studies,
     loading,
     error,
-  } = usePortfolioData<typeof studyItemsType>("study", undefined, true);
+  } = usePortfolioData<StudyMeta[]>("study", undefined, true);
 
   // 선택된 카테고리에 따라 학습 항목 필터링
-  const filteredStudyItems =
-    studyItems && selectedCategory
-      ? studyItems.filter((item) =>
+  const filteredStudies =
+    studies && selectedCategory
+      ? studies.filter((item) =>
           getCategoriesForStudy(item.id).includes(selectedCategory)
         )
-      : studyItems;
+      : studies;
 
+  // 카드 클릭 핸들러
   const handleCardClick = (studyId: number, e: React.MouseEvent) => {
     if (!(e.target as HTMLElement).closest("button")) {
       router.push(`/study/${studyId}`);
     }
   };
 
-  // 카테고리 선택 핸들러 - 로딩 인디케이터 사용하지 않도록 수정
+  // 카테고리 선택 핸들러
   const handleCategorySelect = (category: string | null) => {
     setSelectedCategory(category);
   };
 
   // 로딩 상태 UI
   if (loading) {
-    // 기존 로딩 UI 유지
-    // ...
+    return (
+      <AnimatedSection
+        id="study"
+        className="w-full py-24"
+        direction="left"
+        delay={200}
+      >
+        <div className="container max-w-5xl px-4 mx-auto">
+          <h2 className="mb-10 text-3xl font-bold text-center sm:text-4xl">
+            {t.study.title || "Study & Research"}
+          </h2>
+
+          {/* 스켈레톤 카테고리 필터 */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <Skeleton key={i} className="h-8 w-20 rounded-full" />
+            ))}
+          </div>
+
+          {/* 스켈레톤 카드 */}
+          <div className="grid gap-8 md:grid-cols-2">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="p-6 rounded-lg border border-border">
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <Skeleton className="h-6 w-16 rounded-full" />
+                  <Skeleton className="h-6 w-16 rounded-full" />
+                </div>
+                <Skeleton className="h-8 w-3/4 mb-2" />
+                <Skeleton className="h-4 w-full mb-2" />
+                <Skeleton className="h-4 w-full mb-2" />
+                <Skeleton className="h-4 w-2/3 mb-4" />
+                <Skeleton className="h-4 w-1/3 mt-auto" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </AnimatedSection>
+    );
   }
 
   // 에러 상태 UI
-  if (error || !studyItems) {
-    // 기존 에러 UI 유지
-    // ...
+  if (error || !studies) {
+    return (
+      <AnimatedSection
+        id="study"
+        className="w-full py-24"
+        direction="left"
+        delay={200}
+      >
+        <div className="container max-w-5xl px-4 mx-auto">
+          <h2 className="mb-10 text-3xl font-bold text-center sm:text-4xl">
+            {t.study.title || "Study & Research"}
+          </h2>
+          <div className="flex justify-center items-center py-12">
+            <div className="text-center p-6 bg-destructive/10 rounded-lg">
+              <p className="text-destructive font-medium mb-2">
+                {t.errors?.failedToLoadStudies ||
+                  "스터디 항목을 불러오는데 실패했습니다"}
+              </p>
+              <Button
+                variant="outline"
+                onClick={() => window.location.reload()}
+              >
+                {t.errors?.retry || "다시 시도"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+    );
   }
 
   // 성공 상태 UI
@@ -105,12 +175,11 @@ export function StudySection() {
     >
       <div className="container max-w-5xl px-4 mx-auto">
         <h2 className="mb-10 text-3xl font-bold text-center sm:text-4xl">
-          {t.study.title}
+          {t.study.title || "Study & Research"}
         </h2>
 
-        {/* 카테고리 필터 UI - 고정 카테고리 사용 */}
+        {/* 카테고리 필터 UI */}
         <div className="mb-8">
-          {/* <h3 className="text-lg font-medium mb-3">카테고리 필터</h3> */}
           <div className="flex flex-wrap gap-2 mb-4">
             <Button
               variant={selectedCategory === null ? "default" : "outline"}
@@ -118,7 +187,7 @@ export function StudySection() {
               onClick={() => handleCategorySelect(null)}
               className="rounded-full transition-all duration-300"
             >
-              전체 보기
+              {t.study.allCategories || "전체 보기"}
             </Button>
 
             {CATEGORIES.map((category) => (
@@ -136,7 +205,7 @@ export function StudySection() {
         </div>
 
         {/* 필터링된 학습 항목 목록 */}
-        {filteredStudyItems?.length === 0 ? (
+        {filteredStudies?.length === 0 ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -144,20 +213,21 @@ export function StudySection() {
             className="text-center py-8"
           >
             <p className="text-muted-foreground">
-              선택한 카테고리에 해당하는 학습 기록이 없습니다.
+              {t.study.noItemsFound ||
+                "선택한 카테고리에 해당하는 학습 기록이 없습니다."}
             </p>
             <Button
               variant="outline"
               className="mt-4"
               onClick={() => handleCategorySelect(null)}
             >
-              모든 카테고리 보기
+              {t.study.viewAllCategories || "모든 카테고리 보기"}
             </Button>
           </motion.div>
         ) : (
           <div className="grid gap-8 md:grid-cols-2 relative">
             <AnimatePresence mode="wait">
-              {filteredStudyItems?.map((item, index) => (
+              {filteredStudies?.map((item, index) => (
                 <motion.div
                   layout
                   key={item.id}
@@ -197,8 +267,8 @@ export function StudySection() {
                       </Badge>
                     ))}
 
-                    {/* 태그 표시는 유지 */}
-                    {item.tags.map((tag) => (
+                    {/* 태그 표시 */}
+                    {item.tags?.slice(0, 2).map((tag: string) => (
                       <Badge
                         key={tag}
                         variant="outline"
@@ -207,7 +277,7 @@ export function StudySection() {
                         {tag}
                       </Badge>
                     ))}
-                    {item.tags.length > 2 && (
+                    {item.tags?.length > 2 && (
                       <Badge variant="outline" className="px-2 py-1 text-xs">
                         +{item.tags.length - 2}
                       </Badge>
@@ -217,20 +287,16 @@ export function StudySection() {
                   {/* 콘텐츠 영역 */}
                   <div className="flex-grow">
                     <h3 className="mb-2 text-xl font-semibold transition-colors hover:text-primary">
-                      {language === "en" ? item.en.title : item.ko.title}
+                      {item.title}
                     </h3>
                     <p className="mb-2 text-muted-foreground line-clamp-3">
-                      {language === "en"
-                        ? item.en.description
-                        : item.ko.description}
+                      {item.description}
                     </p>
                   </div>
 
                   {/* 날짜 정보 */}
                   <p className="mt-auto pt-4 text-sm text-muted-foreground border-t border-border/50">
-                    {language === "en"
-                      ? item.en.publishedDate
-                      : item.ko.publishedDate}
+                    {item.publishedDate}
                   </p>
                 </motion.div>
               ))}

@@ -1,25 +1,43 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Github,
-  ExternalLink,
-  Calendar,
-  Code,
-  BookOpen,
-} from "lucide-react";
+import { ArrowLeft, Github, ExternalLink, Calendar, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { projects, studyItems } from "@/data"; // 타입 정의를 위해서만 import
 import { useLanguage } from "@/contexts/language-context";
 import { translations } from "@/data/translations";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/sections/footer";
 import { use } from "react";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
+import MarkdownRenderer from "@/components/markdown-renderer";
+
+// 타입 정의
+interface ProjectMeta {
+  id: number;
+  title: string;
+  description: string;
+  completedDate: string;
+  image: string;
+  technologies: string[];
+  demoUrl: string;
+  adminDemoUrl?: string;
+  sourceUrl: string;
+  screenshots: string[];
+  locale: string;
+}
+
+interface StudyMeta {
+  id: number;
+  title: string;
+  description: string;
+  publishedDate: string;
+  tags: string[];
+  url: string;
+  locale: string;
+}
 
 export default function ProjectPage({
   params,
@@ -29,9 +47,8 @@ export default function ProjectPage({
   const router = useRouter();
   const { language } = useLanguage();
   const t = translations[language];
-  const [project, setProject] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [relatedStudies, setRelatedStudies] = useState<any[]>([]);
+  const [relatedStudies, setRelatedStudies] = useState<StudyMeta[]>([]);
 
   // Unwrap params using React.use()
   const resolvedParams = use(params);
@@ -42,32 +59,37 @@ export default function ProjectPage({
     data: projectData,
     loading: projectLoading,
     error: projectError,
-  } = usePortfolioData<(typeof projects)[0]>("projects", projectId);
+  } = usePortfolioData<any>("projects", projectId);
 
-  // 모든 스터디 항목 가져오기 (관련 스터디 찾기 위해)
+  // API로 스터디 데이터 가져오기 (관련 스터디를 찾기 위해)
   const { data: studiesData, loading: studiesLoading } = usePortfolioData<
-    typeof studyItems
+    any[]
   >("study", undefined, true);
 
   useEffect(() => {
     // API에서 데이터 로드가 완료되면
     if (!projectLoading && !studiesLoading && projectData) {
-      setProject(projectData);
-
       // 관련 스터디 찾기
       if (studiesData) {
         // 프로젝트 기술 스택 기반으로 관련 스터디 찾기
-        const projectTechnologies = projectData.technologies.map((tech) =>
-          tech.toLowerCase()
-        );
-        const related = studiesData.filter((study) =>
-          study.tags.some((tag) =>
-            projectTechnologies.includes(tag.toLowerCase())
-          )
-        );
-        // .slice(0, 2);
+        // meta 속성 또는 루트에 있는 technologies 속성에 접근
+        const technologies =
+          projectData.meta?.technologies || projectData.technologies || [];
 
-        setRelatedStudies(related);
+        if (technologies && technologies.length > 0) {
+          const projectTechnologies = technologies.map((tech: string) =>
+            tech.toLowerCase()
+          );
+
+          const related = studiesData.filter((study: any) => {
+            const studyTags = study.meta?.tags || study.tags || [];
+            return studyTags.some((tag: string) =>
+              projectTechnologies.includes(tag.toLowerCase())
+            );
+          });
+
+          setRelatedStudies(related);
+        }
       }
 
       setLoading(false);
@@ -94,37 +116,44 @@ export default function ProjectPage({
     );
   }
 
-  if (!project) {
+  if (!projectData) {
     return null;
   }
 
-  // 기존 코드와 동일하게 유지
-  const localizedProject = language === "en" ? project.en : project.ko;
-  const demoUrl = project.demoUrl || "#";
-  const adminDemoUrl = project.adminDemoUrl || null;
-  const sourceUrl = project.sourceUrl || "#";
+  // 메타데이터와 콘텐츠 추출
+  const meta = projectData.meta || projectData;
+  const content = projectData.content || "";
+
+  const demoUrl = meta.demoUrl || "#";
+  const adminDemoUrl = meta.adminDemoUrl || null;
+  const sourceUrl = meta.sourceUrl || "#";
+  const technologies = meta.technologies || [];
+  const image = meta.image || "/placeholder.svg?height=600&width=1200";
+  const title = meta.title || "";
+  const description = meta.description || "";
+  const completedDate = meta.completedDate || "";
 
   return (
     <>
       <Navbar />
       <main className="pt-16 pb-16">
-        {/* Hero Section - 기존 코드 유지 */}
+        {/* Hero Section */}
         <div className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <Image
-            src={project.image || "/placeholder.svg?height=600&width=1200"}
-            alt={localizedProject.title}
+            src={image}
+            alt={title}
             fill
             className="object-cover"
             priority
           />
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white p-4">
             <h1 className="text-3xl md:text-5xl font-bold text-center mb-4">
-              {localizedProject.title}
+              {title}
             </h1>
 
             <div className="flex flex-wrap justify-center gap-2 mb-6">
-              {project.technologies.map((tech: string) => (
+              {technologies.map((tech: string) => (
                 <span
                   key={tech}
                   className="px-3 py-1 text-sm rounded-full bg-primary/70 border border-primary/20"
@@ -136,79 +165,15 @@ export default function ProjectPage({
           </div>
         </div>
 
-        {/* Content - 기존 코드 유지 */}
-        <div className="container max-w-4xl mx-auto px-4 py-12">
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="md:col-span-2 space-y-6">
-              <section>
-                <h2 className="text-2xl font-bold mb-4">Overview</h2>
-                <p className="text-muted-foreground">
-                  {localizedProject.overview}
-                </p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold mb-4">My role</h2>
-                <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                  {localizedProject.features.map(
-                    (feature: string, index: number) => (
-                      <li key={index}>{feature}</li>
-                    )
-                  )}
-                </ul>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold">Challenges & Solutions</h2>
-                <h3 className="text-sm mb-4 text-muted-foreground flex items-center">
-                  {language === "ko"
-                    ? "자세한 설명은 Related Studies 를 참조해주세요"
-                    : "Detailed explanations are provided in Related Studies."}
-                </h3>
-                <div className="space-y-4">
-                  {localizedProject.challenges.map(
-                    (challenge: any, index: number) => (
-                      <div key={index} className="p-4 border rounded-lg">
-                        <h3 className="font-semibold mb-2">
-                          {challenge.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-                          {challenge.description}
-                        </p>
-                      </div>
-                    )
-                  )}
-                </div>
-              </section>
-
-              {project.screenshots && project.screenshots.length > 0 && (
-                <section>
-                  <h2 className="text-2xl font-bold mb-4">Screenshots</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {project.screenshots.map(
-                      (screenshot: string, index: number) => (
-                        <div
-                          key={index}
-                          className="rounded-lg overflow-hidden border"
-                        >
-                          <Image
-                            src={screenshot || "/placeholder.svg"}
-                            alt={`${localizedProject.title} screenshot ${
-                              index + 1
-                            }`}
-                            width={350}
-                            height={200}
-                            className="w-full h-auto"
-                          />
-                        </div>
-                      )
-                    )}
-                  </div>
-                </section>
-              )}
+        {/* Content */}
+        <div className="container max-w-6xl mx-auto px-4 py-12">
+          <div className="grid gap-16 md:grid-cols-3 px-4">
+            <div className="md:col-span-2">
+              {/* 마크다운 콘텐츠 렌더링 */}
+              <MarkdownRenderer content={content} />
             </div>
 
-            {/* 오른쪽 사이드바에 sticky 포지션 추가 */}
+            {/* 오른쪽 사이드바 */}
             <div className="relative">
               <div className="sticky top-20 space-y-6 max-h-[calc(100vh-6rem)] overflow-y-auto pb-4 scrollbar-thin">
                 <div className="p-6 rounded-lg border bg-card">
@@ -223,18 +188,19 @@ export default function ProjectPage({
                           Duration
                         </span>
                         <span className="text-sm text-muted-foreground">
-                          {localizedProject.completedDate}
+                          {completedDate}
                         </span>
                       </div>
                     </li>
+
                     <li className="flex items-start gap-2">
-                      <Code className="w-14 text-primary mt-0.5" />
+                      <Code className="w-5 h-5 text-primary mt-0.5" />
                       <div>
                         <span className="block text-sm font-medium">
                           Tech Stack
                         </span>
                         <span className="text-sm text-muted-foreground">
-                          {project.technologies.join(", ")}
+                          {technologies.join(", ")}
                         </span>
                       </div>
                     </li>
@@ -253,16 +219,19 @@ export default function ProjectPage({
                       >
                         <ExternalLink className="w-4 h-4" />
                         {demoUrl === "-1" ? (
-                          <span>Demo Dead.,,</span>
+                          <span>
+                            {t.projects.noDemo || "No Demo Available"}
+                          </span>
                         ) : (
-                          <span>Live Demo</span>
+                          <span>{t.projects.viewDemo}</span>
                         )}
                       </Link>
                     </Button>
+
                     {adminDemoUrl && (
                       <Button
                         asChild
-                        variant={demoUrl === "-1" ? "destructive" : "default"}
+                        variant="outline"
                         className="w-full gap-2"
                       >
                         <Link
@@ -271,16 +240,16 @@ export default function ProjectPage({
                           rel="noopener noreferrer"
                         >
                           <ExternalLink className="w-4 h-4" />
-                          {adminDemoUrl === "-1" ? (
-                            <span>Demo Dead.,,</span>
-                          ) : (
-                            <span>Live Demo</span>
-                          )}
+                          <span>Admin Demo</span>
                         </Link>
                       </Button>
                     )}
 
-                    <Button asChild variant="outline" className="w-full gap-2">
+                    <Button
+                      asChild
+                      variant="secondary"
+                      className="w-full gap-2"
+                    >
                       <Link
                         href={sourceUrl}
                         target="_blank"
@@ -293,44 +262,35 @@ export default function ProjectPage({
                   </div>
                 </div>
 
+                {/* 관련 학습 자료 섹션 */}
                 <div className="p-6 rounded-lg border bg-card">
                   <h3 className="text-xl font-semibold mb-4">
                     Related Studies
                   </h3>
                   <div className="space-y-4">
-                    {(() => {
-                      // API에서 가져온 관련 스터디 표시
-                      return studiesData
-                        ?.filter((study) => {
-                          const projectTechnologies = project.technologies.map(
-                            (tech: string) => tech.toLowerCase()
-                          );
-                          return study.tags.some((tag) =>
-                            projectTechnologies.includes(tag.toLowerCase())
-                          );
-                        })
-                        .map((study) => (
+                    {relatedStudies.length > 0 ? (
+                      relatedStudies.map((study) => {
+                        const studyMeta = study.meta || study;
+                        return (
                           <div
-                            key={study.id}
+                            key={studyMeta.id}
                             className="group cursor-pointer"
-                            onClick={() => router.push(`/study/${study.id}`)}
+                            onClick={() =>
+                              router.push(`/study/${studyMeta.id}`)
+                            }
                           >
                             <div className="flex items-start gap-2 mb-2">
-                              <BookOpen className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                              <Calendar className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
                               <h4 className="font-medium group-hover:text-primary transition-colors">
-                                {language === "en"
-                                  ? study.en.title
-                                  : study.ko.title}
+                                {studyMeta.title}
                               </h4>
                             </div>
                             <p className="text-xs text-muted-foreground line-clamp-2 ml-6">
-                              {language === "en"
-                                ? study.en.description
-                                : study.ko.description}
+                              {studyMeta.description}
                             </p>
-                            <div className="flex flex-wrap gap-1 mt-2 ml-6">
-                              {study.tags
-                                .slice(0, 3)
+                            {/* <div className="flex flex-wrap gap-1 mt-2 ml-6">
+                              {studyMeta.tags
+                                .slice(0, 2)
                                 .map((tag: string, index: number) => (
                                   <span
                                     key={index}
@@ -339,10 +299,15 @@ export default function ProjectPage({
                                     {tag}
                                   </span>
                                 ))}
-                            </div>
+                            </div> */}
                           </div>
-                        ));
-                    })()}
+                        );
+                      })
+                    ) : (
+                      <p className="text-sm text-muted-foreground">
+                        No related studies found.
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
