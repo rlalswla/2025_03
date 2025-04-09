@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useLanguage } from "@/contexts/language-context";
 
 interface TOCItem {
   id: string;
@@ -19,6 +20,7 @@ export function TableOfContents({
   className = "",
 }: TableOfContentsProps) {
   const [headings, setHeadings] = useState<TOCItem[]>([]);
+  const { language } = useLanguage();
 
   useEffect(() => {
     if (!content) return;
@@ -48,7 +50,9 @@ export function TableOfContents({
 
   return (
     <div className={`p-4 sm:p-6 rounded-lg border bg-card ${className}`}>
-      <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-4">목차</h3>
+      <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-4">
+        {language == "en" ? "INDEX" : "목차"}
+      </h3>
       <nav className="space-y-2">
         {headings.map((heading, index) => (
           <a
