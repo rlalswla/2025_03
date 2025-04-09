@@ -83,7 +83,7 @@ export default function MarkdownRenderer({
     ),
     h3: (props: any) => (
       <h3
-        className="text-xl font-semibold mt-5 mb-2 text-primary-500 dark:text-primary-300"
+        className="text-xl font-semibold mt-5 mb-2 text-primary-500 dark:text-primary-300 pl-4 border-l-4 border-gray-300 dark:border-gray-400"
         {...props}
       />
     ),
