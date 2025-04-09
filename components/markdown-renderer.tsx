@@ -69,24 +69,54 @@ export default function MarkdownRenderer({
 
   // 커스텀 컴포넌트 정의
   const components = {
-    h1: (props: any) => (
-      <h1
-        className="text-3xl font-extrabold mt-8 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700"
-        {...props}
-      />
-    ),
-    h2: (props: any) => (
-      <h2
-        className="text-2xl font-bold mt-6 mb-3 pb-2 text-primary-600 dark:text-primary-400 border-b border-gray-200 dark:border-gray-700"
-        {...props}
-      />
-    ),
-    h3: (props: any) => (
-      <h3
-        className="text-xl font-semibold mt-5 mb-2 text-primary-500 dark:text-primary-300 pl-4 border-l-4 border-gray-300 dark:border-gray-400"
-        {...props}
-      />
-    ),
+    h1: ({ children, ...props }: any) => {
+      const id = children
+        .toString()
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, "")
+        .replace(/\s+/g, "-");
+      return (
+        <h1
+          id={id}
+          className="text-3xl font-extrabold mt-8 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 scroll-mt-20"
+          {...props}
+        >
+          {children}
+        </h1>
+      );
+    },
+    h2: ({ children, ...props }: any) => {
+      const id = children
+        .toString()
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, "")
+        .replace(/\s+/g, "-");
+      return (
+        <h2
+          id={id}
+          className="text-2xl font-bold mt-6 mb-3 pb-2 text-primary-600 dark:text-primary-400 border-b border-gray-200 dark:border-gray-700 scroll-mt-20"
+          {...props}
+        >
+          {children}
+        </h2>
+      );
+    },
+    h3: ({ children, ...props }: any) => {
+      const id = children
+        .toString()
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, "")
+        .replace(/\s+/g, "-");
+      return (
+        <h3
+          id={id}
+          className="text-xl font-semibold mt-5 mb-2 text-primary-500 dark:text-primary-300 scroll-mt-20"
+          {...props}
+        >
+          {children}
+        </h3>
+      );
+    },
     ul: (props: any) => (
       <ul className="list-disc pl-6 my-4 space-y-2" {...props} />
     ),

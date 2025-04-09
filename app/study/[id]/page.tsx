@@ -13,6 +13,7 @@ import { Footer } from "@/components/sections/footer";
 import { use } from "react";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
 import MarkdownRenderer from "@/components/markdown-renderer";
+import { TableOfContents } from "@/components/table-of-contents";
 
 // 타입 정의
 interface ProjectMeta {
@@ -180,79 +181,87 @@ export default function StudyPage({
               <MarkdownRenderer content={content} />
             </div>
 
-            {/* 오른쪽: 리소스 및 관련 프로젝트 */}
-            <div className="space-y-6">
-              <div className="p-4 sm:p-6 rounded-lg border bg-card">
-                <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">
-                  Resources
-                </h3>
-                <div className="space-y-3">
-                  <Button
-                    asChild
-                    variant={url === "#" ? "destructive" : "default"}
-                    className="w-full gap-2"
-                  >
-                    <Link
-                      href={url}
-                      target={url === "#" ? "_self" : "_blank"}
-                      rel="noopener noreferrer"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      {url === "#" ? (
-                        <span>No Resource for this study</span>
-                      ) : (
-                        <span>View Original Resource</span>
-                      )}
-                    </Link>
-                  </Button>
-                </div>
-              </div>
+            {/* 오른쪽: 사이드바 - 전체 사이드바를 sticky로 만듭니다 */}
+            <div className="relative">
+              <div className="sticky top-24 space-y-6 max-h-[calc(100vh-8rem)] overflow-y-auto pb-4 scrollbar-thin">
+                {/* 목차 */}
+                <TableOfContents content={content} />
 
-              {/* 관련 프로젝트 섹션 */}
-              <div className="p-4 sm:p-6 rounded-lg border bg-card">
-                <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">
-                  Related Projects
-                </h3>
-                <div className="space-y-4">
-                  {relatedProjects.length > 0 ? (
-                    relatedProjects.map((project) => {
-                      const projectMeta = project.meta || project;
-                      return (
-                        <div
-                          key={projectMeta.id}
-                          className="group cursor-pointer"
-                          onClick={() =>
-                            router.push(`/projects/${projectMeta.id}`)
-                          }
-                        >
-                          <div className="relative h-20 sm:h-24 mb-2 overflow-hidden rounded-md">
-                            <Image
-                              src={
-                                projectMeta.image ||
-                                "/placeholder.svg?height=100&width=200"
-                              }
-                              alt={projectMeta.title}
-                              fill
-                              className="object-cover transition-transform group-hover:scale-105"
-                            />
+                {/* 리소스 섹션 */}
+                <div className="p-4 sm:p-6 rounded-lg border bg-card">
+                  <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">
+                    Resources
+                  </h3>
+                  <div className="space-y-3">
+                    <Button
+                      asChild
+                      variant={url === "#" ? "destructive" : "default"}
+                      className="w-full gap-2"
+                    >
+                      <Link
+                        href={url}
+                        target={url === "#" ? "_self" : "_blank"}
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        {url === "#" ? (
+                          <span>No Resource for this study</span>
+                        ) : (
+                          <span>View Original Resource</span>
+                        )}
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+
+                {/* 관련 프로젝트 섹션 */}
+                <div className="p-4 sm:p-6 rounded-lg border bg-card">
+                  <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">
+                    Related Projects
+                  </h3>
+                  <div className="space-y-4">
+                    {relatedProjects.length > 0 ? (
+                      relatedProjects.map((project) => {
+                        const projectMeta = project.meta || project;
+                        return (
+                          <div
+                            key={projectMeta.id}
+                            className="group cursor-pointer"
+                            onClick={() =>
+                              router.push(`/projects/${projectMeta.id}`)
+                            }
+                          >
+                            <div className="relative h-20 sm:h-24 mb-2 overflow-hidden rounded-md">
+                              <Image
+                                src={
+                                  projectMeta.image ||
+                                  "/placeholder.svg?height=100&width=200"
+                                }
+                                alt={projectMeta.title}
+                                fill
+                                className="object-cover transition-transform group-hover:scale-105"
+                              />
+                            </div>
+                            <h4 className="font-medium text-sm sm:text-base group-hover:text-primary transition-colors">
+                              {projectMeta.title}
+                            </h4>
+                            <p className="text-xs text-muted-foreground line-clamp-1">
+                              {(projectMeta.technologies || [])
+                                .slice(0, 3)
+                                .join(", ")}
+                              {projectMeta.technologies?.length > 3
+                                ? "..."
+                                : ""}
+                            </p>
                           </div>
-                          <h4 className="font-medium text-sm sm:text-base group-hover:text-primary transition-colors">
-                            {projectMeta.title}
-                          </h4>
-                          <p className="text-xs text-muted-foreground line-clamp-1">
-                            {(projectMeta.technologies || [])
-                              .slice(0, 3)
-                              .join(", ")}
-                            {projectMeta.technologies?.length > 3 ? "..." : ""}
-                          </p>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <p className="text-sm text-muted-foreground">
-                      No related projects found.
-                    </p>
-                  )}
+                        );
+                      })
+                    ) : (
+                      <p className="text-sm text-muted-foreground">
+                        No related projects found.
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
