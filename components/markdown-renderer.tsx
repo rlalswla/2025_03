@@ -194,7 +194,7 @@ export default function MarkdownRenderer({
     <article
       className={`
       prose prose-lg dark:prose-invert 
-      prose-headings:font-bold prose-headings:text-primary 
+      prose-headings:font-bold 
       prose-a:text-blue-600 dark:prose-a:text-blue-400 
       prose-img:rounded-xl 
       prose-pre:bg-gray-800 dark:prose-pre:bg-gray-900 prose-pre:text-sm 
