@@ -17,7 +17,7 @@ export const personalInfo = {
     title: "프론트엔드 개발자",
     email: "elect10@g.skku.edu",
     location: "서울, 대한민국",
-    university: "성균관대학교 수학전공 & 소프트웨어 복수전공",
+    university: "성균관대학교 수학과 & 소프트웨어학과 졸업",
     github: "https://github.com/rlalswla",
     githubUsername: "rlalswla",
     bio: " 아름답고, 사용자 친화적인 웹 애플리케이션을 지향합니다.",
